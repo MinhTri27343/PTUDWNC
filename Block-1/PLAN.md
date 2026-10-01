@@ -1,7 +1,8 @@
 # PLAN — Cart API (Block 1: OpenAPI, validation, error contract, logging)
 
 > Nguồn: `RESTful API có contract_ OpenAPI, validation và logging.html`
-> Trạng thái: **DRAFT v2** — đã cập nhật theo góp ý (SQLite, không Docker, Swagger UI, cấu trúc response chung, chốt các câu hỏi mở).
+> Tiến độ: bước 3.1, 3.2, 3.3 **đã xong** (xem README khi có). Bước 3.0 đã làm một phần (validator + 3.1 OK, `better-sqlite3` phải ghim v11, xem ghi chú).
+> Trạng thái: **DRAFT v3** — đã cập nhật theo góp ý (SQLite, không Docker, Swagger UI, cấu trúc response chung, chốt các câu hỏi mở).
 
 ---
 
@@ -16,7 +17,9 @@
 | Error & logging | Mọi lỗi theo error contract (kể cả 500, lỗi của thư viện validator); log kèm `request_id` |
 | Evidence | Script chạy lại được cho **mọi dòng** ma trận nghiệm thu |
 
-Ngoài phạm vi: đăng nhập, checkout, thanh toán, frontend, giữ chỗ tồn kho / race condition.
+Ngoài phạm vi: đăng ký (`/register`), checkout, thanh toán, frontend, giữ chỗ tồn kho / race condition.
+
+**Bổ sung (yêu cầu thêm):** `POST /login` với user cố định `user` / `1234` → trả JWT để dùng Bearer Authentication. Xem mục 2.3.
 
 ---
 
@@ -31,6 +34,7 @@ Ngoài phạm vi: đăng nhập, checkout, thanh toán, frontend, giữ chỗ t�
 | Driver | `better-sqlite3`, **SQL thuần** | API đồng bộ, có `db.transaction()`. Không dùng ORM |
 | Migration | File `.sql` trong `migrations/` + runner tự viết (`scripts/migrate.ts`) ghi bảng `schema_migrations` | Không cần thư viện migration |
 | Docs UI | **Swagger UI** (`swagger-ui-express`) tại `/docs`, load từ `openapi.yaml` | Swagger UI v5 hỗ trợ OpenAPI 3.1; có "Try it out" để demo |
+| Auth | `jsonwebtoken` (HS256), secret từ `JWT_SECRET` | User cứng trong code, không có bảng users, không có `/register` |
 | Logging | `pino` + `pino-http` (+ `pino-pretty` khi dev) | JSON log, có `genReqId`, `redact` |
 | Evidence | `vitest` + `supertest` + file `requests.http` để demo tay | 1 lệnh `npm run evidence` |
 | Vị trí code | **Đặt thẳng trong `Block-1/`** | Đã chốt |
@@ -96,6 +100,8 @@ Mọi response (thành công **và** lỗi) đều có header `X-Request-Id`.
 | Status | `code` | Khi nào |
 |---|---|---|
 | 400 | `VALIDATION_ERROR` | Sai schema body/path/query, JSON hỏng |
+| 401 | `INVALID_CREDENTIALS` | `POST /login` sai username/password |
+| 401 | `UNAUTHORIZED` | Thiếu / sai / hết hạn Bearer token |
 | 404 | `CART_NOT_FOUND` | `cartId` hợp lệ nhưng không có trong DB |
 | 404 | `ITEM_NOT_FOUND` | Product không có trong cart (PATCH/DELETE) |
 | 404 | `NOT_FOUND` | Route không tồn tại |
@@ -109,6 +115,23 @@ Mọi response (thành công **và** lỗi) đều có header `X-Request-Id`.
 **Cách hiện thực**
 - Spec: `components.schemas.Error` (enum `code`, `details` chỉ bắt buộc qua `if/then` khi `code = VALIDATION_ERROR` — JSON Schema 2020-12 của 3.1) + `components.responses` cho từng status, mỗi cái có **example**.
 - Code: class `AppError(status, code, message, details?)` + **một** error handler cuối chuỗi middleware; mọi đường lỗi (validator, JSON parse, nghiệp vụ, DB, route lạ) đều đi qua đây.
+
+### 2.3 Authentication (`POST /login` + Bearer token)
+
+| Hạng mục | Quy định |
+|---|---|
+| User | Cứng trong code: `username = "user"`, `password = "1234"` — user duy nhất, không bảng DB, không `/register` |
+| `POST /login` | Body `{ username, password }` (schema `LoginRequest`, `additionalProperties: false`). Đúng → 200 `{ access_token, token_type: "Bearer", expires_in }`; sai → 401 `INVALID_CREDENTIALS`; body sai schema → 400 `VALIDATION_ERROR` |
+| Token | JWT HS256, `sub = "user"`, hết hạn sau `JWT_EXPIRES_IN` giây (mặc định 3600) |
+| Gửi token | Header `Authorization: Bearer <access_token>` |
+| Endpoint **cần** token | `POST /carts`, `GET /carts/{id}`, `POST/PATCH/DELETE /carts/{id}/items...` |
+| Endpoint **không** cần token | `POST /login`, `GET /products`, `/docs`, `/openapi.yaml` |
+| Thiếu / sai / hết hạn token | 401 `UNAUTHORIZED`, đúng error contract |
+| So sánh password | `crypto.timingSafeEqual` |
+| Log | `Authorization` header và `password` được `redact`; không log token |
+| Swagger UI | Nút **Authorize** (nhờ `securitySchemes.bearerAuth`) để dán token rồi "Try it out" |
+
+**Thứ tự xử lý lỗi**: 401 (token) → 400 (schema/URL) → nghiệp vụ. Lưu ý thứ tự 401 trước 400 cần cấu hình `validateSecurity` của `express-openapi-validator` với `handlers.bearerAuth` kiểm tra JWT; nếu không chạy đúng thứ tự thì tự viết middleware `requireAuth` đặt **trước** validator cho các path cần token.
 
 ---
 
@@ -179,6 +202,11 @@ Mọi response (thành công **và** lỗi) đều có header `X-Request-Id`.
 - [ ] Ghi chú trong spec: PATCH chỉ nhận `quantity` (không nhận `null`); client không gửi giá.
 - [ ] Lint spec: `npx @redocly/cli lint openapi/openapi.yaml`.
 
+### Bước 3.4a — Auth (bổ sung)
+- [ ] `src/auth.ts`: hằng user cứng, `verifyCredentials()` (timing-safe), `signToken()`, `requireAuth` (trả 401 `UNAUTHORIZED` qua error handler chung).
+- [ ] `src/routes/auth.ts`: `POST /login`.
+- [ ] Test: login đúng/sai/thiếu field; gọi `/carts` không token, token rác, token hết hạn → 401; `/products` không token → 200.
+
 ### Bước 3.4 — Khung app: request_id, logging, error contract (25')
 Thứ tự middleware trong `app.ts`:
 1. `pino-http` với `genReqId`: dùng `X-Request-Id` của client nếu là uuid hợp lệ, nếu không thì `crypto.randomUUID()`; set header `X-Request-Id` trên response. `redact`: `req.headers.authorization`, `req.headers.cookie`, `*.password`, `*.token`.
@@ -238,6 +266,8 @@ Thứ tự middleware trong `app.ts`:
 | B8 | GET /products limit 0 / 51 / mặc định | 400 / 400 / mảng ≤ 20 phần tử, chỉ product active |
 | C1 | **DB không dùng được** (thay cho "tắt PostgreSQL"): `DB_PATH` trỏ tới file không tồn tại, hoặc đóng kết nối giữa chừng | 500 INTERNAL_ERROR, đúng contract, không có stack/SQL/đường dẫn |
 | C2 | Mọi response ở trên | Khớp schema (`validateResponses` bật trong test → lệch là fail) |
+| D1 | `POST /login` đúng / sai password / thiếu field | 200 + token / 401 INVALID_CREDENTIALS / 400 VALIDATION_ERROR |
+| D2 | `/carts...` không token, token rác, token hết hạn | 401 UNAUTHORIZED; `GET /products` không token vẫn 200 |
 | C3 | Log | Response lỗi có `request_id`, tìm được dòng log cùng id |
 
 - [ ] `npm run evidence` = `db:reset` + `vitest run`.
@@ -270,3 +300,13 @@ Thứ tự middleware trong `app.ts`:
 - [ ] SQLite mặc định **tắt** foreign key → luôn `PRAGMA foreign_keys = ON`.
 - [ ] Boolean SQLite là 0/1 → map sang `true/false` trước khi trả, nếu không response lệch spec (C2 bắt được).
 - [ ] Không log password/token/Authorization → `redact`.
+
+---
+
+## 5. Ghi chú phát sinh khi implement
+
+- `better-sqlite3@13` bị **segfault** trên Node 22.12 / Windows → ghim `better-sqlite3@11` (chạy ổn, SQLite 3.49).
+- `express` được cài là bản 5.x; kiểm tra khi viết app (error handler async, `req.query` read-only).
+- `express-openapi-validator`: `validateFormats: 'full'` đang deprecated → dùng `true` kèm `ajvFormats`, và **phải kiểm tra lại uuid sau khi đổi** (test A6).
+- Bảng SQLite tạo bằng `STRICT` để `'abc'` vào cột INTEGER bị từ chối (gần PostgreSQL hơn).
+- Cart seed `C_CLOSED` có sẵn 1 item (P1) để thử PATCH/DELETE → 409 `CART_CLOSED`.

@@ -1,0 +1,8 @@
+extends:
+  - recommended
+rules:
+  # Bài tập trong lớp: chạy local, không phát hành license.
+  info-license: off
+  no-server-example.com: off
+  # False positive: `details` được khai báo ở schema cha, `then` chỉ thêm `required` (if/then của JSON Schema 2020-12).
+  no-required-schema-properties-undefined: off
