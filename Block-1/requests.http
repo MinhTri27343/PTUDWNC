@@ -1,0 +1,149 @@
+# Dùng với VS Code "REST Client" hoặc JetBrains HTTP Client. Chạy `npm run db:reset && npm run dev` trước.
+# UUID seed cố định (xem README).
+
+@base = http://localhost:3000
+@openCart = c0000000-0000-4000-8000-000000000001
+@closedCart = c0000000-0000-4000-8000-000000000002
+@p1 = a0000000-0000-4000-8000-000000000001
+@p2 = a0000000-0000-4000-8000-000000000002
+@p3 = a0000000-0000-4000-8000-000000000003
+@p4OutOfStock = a0000000-0000-4000-8000-000000000004
+@p5Inactive = a0000000-0000-4000-8000-000000000005
+
+### 1. Login (user / 1234) → lấy access_token
+# @name login
+POST {{base}}/login
+Content-Type: application/json
+
+{ "username": "user", "password": "1234" }
+
+###
+@token = {{login.response.body.access_token}}
+
+### 2. Login sai → 401 INVALID_CREDENTIALS
+POST {{base}}/login
+Content-Type: application/json
+
+{ "username": "user", "password": "sai" }
+
+### 3. Danh sách product (không cần token) → 4 product đang bán
+GET {{base}}/products?limit=20&offset=0
+
+### 4. limit sai → 400 VALIDATION_ERROR
+GET {{base}}/products?limit=51
+
+### 5. Tạo cart → 201 + Location
+POST {{base}}/carts
+Authorization: Bearer {{token}}
+
+### 6. Không token → 401 UNAUTHORIZED
+GET {{base}}/carts/{{openCart}}
+
+### 7. Xem cart
+GET {{base}}/carts/{{openCart}}
+Authorization: Bearer {{token}}
+
+### 8. Thêm P1 x2 → 201
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p1}}", "quantity": 2 }
+
+### 9. Thêm P3 x3 → 201, subtotal_cents = 59700
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p3}}", "quantity": 3 }
+
+### 10. Đổi số lượng P1 → 200
+PATCH {{base}}/carts/{{openCart}}/items/{{p1}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "quantity": 4 }
+
+### 11. Xoá P1 → 204
+DELETE {{base}}/carts/{{openCart}}/items/{{p1}}
+Authorization: Bearer {{token}}
+
+### --- Request sai (400 VALIDATION_ERROR) ---
+
+### 12. quantity = 0
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p1}}", "quantity": 0 }
+
+### 13. quantity = 11
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p1}}", "quantity": 11 }
+
+### 14. quantity = "2" (chuỗi)
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p1}}", "quantity": "2" }
+
+### 15. Thiếu product_id
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "quantity": 2 }
+
+### 16. Field lạ
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p1}}", "quantity": 2, "price": 1 }
+
+### 17. cartId không phải uuid → 400
+GET {{base}}/carts/not-a-uuid
+Authorization: Bearer {{token}}
+
+### 18. cartId hợp lệ nhưng không tồn tại → 404 CART_NOT_FOUND
+GET {{base}}/carts/00000000-0000-4000-8000-000000000000
+Authorization: Bearer {{token}}
+
+### --- Nghiệp vụ ---
+
+### 19. Product ngừng bán → 422 PRODUCT_UNAVAILABLE
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p5Inactive}}", "quantity": 1 }
+
+### 20. Vượt stock (P2 stock = 5) → 409 INSUFFICIENT_STOCK
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p2}}", "quantity": 6 }
+
+### 21. Hết hàng (P4 stock = 0) → 409 INSUFFICIENT_STOCK
+POST {{base}}/carts/{{openCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p4OutOfStock}}", "quantity": 1 }
+
+### 22. Ghi vào cart đã checkout → 409 CART_CLOSED
+POST {{base}}/carts/{{closedCart}}/items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "product_id": "{{p3}}", "quantity": 1 }
+
+### 23. Thêm trùng (chạy lại #8 hai lần) → 409 ITEM_ALREADY_IN_CART
+### 24. PATCH/DELETE item không có trong cart → 404 ITEM_NOT_FOUND
+DELETE {{base}}/carts/{{openCart}}/items/{{p2}}
+Authorization: Bearer {{token}}
