@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>API composition lab</title><link rel="stylesheet" href="/style.css"></head>
+<body><main><p class="eyebrow">BLOCK 02 · API COMPOSITION</p><h1>Order dashboard</h1><p>So sánh cách tải dữ liệu từ User, Order và Product.</p>
+<form id="controls"><label>Phương án<select id="variant"><option value="baseline">Baseline REST</option><option value="graphql">GraphQL (theo server mode)</option></select></label><label>Client<select id="client"><option value="web">Web dashboard</option><option value="mobile">Mobile orders</option></select></label><label>User ID<input id="user_id" type="number" min="1" value="1" required></label><button>Tải dữ liệu</button></form>
+<p id="status" role="status">Sẵn sàng</p><section id="dashboard" aria-label="Đơn hàng"></section>
+<details><summary>Metrics và client waterfall</summary><pre id="metrics"></pre><div id="waterfall"></div></details>
+</main><script type="module" src="/app.js"></script></body></html>

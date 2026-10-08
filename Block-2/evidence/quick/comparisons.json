@@ -1,0 +1,98 @@
+[
+  {
+    "run_id": "baseline-web-small-cold-normal-a61930cf-b679-4ec1-bd4d-fd37822603a2",
+    "passed": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-normal-7606165f-3877-471f-9db9-ea92e153df01",
+    "passed": true
+  },
+  {
+    "run_id": "baseline-mobile-small-cold-normal-dd782f2d-133a-4fda-9fb0-4ec4415a7adc",
+    "passed": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-normal-1ced649d-2609-43f9-9a59-1cd743c2de41",
+    "passed": true
+  },
+  {
+    "run_id": "naive-web-small-cold-normal-d41eef79-cdee-4022-9fed-7b7367509a86",
+    "passed": true
+  },
+  {
+    "run_id": "naive-web-small-warm-normal-64d53199-0c6f-4547-b6ea-94271b6ea0ee",
+    "passed": true
+  },
+  {
+    "run_id": "naive-mobile-small-cold-normal-af483fc3-d1cd-4902-ad4d-e52c4cee94ec",
+    "passed": true
+  },
+  {
+    "run_id": "naive-mobile-small-warm-normal-a5bc4748-f1fe-4c14-912f-13a3c5afc7a5",
+    "passed": true
+  },
+  {
+    "run_id": "batched-web-small-cold-normal-744fdda3-c036-4b89-9403-118187a95f34",
+    "passed": true
+  },
+  {
+    "run_id": "batched-web-small-warm-normal-5405e5c6-c9e5-4ace-b821-1305b278457d",
+    "passed": true
+  },
+  {
+    "run_id": "batched-mobile-small-cold-normal-fe1d75d0-4661-41a1-a476-e571097844fe",
+    "passed": true
+  },
+  {
+    "run_id": "batched-mobile-small-warm-normal-222d377f-bb25-4af5-87a4-c2fba7917e85",
+    "passed": true
+  },
+  {
+    "run_id": "baseline-web-large-cold-normal-1deaea7a-96c1-4ee1-990c-b9439373ce23",
+    "passed": true
+  },
+  {
+    "run_id": "baseline-web-large-warm-normal-937d0a83-095e-4278-bbed-467b745cc3a6",
+    "passed": true
+  },
+  {
+    "run_id": "baseline-mobile-large-cold-normal-83506085-39e5-45d2-88ba-16ae7c990753",
+    "passed": true
+  },
+  {
+    "run_id": "baseline-mobile-large-warm-normal-59f237ea-ff1a-4425-84c0-fff481d011f0",
+    "passed": true
+  },
+  {
+    "run_id": "naive-web-large-cold-normal-1f7b0269-4091-4dba-bd4e-5e17fb974227",
+    "passed": true
+  },
+  {
+    "run_id": "naive-web-large-warm-normal-d089ecde-8519-4420-945a-aacaafed5ec6",
+    "passed": true
+  },
+  {
+    "run_id": "naive-mobile-large-cold-normal-fc77f728-1e74-464d-9da9-8445167cde94",
+    "passed": true
+  },
+  {
+    "run_id": "naive-mobile-large-warm-normal-ebda5944-3c8e-4169-a1ec-cb74c0286646",
+    "passed": true
+  },
+  {
+    "run_id": "batched-web-large-cold-normal-239dd697-3fc9-4738-b1f6-805dd57d0817",
+    "passed": true
+  },
+  {
+    "run_id": "batched-web-large-warm-normal-c015e83b-e34c-4b1a-8f67-1347326ed7b9",
+    "passed": true
+  },
+  {
+    "run_id": "batched-mobile-large-cold-normal-9d4639b9-3689-4a87-a0c3-a128dea8f593",
+    "passed": true
+  },
+  {
+    "run_id": "batched-mobile-large-warm-normal-f452a125-0904-42da-97e8-b6da10824ee2",
+    "passed": true
+  }
+]

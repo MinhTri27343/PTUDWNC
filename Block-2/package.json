@@ -1,0 +1,15 @@
+{
+  "name": "block-02-api-composition",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.16" },
+  "scripts": {
+    "seed": "node scripts/seed.js",
+    "start": "node --env-file-if-exists=.env scripts/start.js",
+    "test": "node --test --test-concurrency=1",
+    "measure": "node scripts/measure.js",
+    "measure:quick": "node scripts/measure.js --quick"
+  },
+  "dependencies": { "dataloader": "^2.2.3", "express": "^5.1.0", "graphql": "^16.11.0" },
+  "devDependencies": { "playwright": "^1.56.0" }
+}
