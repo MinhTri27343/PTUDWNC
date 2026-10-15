@@ -1,0 +1,6 @@
+{"timestamp":"2026-10-13T15:56:27.010Z","service":"inventory-service","event":"http.started","port":3001}
+{"timestamp":"2026-10-13T15:56:27.024Z","service":"inventory-service","event":"grpc.started","port":50051}
+{"timestamp":"2026-10-13T15:56:28.615Z","service":"inventory-service","event":"grpc.reserve.request","correlationId":"8538f8f3-9e8b-4416-83de-3518ebcdd03f","proto_version":"v2","method":"ReserveStock","sku":"A001","quantity":2,"delay_ms":0}
+{"timestamp":"2026-10-13T15:56:28.620Z","service":"inventory-service","event":"grpc.reserve.response","correlationId":"8538f8f3-9e8b-4416-83de-3518ebcdd03f","proto_version":"v2","success":true,"remaining_stock":8}
+{"timestamp":"2026-10-13T15:56:28.655Z","service":"inventory-service","event":"grpc.reserve.request","correlationId":"5aa56f71-8e6b-49cc-b273-b3303b258e94","proto_version":"v2","method":"ReserveStock","sku":"A002","quantity":2,"delay_ms":0}
+{"timestamp":"2026-10-13T15:56:28.657Z","service":"inventory-service","event":"grpc.reserve.response","correlationId":"5aa56f71-8e6b-49cc-b273-b3303b258e94","proto_version":"v2","success":false,"error":"INSUFFICIENT_STOCK"}

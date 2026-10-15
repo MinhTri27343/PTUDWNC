@@ -1,0 +1,5 @@
+{
+  "policy": "If remaining_stock is 0 or absent, mark unknown_or_zero; do not infer that stock is definitely zero.",
+  "proto3_scalar_limitation": "A non-optional scalar cannot distinguish wire absence from its default value 0.",
+  "future_option": "Use optional int32 remaining_stock = 4 if exact presence is required."
+}

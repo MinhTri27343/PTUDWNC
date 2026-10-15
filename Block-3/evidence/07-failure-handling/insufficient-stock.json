@@ -1,0 +1,18 @@
+{
+  "case": "insufficient-stock",
+  "started_at": "2026-10-12T13:28:39.627Z",
+  "finished_at": "2026-10-12T13:28:39.671Z",
+  "elapsed_ms": 44,
+  "deadline_ms": 3000,
+  "delay_ms": 0,
+  "http_status": 409,
+  "response_body": {
+    "success": false,
+    "error": "INSUFFICIENT_STOCK",
+    "message": "Not enough stock"
+  },
+  "order_created": false,
+  "inventory_stock": {
+    "stock": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "case": "inventory-stopped",
+  "started_at": "2026-10-12T13:28:42.239Z",
+  "finished_at": "2026-10-12T13:28:42.269Z",
+  "elapsed_ms": 30,
+  "deadline_ms": 1000,
+  "delay_ms": 0,
+  "http_status": 502,
+  "response_body": {
+    "success": false,
+    "error": "INVENTORY_UNAVAILABLE",
+    "message": "Inventory service unavailable"
+  },
+  "order_created": false,
+  "inventory_stock": {
+    "stock": 10
+  }
+}

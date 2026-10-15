@@ -1,0 +1,567 @@
+openapi: 3.1.0
+info:
+  title: Cart API
+  version: 1.0.0
+  description: |
+    Cart API cho bài Block 1 — RESTful API có contract (OpenAPI 3.1, validation, error contract, logging).
+
+    **File này là nguồn schema duy nhất**: request được validate và response được đối chiếu
+    trực tiếp từ file này (express-openapi-validator). Không có schema thứ hai trong code.
+
+    ## Xác thực
+    - `POST /login` với user cố định (`user` / `1234`) → nhận `access_token` (JWT).
+    - Gửi header `Authorization: Bearer <access_token>` cho mọi endpoint `/carts/...`.
+    - `POST /login` và `GET /products` không cần token.
+
+    ## Error contract
+    Mọi lỗi 4xx/5xx có cùng dạng `Error`:
+    `code` (chuỗi cố định để client rẽ nhánh), `message` (chỉ để hiển thị),
+    `details` (chỉ có với `VALIDATION_ERROR`), `request_id` (trùng header `X-Request-Id` và dòng log).
+
+    ## Thứ tự kiểm tra lỗi
+    1. Xác thực (401) → schema/URL (400) — request sai không chạm DB.
+    2. Nghiệp vụ:
+       - **Thêm item**: `CART_NOT_FOUND` → `CART_CLOSED` → `PRODUCT_UNAVAILABLE` → `ITEM_ALREADY_IN_CART` → `INSUFFICIENT_STOCK`
+       - **Đổi số lượng**: `CART_NOT_FOUND` → `CART_CLOSED` → `ITEM_NOT_FOUND` → `PRODUCT_UNAVAILABLE` → `INSUFFICIENT_STOCK`
+       - **Xoá item**: `CART_NOT_FOUND` → `CART_CLOSED` → `ITEM_NOT_FOUND`
+
+    Giá luôn đọc từ DB (`price_cents`), client không gửi giá. Thêm vào giỏ không trừ tồn kho.
+servers:
+  - url: http://localhost:3000
+    description: Local
+tags:
+  - name: Auth
+    description: Đăng nhập bằng user cố định để lấy Bearer token
+  - name: Products
+    description: Danh sách product đang bán (không cần token)
+  - name: Carts
+    description: Tạo và xem giỏ hàng (cart xác định bằng cartId)
+  - name: Cart items
+    description: Thêm, đổi số lượng và xoá product trong giỏ
+
+# Mặc định mọi operation cần Bearer token; /login và /products ghi đè bằng `security: []`.
+security:
+  - bearerAuth: []
+
+paths:
+  /login:
+    post:
+      tags: [Auth]
+      operationId: login
+      summary: Đăng nhập, nhận access token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LoginRequest' }
+            example: { username: user, password: '1234' }
+      responses:
+        '200':
+          description: Đăng nhập thành công
+          headers:
+            X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LoginResponse' }
+              example:
+                access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIn0.signature
+                token_type: Bearer
+                expires_in: 3600
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '401':
+          description: Sai username hoặc password
+          headers:
+            X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+              example:
+                code: INVALID_CREDENTIALS
+                message: Sai username hoặc password
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+        '500': { $ref: '#/components/responses/InternalError' }
+
+  /products:
+    get:
+      tags: [Products]
+      operationId: listProducts
+      summary: Danh sách product đang bán
+      description: Chỉ trả product có `is_active = true` (kể cả product hết hàng), sắp xếp theo `sku`.
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: Mảng product
+          headers:
+            X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProductList' }
+              example:
+                - id: a0000000-0000-4000-8000-000000000001
+                  sku: SKU-001
+                  name: Áo thun cotton
+                  price_cents: 15000
+                  stock: 20
+                  is_active: true
+                - id: a0000000-0000-4000-8000-000000000004
+                  sku: SKU-004
+                  name: Áo khoác (hết hàng)
+                  price_cents: 50000
+                  stock: 0
+                  is_active: true
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '500': { $ref: '#/components/responses/InternalError' }
+
+  /carts:
+    post:
+      tags: [Carts]
+      operationId: createCart
+      summary: Tạo cart rỗng
+      responses:
+        '201':
+          description: Cart vừa tạo
+          headers:
+            X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+            Location: { $ref: '#/components/headers/Location' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Cart' }
+              example:
+                id: c0000000-0000-4000-8000-000000000001
+                status: open
+                items: []
+                subtotal_cents: 0
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '500': { $ref: '#/components/responses/InternalError' }
+
+  /carts/{cartId}:
+    parameters:
+      - $ref: '#/components/parameters/CartId'
+    get:
+      tags: [Carts]
+      operationId: getCart
+      summary: Xem cart, items và subtotal
+      responses:
+        '200': { $ref: '#/components/responses/CartOk' }
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/CartNotFound' }
+        '500': { $ref: '#/components/responses/InternalError' }
+
+  /carts/{cartId}/items:
+    parameters:
+      - $ref: '#/components/parameters/CartId'
+    post:
+      tags: [Cart items]
+      operationId: addCartItem
+      summary: Thêm product vào cart
+      description: Nếu product đã có trong cart, client dùng PATCH để đổi số lượng.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AddItemRequest' }
+            example:
+              product_id: a0000000-0000-4000-8000-000000000001
+              quantity: 2
+      responses:
+        '201': { $ref: '#/components/responses/CartCreatedItem' }
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/CartNotFound' }
+        '409': { $ref: '#/components/responses/AddItemConflict' }
+        '422': { $ref: '#/components/responses/ProductUnavailable' }
+        '500': { $ref: '#/components/responses/InternalError' }
+
+  /carts/{cartId}/items/{productId}:
+    parameters:
+      - $ref: '#/components/parameters/CartId'
+      - $ref: '#/components/parameters/ProductId'
+    patch:
+      tags: [Cart items]
+      operationId: updateCartItem
+      summary: Đổi số lượng một item
+      description: |
+        Body chỉ có `quantity` và **bắt buộc**. Không nhận `null`, không nhận field khác.
+        Muốn bỏ item khỏi cart thì dùng DELETE.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateItemRequest' }
+            example: { quantity: 3 }
+      responses:
+        '200': { $ref: '#/components/responses/CartOk' }
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/CartOrItemNotFound' }
+        '409': { $ref: '#/components/responses/UpdateItemConflict' }
+        '422': { $ref: '#/components/responses/ProductUnavailable' }
+        '500': { $ref: '#/components/responses/InternalError' }
+    delete:
+      tags: [Cart items]
+      operationId: deleteCartItem
+      summary: Xoá item khỏi cart
+      responses:
+        '204':
+          description: Đã xoá, không có body
+          headers:
+            X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/CartOrItemNotFound' }
+        '409': { $ref: '#/components/responses/CartClosed' }
+        '500': { $ref: '#/components/responses/InternalError' }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Token lấy từ `POST /login`.
+
+  parameters:
+    CartId:
+      name: cartId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+      example: c0000000-0000-4000-8000-000000000001
+    ProductId:
+      name: productId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+      example: a0000000-0000-4000-8000-000000000001
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema: { type: integer, minimum: 1, maximum: 50, default: 20 }
+    Offset:
+      name: offset
+      in: query
+      required: false
+      schema: { type: integer, minimum: 0, default: 0 }
+
+  headers:
+    XRequestId:
+      description: Mã của request; trùng `request_id` trong error body và trong log.
+      required: true
+      schema: { type: string, format: uuid }
+    Location:
+      description: URL của cart vừa tạo, dạng `/carts/{cartId}`.
+      required: true
+      schema: { type: string }
+      example: /carts/c0000000-0000-4000-8000-000000000001
+
+  schemas:
+    LoginRequest:
+      type: object
+      additionalProperties: false
+      required: [username, password]
+      properties:
+        username: { type: string, minLength: 1, maxLength: 100 }
+        password: { type: string, minLength: 1, maxLength: 100 }
+
+    LoginResponse:
+      type: object
+      additionalProperties: false
+      required: [access_token, token_type, expires_in]
+      properties:
+        access_token: { type: string }
+        token_type: { type: string, const: Bearer }
+        expires_in: { type: integer, minimum: 1, description: Số giây token còn hiệu lực }
+
+    Product:
+      type: object
+      additionalProperties: false
+      required: [id, sku, name, price_cents, stock, is_active]
+      properties:
+        id: { type: string, format: uuid }
+        sku: { type: string }
+        name: { type: string }
+        price_cents: { type: integer, minimum: 1 }
+        stock: { type: integer, minimum: 0 }
+        is_active: { type: boolean }
+
+    ProductList:
+      type: array
+      items: { $ref: '#/components/schemas/Product' }
+
+    AddItemRequest:
+      type: object
+      additionalProperties: false
+      required: [product_id, quantity]
+      properties:
+        product_id: { type: string, format: uuid }
+        quantity: { $ref: '#/components/schemas/Quantity' }
+
+    UpdateItemRequest:
+      type: object
+      additionalProperties: false
+      required: [quantity]
+      properties:
+        quantity: { $ref: '#/components/schemas/Quantity' }
+
+    Quantity:
+      type: integer
+      minimum: 1
+      maximum: 10
+
+    CartItem:
+      type: object
+      additionalProperties: false
+      required: [product_id, name, unit_price_cents, quantity, line_total_cents]
+      properties:
+        product_id: { type: string, format: uuid }
+        name: { type: string }
+        unit_price_cents: { type: integer, minimum: 1, description: '`price_cents` của product, đọc từ DB' }
+        quantity: { $ref: '#/components/schemas/Quantity' }
+        line_total_cents: { type: integer, minimum: 1, description: '`unit_price_cents * quantity`' }
+
+    Cart:
+      type: object
+      additionalProperties: false
+      required: [id, status, items, subtotal_cents]
+      properties:
+        id: { type: string, format: uuid }
+        status: { type: string, enum: [open, checked_out] }
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/CartItem' }
+        subtotal_cents: { type: integer, minimum: 0, description: Tổng `line_total_cents` của mọi item }
+
+    ErrorDetail:
+      type: object
+      additionalProperties: false
+      required: [field, issue]
+      properties:
+        field: { type: string, description: 'Tên field/param bị lỗi, vd. `quantity`, `cartId`' }
+        issue: { type: string }
+
+    Error:
+      type: object
+      additionalProperties: false
+      required: [code, message, request_id]
+      properties:
+        code:
+          type: string
+          enum:
+            - VALIDATION_ERROR
+            - INVALID_CREDENTIALS
+            - UNAUTHORIZED
+            - NOT_FOUND
+            - CART_NOT_FOUND
+            - ITEM_NOT_FOUND
+            - METHOD_NOT_ALLOWED
+            - CART_CLOSED
+            - ITEM_ALREADY_IN_CART
+            - INSUFFICIENT_STOCK
+            - UNSUPPORTED_MEDIA_TYPE
+            - PRODUCT_UNAVAILABLE
+            - INTERNAL_ERROR
+        message: { type: string }
+        details:
+          type: array
+          minItems: 1
+          items: { $ref: '#/components/schemas/ErrorDetail' }
+        request_id: { type: string, format: uuid }
+      # details chỉ bắt buộc khi code = VALIDATION_ERROR (JSON Schema 2020-12 trong OpenAPI 3.1).
+      if:
+        properties:
+          code: { const: VALIDATION_ERROR }
+      then:
+        required: [details]
+
+  responses:
+    CartOk:
+      description: Toàn bộ cart sau thao tác
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Cart' }
+          example:
+            id: c0000000-0000-4000-8000-000000000001
+            status: open
+            items:
+              - product_id: a0000000-0000-4000-8000-000000000001
+                name: Áo thun cotton
+                unit_price_cents: 15000
+                quantity: 2
+                line_total_cents: 30000
+              - product_id: a0000000-0000-4000-8000-000000000003
+                name: Tất cổ ngắn
+                unit_price_cents: 9900
+                quantity: 3
+                line_total_cents: 29700
+            subtotal_cents: 59700
+
+    CartCreatedItem:
+      description: Đã thêm item; trả toàn bộ cart
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Cart' }
+          example:
+            id: c0000000-0000-4000-8000-000000000001
+            status: open
+            items:
+              - product_id: a0000000-0000-4000-8000-000000000001
+                name: Áo thun cotton
+                unit_price_cents: 15000
+                quantity: 2
+                line_total_cents: 30000
+            subtotal_cents: 30000
+
+    ValidationError:
+      description: Request sai schema (body, path, query) hoặc JSON hỏng
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          examples:
+            quantityTooLarge:
+              summary: quantity vượt 10
+              value:
+                code: VALIDATION_ERROR
+                message: Request không hợp lệ
+                details: [{ field: quantity, issue: must be <= 10 }]
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+            invalidCartId:
+              summary: cartId không phải uuid
+              value:
+                code: VALIDATION_ERROR
+                message: Request không hợp lệ
+                details: [{ field: cartId, issue: must match format "uuid" }]
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+
+    Unauthorized:
+      description: Thiếu, sai hoặc hết hạn Bearer token
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example:
+            code: UNAUTHORIZED
+            message: Thiếu hoặc sai access token
+            request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+
+    CartNotFound:
+      description: cartId không tồn tại
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example:
+            code: CART_NOT_FOUND
+            message: Không tìm thấy cart
+            request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+
+    CartOrItemNotFound:
+      description: cartId không tồn tại, hoặc product không có trong cart
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          examples:
+            cartNotFound:
+              value:
+                code: CART_NOT_FOUND
+                message: Không tìm thấy cart
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+            itemNotFound:
+              value:
+                code: ITEM_NOT_FOUND
+                message: Product không có trong cart
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+
+    AddItemConflict:
+      description: Xung đột với trạng thái hiện tại
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          examples:
+            cartClosed:
+              value:
+                code: CART_CLOSED
+                message: Cart đã checkout, không thể thay đổi
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+            itemAlreadyInCart:
+              value:
+                code: ITEM_ALREADY_IN_CART
+                message: Product đã có trong cart, dùng PATCH để đổi số lượng
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+            insufficientStock:
+              value:
+                code: INSUFFICIENT_STOCK
+                message: Số lượng vượt tồn kho
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+
+    UpdateItemConflict:
+      description: Xung đột với trạng thái hiện tại
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          examples:
+            cartClosed:
+              value:
+                code: CART_CLOSED
+                message: Cart đã checkout, không thể thay đổi
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+            insufficientStock:
+              value:
+                code: INSUFFICIENT_STOCK
+                message: Số lượng vượt tồn kho
+                request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+
+    CartClosed:
+      description: Cart đã checkout
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example:
+            code: CART_CLOSED
+            message: Cart đã checkout, không thể thay đổi
+            request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+
+    ProductUnavailable:
+      description: Body đúng schema nhưng product không tồn tại hoặc ngừng bán
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example:
+            code: PRODUCT_UNAVAILABLE
+            message: Product không tồn tại hoặc đã ngừng bán
+            request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10
+
+    InternalError:
+      description: Lỗi phía server (vd. DB không dùng được). Không chứa stack trace, SQL hay secret.
+      headers:
+        X-Request-Id: { $ref: '#/components/headers/XRequestId' }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+          example:
+            code: INTERNAL_ERROR
+            message: Lỗi hệ thống, vui lòng thử lại sau
+            request_id: 7f3c2a9e-1b4d-4c8a-9e21-5d6f0a3b8c10

@@ -1,0 +1,12 @@
+{
+  "client_version": "v2",
+  "server_version": "v2",
+  "request": {
+    "sku": "A001",
+    "quantity": 2
+  },
+  "success": true,
+  "remaining_stock": 8,
+  "remaining_stock_read_by_client": true,
+  "order_status": "COMPLETED"
+}

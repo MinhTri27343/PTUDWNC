@@ -1,0 +1,15 @@
+{
+  "name": "block-3-apps-runner",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Runner scripts for the Block 3 applications",
+  "scripts": {
+    "setup": "npm install --prefix ..",
+    "dev": "node ../node_modules/concurrently/dist/bin/concurrently.js -k -n WEB,ORDER,INVENTORY -c blue,green,magenta \"npm run dev --prefix web\" \"npm run dev --prefix order-api\" \"npm run dev --prefix inventory-service\"",
+    "seed": "npm run seed --prefix inventory-service && npm run seed --prefix order-api",
+    "proto:generate": "npm run proto:generate --prefix inventory-service",
+    "build:web": "npm run build --prefix web",
+    "start:order": "npm run start --prefix order-api",
+    "start:inventory": "npm run start --prefix inventory-service"
+  }
+}

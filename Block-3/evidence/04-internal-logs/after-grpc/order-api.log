@@ -1,0 +1,9 @@
+{"timestamp":"2026-10-13T15:56:26.970Z","service":"order-api","event":"service.started","port":3000,"inventoryUrl":"http://localhost:3001","inventoryTransport":"grpc","inventoryGrpcUrl":"localhost:50051"}
+{"timestamp":"2026-10-13T15:56:28.584Z","service":"order-api","event":"order.request","correlationId":"8538f8f3-9e8b-4416-83de-3518ebcdd03f","method":"POST","path":"/orders","sku":"A001","quantity":2}
+{"timestamp":"2026-10-13T15:56:28.585Z","service":"order-api","event":"inventory.grpc.request","correlationId":"8538f8f3-9e8b-4416-83de-3518ebcdd03f","method":"ReserveStock","sku":"A001","quantity":2,"deadline_ms":3000}
+{"timestamp":"2026-10-13T15:56:28.627Z","service":"order-api","event":"inventory.grpc.response","correlationId":"8538f8f3-9e8b-4416-83de-3518ebcdd03f","proto_version":"v2","success":true,"remaining_stock":8}
+{"timestamp":"2026-10-13T15:56:28.632Z","service":"order-api","event":"order.response","correlationId":"8538f8f3-9e8b-4416-83de-3518ebcdd03f","status":201,"body":{"success":true,"order_id":"16","sku":"A001","quantity":2,"message":"Order created"}}
+{"timestamp":"2026-10-13T15:56:28.642Z","service":"order-api","event":"order.request","correlationId":"5aa56f71-8e6b-49cc-b273-b3303b258e94","method":"POST","path":"/orders","sku":"A002","quantity":2}
+{"timestamp":"2026-10-13T15:56:28.642Z","service":"order-api","event":"inventory.grpc.request","correlationId":"5aa56f71-8e6b-49cc-b273-b3303b258e94","method":"ReserveStock","sku":"A002","quantity":2,"deadline_ms":3000}
+{"timestamp":"2026-10-13T15:56:28.659Z","service":"order-api","event":"inventory.grpc.response","correlationId":"5aa56f71-8e6b-49cc-b273-b3303b258e94","proto_version":"v2","success":false,"error":"INSUFFICIENT_STOCK"}
+{"timestamp":"2026-10-13T15:56:28.659Z","service":"order-api","event":"order.response","correlationId":"5aa56f71-8e6b-49cc-b273-b3303b258e94","status":409,"body":{"success":false,"error":"INSUFFICIENT_STOCK","message":"Not enough stock"}}

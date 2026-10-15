@@ -1,0 +1,7 @@
+
+> @block3/inventory-service@1.0.0 proto:generate
+> node scripts/check-proto.js
+
+Proto contract is present: D:\HCMUS\Nam_IV_HK1\PTUDWNC\Block-3\apps\inventory-service\proto\v1\inventory.proto
+Proto contract is present: D:\HCMUS\Nam_IV_HK1\PTUDWNC\Block-3\apps\inventory-service\proto\v2\inventory.proto
+The v1/v2 contracts are loaded with @grpc/proto-loader because the bundled grpc-tools protoc binary is unavailable on this Windows runtime.

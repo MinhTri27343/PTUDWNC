@@ -1,0 +1,16 @@
+{
+  "name": "block-3-rest-order-inventory",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "concurrently -k -n WEB,ORDER,INVENTORY -c blue,green,magenta \"npm run dev --workspace apps/web\" \"npm run dev --workspace apps/order-api\" \"npm run dev --workspace apps/inventory-service\"",
+    "seed": "npm run seed --workspace apps/inventory-service && npm run seed --workspace apps/order-api",
+    "verify": "node scripts/verify.js",
+    "snapshot": "node scripts/create-snapshots.js",
+    "verify:compatibility": "node scripts/verify-compatibility.js",
+    "verify:failure-modes": "node scripts/verify-failure-modes.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "case": "enough-stock",
+    "request": {
+      "sku": "A001",
+      "quantity": 2
+    },
+    "browser_response": {
+      "status": 201,
+      "body": {
+        "success": true,
+        "order_id": "<dynamic-id>",
+        "sku": "A001",
+        "quantity": 2,
+        "message": "Order created"
+      }
+    },
+    "internal_call": {
+      "method": "POST",
+      "path": "/inventory/reserve",
+      "status": 200
+    }
+  },
+  {
+    "case": "insufficient-stock",
+    "request": {
+      "sku": "A002",
+      "quantity": 2
+    },
+    "browser_response": {
+      "status": 409,
+      "body": {
+        "success": false,
+        "error": "INSUFFICIENT_STOCK",
+        "message": "Not enough stock"
+      }
+    },
+    "internal_call": {
+      "method": "POST",
+      "path": "/inventory/reserve",
+      "status": 409
+    }
+  }
+]

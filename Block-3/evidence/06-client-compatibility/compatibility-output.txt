@@ -1,0 +1,5 @@
+
+> verify:compatibility
+> node scripts/verify-compatibility.js
+
+Compatibility verification passed. Evidence saved to evidence/06-client-compatibility.

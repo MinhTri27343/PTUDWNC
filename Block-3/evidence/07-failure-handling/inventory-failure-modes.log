@@ -1,0 +1,17 @@
+{"timestamp":"2026-10-12T13:28:39.247Z","service":"inventory-service","event":"http.started","port":3101}
+{"timestamp":"2026-10-12T13:28:39.253Z","service":"inventory-service","event":"grpc.started","port":51051}
+(node:37340) DeprecationWarning: Calling start() is no longer necessary. It can be safely omitted.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"timestamp":"2026-10-12T13:28:39.663Z","service":"inventory-service","event":"grpc.reserve.request","correlationId":"7c8715ee-9c76-41dc-816a-4ba3ff912210","proto_version":"v2","method":"ReserveStock","sku":"A002","quantity":2,"delay_ms":0}
+{"timestamp":"2026-10-12T13:28:39.664Z","service":"inventory-service","event":"grpc.reserve.response","correlationId":"7c8715ee-9c76-41dc-816a-4ba3ff912210","proto_version":"v2","success":false,"error":"INSUFFICIENT_STOCK"}
+{"timestamp":"2026-10-12T13:28:40.203Z","service":"inventory-service","event":"http.started","port":3101}
+{"timestamp":"2026-10-12T13:28:40.209Z","service":"inventory-service","event":"grpc.started","port":51051}
+(node:19880) DeprecationWarning: Calling start() is no longer necessary. It can be safely omitted.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"timestamp":"2026-10-12T13:28:40.659Z","service":"inventory-service","event":"grpc.reserve.request","correlationId":"11185497-15be-48a6-ad69-110fbc8a0ba9","proto_version":"v2","method":"ReserveStock","sku":"A001","quantity":2,"delay_ms":5000}
+{"timestamp":"2026-10-12T13:28:42.878Z","service":"inventory-service","event":"http.started","port":3101}
+{"timestamp":"2026-10-12T13:28:42.886Z","service":"inventory-service","event":"grpc.started","port":51051}
+(node:37772) DeprecationWarning: Calling start() is no longer necessary. It can be safely omitted.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"timestamp":"2026-10-12T13:28:43.377Z","service":"inventory-service","event":"grpc.reserve.request","correlationId":"e2e0cc7d-97f0-4aac-bdf9-a00b806dfd82","proto_version":"v2","method":"ReserveStock","sku":"A001","quantity":2,"delay_ms":0}
+{"timestamp":"2026-10-12T13:28:43.383Z","service":"inventory-service","event":"grpc.reserve.response","correlationId":"e2e0cc7d-97f0-4aac-bdf9-a00b806dfd82","proto_version":"v2","success":true,"remaining_stock":8}

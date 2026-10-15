@@ -1,0 +1,30 @@
+{
+  "enough": {
+    "case": "enough-stock",
+    "request": {
+      "sku": "A001",
+      "quantity": 2
+    },
+    "status": 201,
+    "body": {
+      "success": true,
+      "order_id": "12",
+      "sku": "A001",
+      "quantity": 2,
+      "message": "Order created"
+    }
+  },
+  "insufficient": {
+    "case": "insufficient-stock",
+    "request": {
+      "sku": "A002",
+      "quantity": 2
+    },
+    "status": 409,
+    "body": {
+      "success": false,
+      "error": "INSUFFICIENT_STOCK",
+      "message": "Not enough stock"
+    }
+  }
+}

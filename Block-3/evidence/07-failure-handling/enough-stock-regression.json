@@ -1,0 +1,20 @@
+{
+  "case": "enough-stock-regression",
+  "started_at": "2026-10-12T13:28:43.335Z",
+  "finished_at": "2026-10-12T13:28:43.397Z",
+  "elapsed_ms": 62,
+  "deadline_ms": 3000,
+  "delay_ms": 0,
+  "http_status": 201,
+  "response_body": {
+    "success": true,
+    "order_id": "14",
+    "sku": "A001",
+    "quantity": 2,
+    "message": "Order created"
+  },
+  "order_created": true,
+  "inventory_stock": {
+    "stock": 8
+  }
+}

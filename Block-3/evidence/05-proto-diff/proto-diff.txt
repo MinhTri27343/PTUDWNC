@@ -1,0 +1,10 @@
+Comparing files EVIDENCE\05-PROTO-DIFF\BEFORE\inventory.proto and EVIDENCE\05-PROTO-DIFF\AFTER\INVENTORY.PROTO
+***** EVIDENCE\05-PROTO-DIFF\BEFORE\inventory.proto
+   17:    int32 reserved_quantity = 3;
+   18:    string error = 5;
+***** EVIDENCE\05-PROTO-DIFF\AFTER\INVENTORY.PROTO
+   17:    int32 reserved_quantity = 3;
+   18:    int32 remaining_stock = 4;
+   19:    string error = 5;
+*****
+
