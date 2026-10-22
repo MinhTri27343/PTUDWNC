@@ -1,24 +1,33 @@
 # PLAN — Block 5: Wallet AS (OAuth2 + PKCE)
 
 > Nguồn: `teacher-requirements.md` (block-05-assignment) + `knowledge.md` (api-security-interactive, trang 27–40).
-> Trạng thái: **DRAFT v1 — chờ approve**. Chưa viết code.
-> Đã chốt: Node + TypeScript · SQLite · làm phần bắt buộc trước (Revocation, Client Credentials để sau) · script tự sinh evidence + REPORT.md.
+> Trạng thái: **DRAFT v2 — chờ approve**. Chưa viết code.
+> Đã chốt: Node + TypeScript · SQLite · **làm đủ toàn bộ yêu cầu đề (kể cả Revocation, Client Credentials)** · demo được qua Swagger UI + giao diện Taxi · script tự sinh evidence + REPORT.md.
+> Sản phẩm cuối là AS **đúng chuẩn OAuth2 + PKCE**. Mốc "before" (chưa có check) chỉ là một bước trung gian để lấy output so sánh theo đề, được viết đè thành bản đúng ở P1–P3.
 
 ---
 
 ## 0. Phạm vi
 
-| Giai đoạn | Nội dung | Làm ở đợt này |
-|---|---|---|
-| P0 Baseline | Khung 3 app + attack script, AS "ngây thơ" (không check) → chụp output *before* | ✅ |
-| P1 `/authorize` | Check client/redirect/PKCE/scope, login, consent, phát code | ✅ |
-| P2 `/token` (code) | Client auth, check code, transaction dùng-một-lần, reuse → thu hồi | ✅ |
-| P3 Refresh + payment job | Rotation, family revoke, check client/consent/scope, job chạy không session | ✅ |
-| P4 Rerun attack | Output *after* | ✅ |
-| P5 Revocation | Trang account, revoke consent + families | ⏳ để sau |
-| P6 Client Credentials | `taxi-m2m`, grant table đủ dòng | ⏳ để sau |
+| Giai đoạn | Nội dung |
+|---|---|
+| P0 Khung | 3 app + attack script; `/authorize`, `/token` chưa có check → chạy attack, lưu output *before* |
+| P1 `/authorize` | Check client/redirect/PKCE/scope, login, consent, phát code |
+| P2 `/token` (code) | Client auth, check code, transaction dùng-một-lần, reuse → thu hồi |
+| P3 Refresh + payment job | Rotation, family revoke, check client/consent/scope, job chạy không session |
+| P4 Rerun attack | Output *after* (9 case đều bị chặn đúng mã lỗi) |
+| P5 Revocation | Trang account của AS, revoke consent + mọi refresh family, Taxi chuyển unlinked, tài liệu policy access token còn hạn |
+| P6 Client Credentials | `taxi-m2m`, scope ⊆ allowed, `sub=client_id`, `principal_type=client`, không refresh; `/public/rates`, 403 ở `/wallet/charges` |
+| P7 Demo & evidence | Swagger UI, giao diện Taxi, grant table từ response thật, redirect trace, payment log, REPORT.md |
 
-Ghi chú: `taxi-m2m` và `GET /public/rates` vẫn được seed/dựng khung từ P0 vì attack case "code redeemed by a different client" cần một client thứ hai xác thực hợp lệ.
+### Khả năng demo
+- **Swagger UI** (OpenAPI 3.1, `swagger-ui-express`):
+  - AS `http://localhost:4000/docs`: `POST /token` (Basic auth, thử `authorization_code`, `refresh_token`, `client_credentials`), `GET /.well-known/jwks.json`.
+  - Wallet API `http://localhost:4001/docs`: nút Authorize dán Bearer token, thử `balance`, `charges`, `rates`.
+  - `/authorize` là redirect qua trình duyệt nên Swagger không chạy tới cuối được; trong docs có link mở thẳng và mô tả tham số.
+- **Taxi UI** `http://localhost:4002`: nút Link wallet, Xem số dư, Chạy payment job, Hiển thị trạng thái link/unlink và counter. Token không bao giờ hiện ra trình duyệt.
+- **Trang account AS** `/account`: Alice xem và revoke quyền của Taxi.
+- **Attack script** + **payment job** chạy bằng npm script, in bảng kết quả.
 
 ---
 
@@ -138,7 +147,11 @@ Gọi AS trực tiếp qua HTTP, tự đăng nhập Alice (cookie jar), in `case
 4. **P3** refresh + payment job; kiểm tra counter = 1.
 5. **P4** chạy lại attack → `evidence/attack-after.txt`.
 6. `evidence.ts` sinh: redirect trace (redact), payment job log (kèm `exp`), AS check table, bảng grant (phần đã có). Viết README + REPORT.md (trade-off lab AS vs Keycloak).
-7. (Đợt sau) P5 Revocation, P6 Client Credentials + grant table đủ dòng.
+7. P5 Revocation, P6 Client Credentials, P7 Swagger + Taxi UI + grant table đủ dòng.
+
+Thêm vào các phần trước:
+- **Revocation (2.9):** `POST /account/revoke` set `consents.revoked_at`, revoke mọi `refresh_tokens` của cặp (Alice, taxi-web); refresh kế tiếp → `invalid_grant`, Taxi chuyển unlinked. Policy: Wallet API verify offline nên access token còn hiệu lực tới `exp` (≤120s); ghi rõ vào REPORT.
+- **Client Credentials (2.10):** chỉ client có `client_credentials` trong `grant_types`; scope yêu cầu ⊆ allowed (sai → `invalid_scope`); không trả `refresh_token`; `principal_type=client`.
 
 Mỗi bước: inspect → implement → run → test → verify. Không đưa secret/key/token thật vào prompt, log hay evidence (chỉ nhãn + timestamp).
 
