@@ -1,6 +1,6 @@
 import { createApp } from './app';
 import { config } from './config';
-import { createLogger } from './logger';
+import { createLogger } from './logging';
 
 const logger = createLogger();
 const app = createApp({ logger });

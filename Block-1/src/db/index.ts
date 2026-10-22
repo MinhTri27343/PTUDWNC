@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
-import { config } from './config';
+import { config } from '../config';
 
 export type Db = Database.Database;
 

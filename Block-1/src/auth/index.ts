@@ -1,8 +1,8 @@
 import crypto from 'node:crypto';
 import type { Request } from 'express';
 import jwt from 'jsonwebtoken';
-import { config } from './config';
-import { errors } from './errors';
+import { config } from '../config';
+import { errors } from '../errors';
 
 // User duy nhất của app, gán cứng theo đề (không có bảng users, không có /register).
 const USER = { username: 'user', password: '1234' };

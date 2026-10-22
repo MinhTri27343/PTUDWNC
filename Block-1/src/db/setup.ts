@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { config } from './config';
-import { openDatabase, type Db } from './db';
+import { config } from '../config';
+import { openDatabase, type Db } from './index';
 import { SEED_CART_ITEMS, SEED_CARTS, SEED_PRODUCTS } from './seedData';
 
 /** Chạy các file migrations/*.sql chưa áp dụng, theo thứ tự tên file. Trả về danh sách file vừa chạy. */

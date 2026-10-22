@@ -7,12 +7,13 @@ try {
   // không có .env — bỏ qua
 }
 
-export const ROOT_DIR = path.resolve(import.meta.dirname, '..');
+export const ROOT_DIR = path.resolve(import.meta.dirname, '..', '..');
 
 export const config = {
   port: Number(process.env.PORT ?? 3000),
   dbPath: path.resolve(ROOT_DIR, process.env.DB_PATH ?? './data/cart.db'),
   logLevel: process.env.LOG_LEVEL ?? 'info',
+  logFile: path.resolve(ROOT_DIR, process.env.LOG_FILE ?? './logs/app.log'),
   jwtSecret: process.env.JWT_SECRET ?? 'dev-only-secret-change-me',
   jwtExpiresIn: Number(process.env.JWT_EXPIRES_IN ?? 3600),
   specPath: path.join(ROOT_DIR, 'openapi', 'openapi.yaml'),

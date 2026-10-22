@@ -6,10 +6,10 @@ import request from 'supertest';
 import { createApp } from '../src/app';
 import { config } from '../src/config';
 import { getDb, setDb } from '../src/db';
-import { resetDatabase } from '../src/dbSetup';
-import { createLogger } from '../src/logger';
+import { resetDatabase } from '../src/db/setup';
+import { createLogger } from '../src/logging';
 
-export { CART_IDS, PRODUCT_IDS } from '../src/seedData';
+export { CART_IDS, PRODUCT_IDS } from '../src/db/seedData';
 
 export interface TestContext {
   app: ReturnType<typeof createApp>;

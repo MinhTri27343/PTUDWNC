@@ -1,6 +1,6 @@
 import { config } from '../src/config';
 import { openDatabase } from '../src/db';
-import { migrate } from '../src/dbSetup';
+import { migrate } from '../src/db/setup';
 
 const db = openDatabase(config.dbPath, { create: true });
 try {
