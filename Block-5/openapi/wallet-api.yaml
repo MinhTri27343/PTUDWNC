@@ -1,0 +1,61 @@
+openapi: 3.1.0
+info:
+  title: Wallet API (lab)
+  version: 1.0.0
+  description: |
+    Resource server. Verifies ES256 access tokens **offline** via the AS JWKS (iss, aud=`wallet-api`, exp), then checks scope.
+    Click **Authorize**, paste an access token (e.g. from the AS `/token` with `client_credentials`).
+servers:
+  - url: http://localhost:4001
+paths:
+  /wallet/balance:
+    get:
+      summary: Read the wallet balance
+      description: Requires scope `wallet:read`.
+      security: [{ bearer: [] }]
+      responses:
+        "200": { description: Balance }
+        "401": { description: Missing, invalid or expired token }
+        "403": { description: Missing scope }
+  /wallet/charges:
+    post:
+      summary: Charge the wallet
+      description: Requires scope `wallet:charge` and `principal_type=user`. `Idempotency-Key` makes retries safe.
+      security: [{ bearer: [] }]
+      parameters:
+        - { name: Idempotency-Key, in: header, required: true, schema: { type: string }, example: ride-1001 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [amount_cents]
+              properties:
+                amount_cents: { type: integer, minimum: 1, example: 2500 }
+      responses:
+        "201": { description: Charge applied }
+        "200": { description: Same Idempotency-Key replayed; nothing charged twice }
+        "401": { description: Missing, invalid or expired token }
+        "403": { description: Missing scope or principal_type is not user }
+        "422": { description: Insufficient funds }
+  /public/rates:
+    get:
+      summary: Public ride rates
+      description: Requires scope `rates:read` (works for client tokens).
+      security: [{ bearer: [] }]
+      responses:
+        "200": { description: Rates }
+        "401": { description: Missing, invalid or expired token }
+        "403": { description: Missing scope }
+  /debug/counter:
+    get:
+      summary: Lab evidence — number of charges actually applied
+      responses:
+        "200": { description: Counter }
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

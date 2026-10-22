@@ -1,0 +1,20 @@
+# Payment job — no user session, expired access token, refresh then charge
+# Captured 2026-10-22T03:42:44.806Z. "exp" values are ISO timestamps of the access token in use.
+
+Wallet API charge counter before: 0
+
+## Run 1 (--expire: Alice left, stored access token is stale)
+{"ts":"2026-10-22T03:42:45.203Z","component":"taxi-job","event":"simulated_expiry","note":"stored access tokens marked expired"}
+{"ts":"2026-10-22T03:42:45.252Z","component":"taxi-job","event":"start","counter_before":0}
+{"ts":"2026-10-22T03:42:45.252Z","component":"taxi","event":"access_token_expired","user":"alice","old_access_exp":"2026-10-22T03:42:44.000Z","refresh":"tok:6ae9a17f"}
+{"ts":"2026-10-22T03:42:45.318Z","component":"taxi","event":"token_refreshed","user":"alice","new_access_exp":"2026-10-22T03:44:45.000Z","new_refresh":"tok:ef8dbdae"}
+{"ts":"2026-10-22T03:42:45.364Z","component":"taxi-job","event":"charge_response","user":"alice","ride":"ride-1001","http_status":201,"access_exp":"2026-10-22T03:44:45.000Z"}
+{"ts":"2026-10-22T03:42:45.368Z","component":"taxi-job","event":"done","counterBefore":0,"counterAfter":1,"charged":["ride-1001"],"skipped":[],"failed":[]}
+
+Wallet API charge counter after run 1: 1
+
+## Run 2 (same job again; nothing pending, the Idempotency-Key = ride id protects retries)
+{"ts":"2026-10-22T03:42:45.814Z","component":"taxi-job","event":"start","counter_before":1}
+{"ts":"2026-10-22T03:42:45.819Z","component":"taxi-job","event":"done","counterBefore":1,"counterAfter":1,"charged":[],"skipped":[],"failed":[]}
+
+Wallet API charge counter after run 2: 1

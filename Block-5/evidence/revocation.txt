@@ -1,0 +1,17 @@
+# Revocation — Alice revokes Taxi on the AS account page
+# Captured 2026-10-22T03:42:46.088Z.
+
+03:42:46.090Z  before revocation: Taxi status {"user":"alice","status":"linked","access_exp":1792640685}; balance call -> Balance: 97500
+03:42:46.104Z  AS /account lists: Taxi
+03:42:46.106Z  POST /account/revoke (Alice -> taxi-web) -> 200
+03:42:46.106Z  immediately after: balance call -> Balance: 97500   <- the access token is a stateless JWT verified offline, it stays valid until exp (<= 120s)
+
+## Payment job after revocation (stored access token considered expired)
+{"ts":"2026-10-22T03:42:46.397Z","component":"taxi-job","event":"simulated_expiry","note":"stored access tokens marked expired"}
+{"ts":"2026-10-22T03:42:46.446Z","component":"taxi-job","event":"start","counter_before":1}
+{"ts":"2026-10-22T03:42:46.447Z","component":"taxi","event":"access_token_expired","user":"alice","old_access_exp":"2026-10-22T03:42:45.000Z","refresh":"tok:ef8dbdae"}
+{"ts":"2026-10-22T03:42:46.516Z","component":"taxi","event":"wallet_unlinked","user":"alice","reason":"invalid_grant"}
+{"ts":"2026-10-22T03:42:46.516Z","component":"taxi-job","event":"skipped","user":"alice","ride":"ride-1792640566089","reason":"wallet not linked"}
+{"ts":"2026-10-22T03:42:46.518Z","component":"taxi-job","event":"done","counterBefore":1,"counterAfter":1,"charged":[],"skipped":["ride-1792640566089"],"failed":[]}
+
+03:42:46.590Z  after job: Taxi status {"user":"alice","status":"unlinked","access_exp":null}   <- unlinked: the AS answered invalid_grant

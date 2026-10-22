@@ -1,0 +1,46 @@
+{
+  "name": "wallet-oauth-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Block 5 — Wallet Authorization Server (OAuth2 + PKCE), Wallet API, Taxi client",
+  "type": "module",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "keygen": "tsx scripts/keygen.ts",
+    "db:reset": "tsx scripts/reset.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "as": "tsx src/as/server.ts",
+    "api": "tsx src/wallet-api/server.ts",
+    "taxi": "tsx src/taxi/server.ts",
+    "taxi:job": "tsx src/taxi/paymentJob.ts",
+    "attack": "tsx scripts/attack.ts",
+    "evidence": "tsx scripts/evidence.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "argon2": "^0.41.1",
+    "better-sqlite3": "^11.10.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "express-session": "^1.18.1",
+    "jose": "^5.9.6",
+    "openid-client": "^6.1.7",
+    "swagger-ui-express": "^5.0.1",
+    "yaml": "^2.7.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.1",
+    "@types/node": "^22.10.0",
+    "@types/supertest": "^6.0.2",
+    "@types/swagger-ui-express": "^4.1.7",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

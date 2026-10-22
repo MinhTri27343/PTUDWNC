@@ -1,0 +1,140 @@
+openapi: 3.1.0
+info:
+  title: Wallet Authorization Server (lab)
+  version: 1.0.0
+  description: |
+    OAuth 2.0 authorization server for the Block 5 lab (RFC 6749, PKCE RFC 7636).
+    **Lab only** — use a vetted AS such as Keycloak in production.
+
+    Demo credentials (fake): client `taxi-web` / `taxi-m2m` secrets are in your local `.env`.
+    Try **POST /token** with the `client_credentials` grant straight from this page (Authorize → `taxi-m2m`).
+    The browser-based `authorization_code` flow is driven by the Taxi app at the Taxi URL (Link wallet).
+servers:
+  - url: http://localhost:4000
+tags:
+  - name: Authorization
+  - name: Token
+  - name: Keys
+  - name: Account
+paths:
+  /authorize:
+    get:
+      tags: [Authorization]
+      summary: Authorization endpoint (browser redirect flow)
+      description: |
+        Opens in the **browser**, not via Swagger "Try it out" (it ends in a redirect to the client).
+
+        Check order: unknown `client_id` → AS error page (400); `redirect_uri` not exactly the registered string →
+        AS error page (400, **no redirect**). After that, errors are redirected to the client with `state` echoed:
+        `unsupported_response_type`, `invalid_request` (missing/!S256 `code_challenge`), `invalid_scope`.
+        Then login, consent (Deny → `access_denied`), and finally `302 redirect_uri?code=…&state=…`.
+      parameters:
+        - { name: response_type, in: query, required: true, schema: { type: string, enum: [code] } }
+        - { name: client_id, in: query, required: true, schema: { type: string }, example: taxi-web }
+        - { name: redirect_uri, in: query, required: true, schema: { type: string, format: uri }, example: "http://localhost:4002/callback" }
+        - { name: scope, in: query, required: true, schema: { type: string }, example: "wallet:read wallet:charge offline_access" }
+        - { name: state, in: query, required: false, schema: { type: string } }
+        - { name: code_challenge, in: query, required: true, description: "BASE64URL(SHA-256(code_verifier)), 43 chars", schema: { type: string } }
+        - { name: code_challenge_method, in: query, required: true, schema: { type: string, enum: [S256] } }
+      responses:
+        "200": { description: Login or consent page (HTML) }
+        "302": { description: Redirect to the client with `code` or `error` (+ `state`) }
+        "400": { description: Unknown client or unregistered redirect_uri (HTML error page, never redirected) }
+  /token:
+    post:
+      tags: [Token]
+      summary: Token endpoint
+      description: |
+        Client authentication: HTTP Basic (`client_id:client_secret`). Failure → `401 invalid_client`.
+        Grant errors → `400` with `invalid_grant`, `invalid_scope`, `unauthorized_client`, `unsupported_grant_type`, `invalid_request`.
+      security: [{ clientBasic: [] }]
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required: [grant_type]
+              properties:
+                grant_type: { type: string, enum: [authorization_code, refresh_token, client_credentials] }
+                code: { type: string, description: "authorization_code only" }
+                code_verifier: { type: string, description: "authorization_code only (43-128 chars)" }
+                redirect_uri: { type: string, description: "authorization_code only; must equal the authorize request" }
+                refresh_token: { type: string, description: "refresh_token only" }
+                scope: { type: string, description: "refresh_token (narrowing only) / client_credentials" }
+            examples:
+              client_credentials:
+                summary: taxi-m2m reads public rates
+                value: { grant_type: client_credentials, scope: "rates:read" }
+              client_credentials_too_broad:
+                summary: Rejected with invalid_scope
+                value: { grant_type: client_credentials, scope: "wallet:charge" }
+              refresh:
+                summary: Rotate a refresh token (use taxi-web credentials)
+                value: { grant_type: refresh_token, refresh_token: "<paste refresh token>" }
+      responses:
+        "200":
+          description: Token response (no-store)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TokenResponse" }
+        "400":
+          description: invalid_request, invalid_grant, invalid_scope, unauthorized_client, unsupported_grant_type
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/OAuthError" }
+        "401":
+          description: invalid_client
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/OAuthError" }
+  /.well-known/jwks.json:
+    get:
+      tags: [Keys]
+      summary: Public signing keys (ES256)
+      responses:
+        "200": { description: JWKS }
+  /lab/pkce:
+    get:
+      tags: [Keys]
+      summary: Lab helper — generate a PKCE verifier and S256 challenge
+      description: Convenience for manual demos. The verifier is random and not stored.
+      responses:
+        "200":
+          description: A fresh pair
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code_verifier: { type: string }
+                  code_challenge: { type: string }
+                  code_challenge_method: { type: string }
+  /account:
+    get:
+      tags: [Account]
+      summary: Alice's connected apps; revoke Taxi's access (browser page)
+      responses:
+        "200": { description: HTML }
+components:
+  securitySchemes:
+    clientBasic:
+      type: http
+      scheme: basic
+      description: client_id as username, client_secret as password
+  schemas:
+    TokenResponse:
+      type: object
+      required: [access_token, token_type, expires_in]
+      properties:
+        access_token: { type: string, description: "ES256 JWT (iss, aud=wallet-api, sub, client_id, scope, exp, principal_type)" }
+        token_type: { type: string, example: Bearer }
+        expires_in: { type: integer, example: 120 }
+        scope: { type: string }
+        refresh_token: { type: string, description: "Only with offline_access; never for client_credentials" }
+    OAuthError:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
+        error_description: { type: string }
