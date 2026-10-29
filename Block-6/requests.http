@@ -1,0 +1,70 @@
+@base = http://localhost:4006
+@version = v4
+# Dán token từ response login vào biến này. Không commit token thật.
+@token = YOUR_TOKEN
+
+### Đăng nhập Alice (đổi username/password để demo Bob, Eve, Charlie, Dana)
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{"username":"alice","password":"alice-pass"}
+
+### Thông tin người gọi
+GET {{base}}/auth/me
+Authorization: Bearer {{token}}
+
+### Danh sách đã lọc
+GET {{base}}/api/{{version}}/tasks
+Authorization: Bearer {{token}}
+
+### Cho phép: Alice đọc A1
+GET {{base}}/api/{{version}}/tasks/A1
+Authorization: Bearer {{token}}
+
+### IDOR: đổi version starter → v1 → v4, giữ nguyên token Alice
+GET {{base}}/api/{{version}}/tasks/B1
+Authorization: Bearer {{token}}
+
+### Không token: 401
+GET {{base}}/api/{{version}}/tasks/A1
+
+### Bob sửa A1 Open: 200; đổi A2/A3: 403 ở V3/V4
+PATCH {{base}}/api/{{version}}/tasks/A1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"title":"Bob cập nhật tiêu đề"}
+
+### Bob giả Admin: 403 ở V2–V4
+DELETE {{base}}/api/{{version}}/projects/alpha
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"role":"Admin","userId":"alice"}
+
+### Dana giả tenant Beta: 403 ở V4
+GET {{base}}/api/v4/tasks/B1
+Authorization: Bearer {{token}}
+X-Tenant-Id: beta
+
+### Alice thêm Dana vào project Alpha (Owner mới có quyền)
+POST {{base}}/api/v4/projects/alpha/members
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"userId":"dana","role":"Viewer"}
+
+### Alice hạ Bob xuống Viewer: token cũ của Bob mất quyền sửa ngay
+PATCH {{base}}/api/v4/projects/alpha/members/bob
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"role":"Viewer"}
+
+### Alice gỡ Bob
+DELETE {{base}}/api/v4/projects/alpha/members/bob
+Authorization: Bearer {{token}}
+
+### Gỡ Owner cuối cùng: 409
+DELETE {{base}}/api/v4/projects/alpha/members/alice
+Authorization: Bearer {{token}}

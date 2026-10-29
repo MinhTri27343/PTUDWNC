@@ -1,0 +1,37 @@
+GET /api/starter/tasks/B1
+Authorization: Bearer <token đã che>
+Subject: alice
+
+HTTP 200
+{
+  "id": "B1",
+  "projectId": "beta",
+  "title": "Ngân sách dự án Beta",
+  "description": "Dữ liệu riêng của project Beta.",
+  "assigneeId": "charlie",
+  "status": "Open"
+}
+
+============================================================
+
+GET /api/v1/tasks/B1
+Authorization: Bearer <token đã che>
+Subject: alice
+
+HTTP 403
+{
+  "error": "forbidden",
+  "message": "Bạn không có quyền thực hiện thao tác này."
+}
+
+============================================================
+
+GET /api/v4/tasks/B1
+Authorization: Bearer <token đã che>
+Subject: alice
+
+HTTP 403
+{
+  "error": "forbidden",
+  "message": "Bạn không có quyền thực hiện thao tác này."
+}

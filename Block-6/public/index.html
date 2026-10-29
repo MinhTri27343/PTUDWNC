@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Block-6 · Phân quyền Task API</title>
+  <link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<header><div class="wrap">
+  <span class="eyebrow">WEB NÂNG CAO · BLOCK 6</span>
+  <h1>Phân quyền Task API</h1>
+  <p>Chọn tài khoản, thực hiện thao tác và xem kết quả ngay bên cạnh.</p>
+  <nav aria-label="Các bước demo"><a href="#setup">01 · Chuẩn bị</a><a href="#data">02 · Xem dữ liệu</a><a href="#demo">03 · Thử request</a></nav>
+</div></header>
+<main class="wrap">
+  <p class="notice"><strong>Lưu ý khi demo:</strong> Starter và V1 cố ý còn thiếu kiểm quyền. Mỗi phiên bản có dữ liệu riêng.</p>
+
+  <div class="workspace"><div class="work-area">
+  <section class="card" id="setup" aria-labelledby="setup-title">
+    <div class="step-heading"><span class="step-number">01</span><div><h2 id="setup-title">Chuẩn bị phiên demo</h2><p>Chọn phiên bản trước, sau đó chọn người thực hiện.</p></div></div>
+    <div class="setup-block">
+      <h3>Phiên bản đang kiểm tra</h3>
+      <label for="version" class="sr-only">Phiên bản</label>
+      <select id="version"><option value="starter">Starter · chỉ kiểm token</option><option value="v1">V1 · sửa IDOR khi đọc</option><option value="v2">V2 · RBAC theo project</option><option value="v3">V3 · assignee + Open</option><option value="v4" selected>V4 · ranh giới tenant</option></select>
+      <p id="version-note" class="version-note"></p>
+    </div>
+    <div class="setup-block">
+      <h3>Ai đang thực hiện request?</h3>
+      <p class="hint">Bấm một tài khoản để đăng nhập nhanh. Dữ liệu bên dưới sẽ đổi theo quyền của người đó.</p>
+      <div id="accounts" class="account-list" aria-label="Đăng nhập nhanh">
+        <button data-user="alice" aria-pressed="false">Alice · Owner Alpha</button>
+        <button data-user="bob" aria-pressed="false">Bob · Member Alpha</button>
+        <button data-user="eve" aria-pressed="false">Eve · Viewer Alpha</button>
+        <button data-user="charlie" aria-pressed="false">Charlie · Owner Beta</button>
+        <button data-user="dana" aria-pressed="false">Dana · Admin Alpha</button>
+      </div>
+      <div class="session"><span id="identity" class="badge">Chưa đăng nhập</span><button type="button" id="logout" class="secondary">Đăng xuất</button></div>
+      <details class="disclosure" id="manual-login"><summary>Đăng nhập bằng tài khoản và mật khẩu</summary>
+        <form id="login-form" class="stack-form">
+          <label>Tài khoản<input id="username" value="alice" autocomplete="username" required></label>
+          <label>Mật khẩu<input id="password" value="alice-pass" type="password" autocomplete="current-password" required></label>
+          <button type="submit">Đăng nhập</button>
+        </form>
+      </details>
+    </div>
+    <p id="status" role="status" aria-live="polite">Chọn tài khoản để bắt đầu.</p>
+  </section>
+
+  <section class="card" id="data" aria-labelledby="data-title">
+    <div class="step-heading"><span class="step-number">02</span><div><h2 id="data-title">Xem dữ liệu theo quyền</h2><p>Danh sách này được server lọc theo tài khoản và phiên bản đang chọn.</p></div></div>
+    <button id="refresh" class="secondary">Tải lại dữ liệu</button>
+    <div class="data-block"><h3>Project được phép xem</h3><div class="table-scroll"><table><thead><tr><th>ID</th><th>Tên / Tenant</th><th>Role của bạn</th><th>Thao tác</th></tr></thead><tbody id="projects"><tr><td colspan="4">Chưa có dữ liệu.</td></tr></tbody></table></div></div>
+    <div class="data-block"><h3>Task được phép xem</h3><p class="hint">Bấm Đọc hoặc Sửa để thử quyền. Server vẫn kiểm tra dù nút thao tác xuất hiện.</p><div class="table-scroll"><table><thead><tr><th>ID / Project</th><th>Tiêu đề</th><th>Assignee</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody id="tasks"><tr><td colspan="5">Chưa có dữ liệu.</td></tr></tbody></table></div></div>
+    <div id="member-panel" hidden>
+      <h3>Quản lý thành viên · <span id="member-project"></span></h3>
+      <p class="hint">Chỉ Owner hoặc Admin hợp lệ có quyền. Tài khoản mẫu: alice, bob, eve, charlie, dana.</p><pre id="member-list"></pre>
+      <form id="member-form" class="stack-form">
+        <label>Thao tác<select id="member-method"><option value="POST">Thêm thành viên</option><option value="PATCH">Đổi role</option><option value="DELETE">Gỡ thành viên</option></select></label>
+        <label>User ID<input id="member-user" value="bob" required></label>
+        <label>Role<select id="member-role"><option>Viewer</option><option>Member</option><option>Owner</option></select></label>
+        <button>Gửi thay đổi</button><button type="button" id="close-members" class="secondary">Đóng</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="card" id="demo" aria-labelledby="demo-title">
+    <div class="step-heading"><span class="step-number">03</span><div><h2 id="demo-title">Chọn tình huống & gửi request</h2><p>Request luôn dùng phiên bản đã chọn ở bước 01. Chọn tình huống để tự điền tài khoản và nội dung gửi.</p></div></div>
+    <label for="scenarios">Tình huống muốn thử</label>
+    <select id="scenarios">
+      <option value="" selected disabled>Chọn một tình huống…</option>
+      <optgroup label="Đọc task">
+        <option value="idor">Alice đọc B1 · IDOR</option><option value="allow">Alice đọc A1 · hợp lệ</option>
+      </optgroup>
+      <optgroup label="Sửa task">
+        <option value="viewer">Eve sửa A1 · Viewer</option><option value="assigned">Bob sửa A1 · Open</option><option value="unassigned">Bob sửa A2 · chưa giao</option><option value="closed">Bob sửa A3 · Closed</option>
+      </optgroup>
+      <optgroup label="Giả mạo và ranh giới tenant">
+        <option value="forge-role">Bob giả role Admin · xóa Alpha</option><option value="forge-user">Alice giả user Charlie · sửa B1</option><option value="admin-own">Dana đọc A1 · cùng tenant</option><option value="tenant">Dana đọc B1 · khác tenant</option><option value="forge-tenant">Dana giả tenant Beta · đọc B1</option>
+      </optgroup>
+      <option value="anonymous">Không token · đọc A1</option>
+    </select>
+    <p id="selected-scenario" class="selected-scenario" aria-live="polite">Chưa chọn tình huống. Bạn cũng có thể tự nhập request bên dưới.</p>
+    <h3 class="substep">Nội dung request</h3>
+    <form id="request-form" class="stack-form request-editor">
+      <label>Method<select id="method"><option>GET</option><option>PATCH</option><option>DELETE</option><option>POST</option></select></label>
+      <label>Path sau /api/<span class="current-version">v4</span><input id="path" value="/tasks/B1" required></label>
+      <label class="check"><input type="checkbox" id="with-token" checked> Gửi token của người đang đăng nhập</label>
+      <details class="disclosure" id="request-payload"><summary>Body & headers của request</summary><p class="hint">Mở phần này khi gửi dữ liệu sửa task hoặc thử giả mạo thông tin.</p><div class="payload-fields"><label>JSON body (PATCH / POST / DELETE)<textarea id="body" rows="5">{}</textarea></label><label>Headers thêm (JSON)<textarea id="extra-headers" rows="4">{}</textarea></label></div></details>
+      <button>Gửi request</button>
+    </form>
+  </section>
+
+
+  <details class="card reference"><summary>Bảng quyền & hướng dẫn đối chiếu</summary><div class="reference-content">
+    <div class="table-scroll"><table><thead><tr><th>Vai trò</th><th>Đọc task</th><th>Sửa task</th><th>Xóa project</th><th>Quản lý thành viên</th></tr></thead><tbody><tr><th>Viewer</th><td>Có</td><td>Không</td><td>Không</td><td>Không</td></tr><tr><th>Member</th><td>Có</td><td>Có *</td><td>Không</td><td>Không</td></tr><tr><th>Owner</th><td>Có</td><td>Có</td><td>Có</td><td>Có</td></tr></tbody></table></div>
+    <p class="hint">V2: xét role trong project. V3–V4 (*): Member chỉ sửa tiêu đề/mô tả task được giao cho mình và còn Open. Owner có thể đổi assignee/status và sửa task Closed. V4: mọi quyền còn phải nằm trong tenant; Admin chỉ quản trị tenant của mình.</p>
+    <p>Reset demo: dừng server → <code>npm run db:reset</code> → <code>npm start</code>.</p>
+    <a href="https://pub.nndkhoa9.win/webadv/w4/block-06-authorization-interactive.html#21" target="_blank" rel="noreferrer">Xem yêu cầu bài tập ↗</a>
+  </div></details>
+  </div>
+  <aside class="card result-card" id="result" aria-labelledby="result-title" data-expanded="false">
+    <div class="result-heading">
+      <div><h2 id="result-title">Kết quả từ server</h2><span id="http-status" class="badge">Chưa gửi</span></div>
+      <button type="button" id="result-toggle" class="secondary" aria-expanded="false" aria-controls="result-content">Mở kết quả</button>
+    </div>
+    <div id="result-content">
+      <p id="result-request">Chưa có request.</p>
+      <pre id="response" aria-live="polite">Response sẽ xuất hiện ở đây.</pre>
+      <details class="disclosure" id="curl-details"><summary>Xem request / cURL (token đã che)</summary><pre id="request-preview"></pre></details>
+      <p class="hint"><strong>200</strong> · Được phép<br><strong>401</strong> · Chưa xác thực<br><strong>403</strong> · Thiếu quyền<br><strong>404</strong> · Không tồn tại<br><strong>409</strong> · Xung đột</p>
+    </div>
+  </aside>
+  </div>
+  <footer>Block-6 · Hướng dẫn demo trong README.md · Bằng chứng trong evidence/</footer>
+</main>
+<dialog id="edit-dialog"><form id="edit-form"><h2>Sửa task <span id="edit-id"></span></h2><label>Tiêu đề<input id="edit-title" required maxlength="200"></label><label>Mô tả<textarea id="edit-description" rows="4" maxlength="5000"></textarea></label><label>Assignee ID (để trống = chưa giao)<input id="edit-assignee"></label><label>Trạng thái<select id="edit-status"><option>Open</option><option>Closed</option></select></label><p class="hint">Chỉ các trường thay đổi được gửi. Member không được đổi assignee/status.</p><div class="controls"><button>Lưu thay đổi</button><button type="button" id="cancel-edit" class="secondary">Hủy</button></div></form></dialog>
+</body></html>
