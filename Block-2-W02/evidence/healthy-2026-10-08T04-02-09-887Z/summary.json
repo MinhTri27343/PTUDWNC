@@ -1,0 +1,1314 @@
+[
+  {
+    "group": "healthy/baseline/web/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 50.59999990463257,
+        "min": 33.89999997615814,
+        "max": 51
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/mobile/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 51,
+        "min": 49.89999997615814,
+        "max": 52.39999997615814
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/web/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 67,
+        "min": 65.79999995231628,
+        "max": 67.30000007152557
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1244,
+        "min": 1244,
+        "max": 1244
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/mobile/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 66,
+        "min": 50.300000071525574,
+        "max": 66.5
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 491,
+        "min": 491,
+        "max": 491
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-naive/web/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 67.39999997615814,
+        "min": 66.5,
+        "max": 68.29999995231628
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1241,
+        "min": 1241,
+        "max": 1241
+      },
+      "upstream_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-naive/mobile/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 66.39999997615814,
+        "min": 65.60000002384186,
+        "max": 100.30000007152557
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 527,
+        "min": 527,
+        "max": 527
+      },
+      "upstream_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-batched/web/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 67.69999992847443,
+        "min": 66.5,
+        "max": 83.29999995231628
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1241,
+        "min": 1241,
+        "max": 1241
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-batched/mobile/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 66.70000004768372,
+        "min": 65.40000009536743,
+        "max": 67.70000004768372
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 527,
+        "min": 527,
+        "max": 527
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/web/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.59999990463257,
+        "min": 34.799999952316284,
+        "max": 52.199999928474426
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/mobile/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.89999997615814,
+        "min": 35.300000071525574,
+        "max": 51.60000002384186
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/web/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.39999997615814,
+        "min": 34.699999928474426,
+        "max": 35.5
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1244,
+        "min": 1244,
+        "max": 1244
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/mobile/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.39999997615814,
+        "min": 34.799999952316284,
+        "max": 35.799999952316284
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 491,
+        "min": 491,
+        "max": 491
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-naive/web/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.700000047683716,
+        "min": 35.40000009536743,
+        "max": 51.700000047683716
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1241,
+        "min": 1241,
+        "max": 1241
+      },
+      "upstream_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-naive/mobile/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.300000071525574,
+        "min": 34.5,
+        "max": 35.699999928474426
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 527,
+        "min": 527,
+        "max": 527
+      },
+      "upstream_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-batched/web/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.89999997615814,
+        "min": 35.699999928474426,
+        "max": 52.09999990463257
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1241,
+        "min": 1241,
+        "max": 1241
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-batched/mobile/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.5,
+        "min": 34,
+        "max": 35.90000009536743
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 527,
+        "min": 527,
+        "max": 527
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 21864,
+        "min": 21864,
+        "max": 21864
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/web/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 133.70000004768372,
+        "min": 116.40000009536743,
+        "max": 134.5
+      },
+      "browser_api_requests": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/mobile/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 117.39999997615814,
+        "min": 116.60000002384186,
+        "max": 117.79999995231628
+      },
+      "browser_api_requests": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/web/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 67.09999990463257,
+        "min": 66.80000007152557,
+        "max": 67.20000004768372
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 23509,
+        "min": 23509,
+        "max": 23509
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/mobile/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 50.89999997615814,
+        "min": 49.60000002384186,
+        "max": 66
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 9283,
+        "min": 9283,
+        "max": 9283
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-naive/web/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 100.40000009536743,
+        "min": 100.10000002384186,
+        "max": 121.10000002384186
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 23506,
+        "min": 23506,
+        "max": 23506
+      },
+      "upstream_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-naive/mobile/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 100.60000002384186,
+        "min": 98.70000004768372,
+        "max": 101.20000004768372
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 9699,
+        "min": 9699,
+        "max": 9699
+      },
+      "upstream_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-batched/web/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 83.79999995231628,
+        "min": 83.60000002384186,
+        "max": 84.5
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 23506,
+        "min": 23506,
+        "max": 23506
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-batched/mobile/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 66.69999992847443,
+        "min": 65.5,
+        "max": 68.5
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 9699,
+        "min": 9699,
+        "max": 9699
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/web/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 118.69999992847443,
+        "min": 118.5,
+        "max": 168.20000004768372
+      },
+      "browser_api_requests": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/mobile/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 103.69999992847443,
+        "min": 101.89999997615814,
+        "max": 119.10000002384186
+      },
+      "browser_api_requests": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/web/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.89999997615814,
+        "min": 35.299999952316284,
+        "max": 52
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 23509,
+        "min": 23509,
+        "max": 23509
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/mobile/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.199999928474426,
+        "min": 34.5,
+        "max": 35.800000071525574
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 9283,
+        "min": 9283,
+        "max": 9283
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-naive/web/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 52.299999952316284,
+        "min": 51.700000047683716,
+        "max": 69.5
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 23506,
+        "min": 23506,
+        "max": 23506
+      },
+      "upstream_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-naive/mobile/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 52.199999928474426,
+        "min": 51.60000002384186,
+        "max": 52.699999928474426
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 9699,
+        "min": 9699,
+        "max": 9699
+      },
+      "upstream_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-batched/web/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 52,
+        "min": 35.10000002384186,
+        "max": 52.299999952316284
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 23506,
+        "min": 23506,
+        "max": 23506
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  },
+  {
+    "group": "healthy/graphql-batched/mobile/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.800000071525574,
+        "min": 34.800000071525574,
+        "max": 36.5
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 9699,
+        "min": 9699,
+        "max": 9699
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 22460,
+        "min": 22460,
+        "max": 22460
+      }
+    }
+  }
+]

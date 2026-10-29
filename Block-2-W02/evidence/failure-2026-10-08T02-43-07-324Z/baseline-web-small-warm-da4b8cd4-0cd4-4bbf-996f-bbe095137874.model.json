@@ -1,0 +1,85 @@
+{
+  "user": {
+    "id": "U1",
+    "name": "Nguyễn Minh An"
+  },
+  "orders": [
+    {
+      "id": "O001",
+      "user_id": "U1",
+      "product_id": "P1",
+      "quantity": 1,
+      "total_cents": 120000,
+      "status": "pending",
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "product": null
+    },
+    {
+      "id": "O002",
+      "user_id": "U1",
+      "product_id": "P2",
+      "quantity": 2,
+      "total_cents": 500000,
+      "status": "shipping",
+      "created_at": "2026-01-01T00:01:00.000Z",
+      "product": {
+        "id": "P2",
+        "name": "Tai nghe",
+        "price_cents": 250000,
+        "thumbnail_url": "/images/P2.svg"
+      }
+    },
+    {
+      "id": "O003",
+      "user_id": "U1",
+      "product_id": "P1",
+      "quantity": 3,
+      "total_cents": 360000,
+      "status": "delivered",
+      "created_at": "2026-01-01T00:02:00.000Z",
+      "product": null
+    },
+    {
+      "id": "O004",
+      "user_id": "U1",
+      "product_id": "P3",
+      "quantity": 1,
+      "total_cents": 80000,
+      "status": "pending",
+      "created_at": "2026-01-01T00:03:00.000Z",
+      "product": {
+        "id": "P3",
+        "name": "Chuột",
+        "price_cents": 80000,
+        "thumbnail_url": "/images/P3.svg"
+      }
+    },
+    {
+      "id": "O005",
+      "user_id": "U1",
+      "product_id": "P2",
+      "quantity": 2,
+      "total_cents": 500000,
+      "status": "shipping",
+      "created_at": "2026-01-01T00:04:00.000Z",
+      "product": {
+        "id": "P2",
+        "name": "Tai nghe",
+        "price_cents": 250000,
+        "thumbnail_url": "/images/P2.svg"
+      }
+    }
+  ],
+  "errors": [
+    {
+      "scope": "product",
+      "resource_id": "P1",
+      "code": "RESOURCE_NOT_FOUND",
+      "message": "Không tải được thông tin sản phẩm. Dữ liệu không tồn tại.",
+      "order_ids": [
+        "O001",
+        "O003"
+      ]
+    }
+  ]
+}

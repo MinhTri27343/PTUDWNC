@@ -1,0 +1,362 @@
+[
+  {
+    "run_id": "baseline-web-small-cold-8f25f950-01bf-483c-a2b7-e128b290418c",
+    "compared_to": "baseline-web-small-cold-6d1452af-10df-4516-b328-899062000c8a",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-cold-73ab15c2-37e0-4999-b54f-c291fd99d8c7",
+    "compared_to": "baseline-web-small-cold-8f25f950-01bf-483c-a2b7-e128b290418c",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-cold-89791b12-9509-4574-a7c4-c3a423f16c92",
+    "compared_to": "baseline-web-small-cold-73ab15c2-37e0-4999-b54f-c291fd99d8c7",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-cold-376a3698-61c1-4ebb-85d9-907f9ff6f714",
+    "compared_to": "baseline-web-small-cold-89791b12-9509-4574-a7c4-c3a423f16c92",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-cold-c324ac26-143b-4ac1-81e7-5dd48934a6af",
+    "compared_to": "baseline-mobile-small-cold-91ccf64c-999b-4022-903e-de9847c473a4",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-cold-f82cfc26-ec13-4501-9f5f-488029cec632",
+    "compared_to": "baseline-mobile-small-cold-c324ac26-143b-4ac1-81e7-5dd48934a6af",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-cold-1fa75f80-e716-44d0-aa43-991c0424a679",
+    "compared_to": "baseline-mobile-small-cold-f82cfc26-ec13-4501-9f5f-488029cec632",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-cold-bf9a901a-6355-4104-935b-56a6355a3a11",
+    "compared_to": "baseline-mobile-small-cold-1fa75f80-e716-44d0-aa43-991c0424a679",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-cold-eb848790-bf23-4ded-aef9-7c1b4b7063a4",
+    "compared_to": "baseline-web-small-cold-376a3698-61c1-4ebb-85d9-907f9ff6f714",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-cold-27b7ce6c-de0d-451b-973e-8d12ea517776",
+    "compared_to": "bff-web-small-cold-eb848790-bf23-4ded-aef9-7c1b4b7063a4",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-cold-05f46c80-6a88-44f2-80f9-f742291f96ed",
+    "compared_to": "bff-web-small-cold-27b7ce6c-de0d-451b-973e-8d12ea517776",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-cold-07e7017a-0f8d-4dc1-8079-f9073ef65c33",
+    "compared_to": "bff-web-small-cold-05f46c80-6a88-44f2-80f9-f742291f96ed",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-cold-dcc3278a-1269-4dc3-9e8a-8b39a5f7d9b0",
+    "compared_to": "bff-web-small-cold-07e7017a-0f8d-4dc1-8079-f9073ef65c33",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-cold-934c8f65-b020-40a2-b727-390cc5a240b5",
+    "compared_to": "baseline-mobile-small-cold-bf9a901a-6355-4104-935b-56a6355a3a11",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-cold-ec6f8547-4f4f-48fd-b649-2e960f7d4125",
+    "compared_to": "bff-mobile-small-cold-934c8f65-b020-40a2-b727-390cc5a240b5",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-cold-850d3333-15d3-421b-bc8e-9d2948e7d663",
+    "compared_to": "bff-mobile-small-cold-ec6f8547-4f4f-48fd-b649-2e960f7d4125",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-cold-6cff7cd3-33f6-4674-999c-6a59f7c0ee27",
+    "compared_to": "bff-mobile-small-cold-850d3333-15d3-421b-bc8e-9d2948e7d663",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-cold-4bc613bc-eb9e-4dce-9586-28ec21e0fa30",
+    "compared_to": "bff-mobile-small-cold-6cff7cd3-33f6-4674-999c-6a59f7c0ee27",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-c73c6a3b-f814-4f3f-aefd-9eded968491d",
+    "compared_to": "baseline-web-small-warm-1ea2eb40-c82d-4e46-aa03-70fe545f20d0",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-2ff950cc-9423-4b9d-99ed-512cfed9bd43",
+    "compared_to": "baseline-web-small-warm-c73c6a3b-f814-4f3f-aefd-9eded968491d",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-8bcdbffe-36c9-4ddb-8523-3afbbbe73cda",
+    "compared_to": "baseline-web-small-warm-2ff950cc-9423-4b9d-99ed-512cfed9bd43",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-a0cea4b6-02ed-428b-9bfb-62b15d18cd05",
+    "compared_to": "baseline-web-small-warm-8bcdbffe-36c9-4ddb-8523-3afbbbe73cda",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-b3a4c4d8-0101-4bbf-95a4-a26a2fe1bd1b",
+    "compared_to": "baseline-mobile-small-warm-13e980cb-9e15-46c8-8e37-a2be13068500",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-089f4e14-c6ed-440f-9204-a05ae4b7c4cc",
+    "compared_to": "baseline-mobile-small-warm-b3a4c4d8-0101-4bbf-95a4-a26a2fe1bd1b",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-87c6416f-9ec1-4d3d-a761-e59e11955a5b",
+    "compared_to": "baseline-mobile-small-warm-089f4e14-c6ed-440f-9204-a05ae4b7c4cc",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-12862803-4d36-4568-8eaa-86d3d3e55e90",
+    "compared_to": "baseline-mobile-small-warm-87c6416f-9ec1-4d3d-a761-e59e11955a5b",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-b8c9e269-4795-4b4f-b2cb-64ae0b71838e",
+    "compared_to": "baseline-web-small-warm-a0cea4b6-02ed-428b-9bfb-62b15d18cd05",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-e440acb8-d560-4a76-b22e-9d64f0c1f0cb",
+    "compared_to": "bff-web-small-warm-b8c9e269-4795-4b4f-b2cb-64ae0b71838e",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-25d1b725-b8d1-4f09-9bcf-0369858bdbaa",
+    "compared_to": "bff-web-small-warm-e440acb8-d560-4a76-b22e-9d64f0c1f0cb",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-832df856-10c1-49b3-a3db-f665d938b22f",
+    "compared_to": "bff-web-small-warm-25d1b725-b8d1-4f09-9bcf-0369858bdbaa",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-4cbae4a9-758f-4580-9e5c-fa3ce97ada11",
+    "compared_to": "bff-web-small-warm-832df856-10c1-49b3-a3db-f665d938b22f",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-0359d548-2f4f-4477-91dc-18e3dcf43955",
+    "compared_to": "baseline-mobile-small-warm-12862803-4d36-4568-8eaa-86d3d3e55e90",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-010d2c50-b977-47ee-8ece-94557971b9b9",
+    "compared_to": "bff-mobile-small-warm-0359d548-2f4f-4477-91dc-18e3dcf43955",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-e5f46547-e467-44a3-948a-5874b408928b",
+    "compared_to": "bff-mobile-small-warm-010d2c50-b977-47ee-8ece-94557971b9b9",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-2b72aa89-6f31-4a65-95ae-ccc99f92cc9a",
+    "compared_to": "bff-mobile-small-warm-e5f46547-e467-44a3-948a-5874b408928b",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-3690b798-0f26-41b3-aff0-df624769eabd",
+    "compared_to": "bff-mobile-small-warm-2b72aa89-6f31-4a65-95ae-ccc99f92cc9a",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-large-cold-7a58cbea-ee4a-45d1-b571-8991e7ab1426",
+    "compared_to": "baseline-web-large-cold-535f97f8-6cdd-42c3-afa7-d83bd153d93b",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-large-cold-44c721eb-3def-4018-86d9-19a1728930a9",
+    "compared_to": "baseline-web-large-cold-7a58cbea-ee4a-45d1-b571-8991e7ab1426",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-large-cold-93fdbcdb-b200-4af6-b7da-46b2f443c75c",
+    "compared_to": "baseline-web-large-cold-44c721eb-3def-4018-86d9-19a1728930a9",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-large-cold-69a46b16-2525-4274-9659-d48d52831f56",
+    "compared_to": "baseline-web-large-cold-93fdbcdb-b200-4af6-b7da-46b2f443c75c",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-large-cold-fdb8d48a-c575-47e5-8036-a1bf1b67da32",
+    "compared_to": "baseline-mobile-large-cold-fcc62075-7e9b-4009-87af-d7eb417316ca",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-large-cold-73580540-2542-4edb-b3aa-f178b670aa38",
+    "compared_to": "baseline-mobile-large-cold-fdb8d48a-c575-47e5-8036-a1bf1b67da32",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-large-cold-337f2b76-c336-4fa8-8048-2cf153a08a50",
+    "compared_to": "baseline-mobile-large-cold-73580540-2542-4edb-b3aa-f178b670aa38",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-large-cold-43a1e6ce-348e-4a85-8b46-c5ba76ce41fd",
+    "compared_to": "baseline-mobile-large-cold-337f2b76-c336-4fa8-8048-2cf153a08a50",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-cold-b975eddb-41c6-44a0-8b37-e01cdade8d63",
+    "compared_to": "baseline-web-large-cold-69a46b16-2525-4274-9659-d48d52831f56",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-cold-f4c9f6a7-33c9-4b2c-82aa-33359169f5de",
+    "compared_to": "bff-web-large-cold-b975eddb-41c6-44a0-8b37-e01cdade8d63",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-cold-a8885439-6f4e-4e2d-b08f-ee5af3651a91",
+    "compared_to": "bff-web-large-cold-f4c9f6a7-33c9-4b2c-82aa-33359169f5de",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-cold-451ae2be-fb78-4615-881b-0c11e35e3316",
+    "compared_to": "bff-web-large-cold-a8885439-6f4e-4e2d-b08f-ee5af3651a91",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-cold-1c3693d5-ccf2-41fe-ba5d-46c9d05ab2f5",
+    "compared_to": "bff-web-large-cold-451ae2be-fb78-4615-881b-0c11e35e3316",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-cold-07438aec-1008-4e48-9e80-78c12c0e6fe8",
+    "compared_to": "baseline-mobile-large-cold-43a1e6ce-348e-4a85-8b46-c5ba76ce41fd",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-cold-dde180c5-ac97-4628-b486-b5032a7e88dd",
+    "compared_to": "bff-mobile-large-cold-07438aec-1008-4e48-9e80-78c12c0e6fe8",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-cold-0ded832c-8e2c-455e-a363-db2af172002c",
+    "compared_to": "bff-mobile-large-cold-dde180c5-ac97-4628-b486-b5032a7e88dd",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-cold-235e9137-c972-4559-b91a-8510f5b0ac92",
+    "compared_to": "bff-mobile-large-cold-0ded832c-8e2c-455e-a363-db2af172002c",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-cold-670cfd2a-e841-429a-9e4c-f4ee4951679d",
+    "compared_to": "bff-mobile-large-cold-235e9137-c972-4559-b91a-8510f5b0ac92",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-large-warm-cc9ca9de-deac-43f3-822d-38fb7ee8411a",
+    "compared_to": "baseline-web-large-warm-441f9ae1-8c6c-466d-8706-06ff0ab48c9c",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-large-warm-a0f1c5c0-3c1b-4edc-8932-24e223779e4c",
+    "compared_to": "baseline-web-large-warm-cc9ca9de-deac-43f3-822d-38fb7ee8411a",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-large-warm-29b997dd-320d-4d8f-805d-8bbbba24377f",
+    "compared_to": "baseline-web-large-warm-a0f1c5c0-3c1b-4edc-8932-24e223779e4c",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-large-warm-e129f4bb-0081-466c-acd1-f080add64fc6",
+    "compared_to": "baseline-web-large-warm-29b997dd-320d-4d8f-805d-8bbbba24377f",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-large-warm-bd07f800-4ecd-4678-bd5c-9e628d2c1b52",
+    "compared_to": "baseline-mobile-large-warm-04dc89be-1f81-40ff-83d0-03325634c1ce",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-large-warm-121b68ed-927a-4d31-8148-852bd709638e",
+    "compared_to": "baseline-mobile-large-warm-bd07f800-4ecd-4678-bd5c-9e628d2c1b52",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-large-warm-a95bd4eb-0a23-4ffc-a8f1-dfc7426779ba",
+    "compared_to": "baseline-mobile-large-warm-121b68ed-927a-4d31-8148-852bd709638e",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-large-warm-d32fff5b-57c6-426b-8002-6f41a316e1cc",
+    "compared_to": "baseline-mobile-large-warm-a95bd4eb-0a23-4ffc-a8f1-dfc7426779ba",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-warm-b36dec35-fb8d-4a41-8ca6-842a2c2f0f5e",
+    "compared_to": "baseline-web-large-warm-e129f4bb-0081-466c-acd1-f080add64fc6",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-warm-bb7c356c-af65-4ff5-95ce-996ea8b4aa5f",
+    "compared_to": "bff-web-large-warm-b36dec35-fb8d-4a41-8ca6-842a2c2f0f5e",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-warm-fe63795d-2a25-4247-9fe6-53b5878129f2",
+    "compared_to": "bff-web-large-warm-bb7c356c-af65-4ff5-95ce-996ea8b4aa5f",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-warm-f421da0d-af44-4fea-82e8-edb4f2a92fc4",
+    "compared_to": "bff-web-large-warm-fe63795d-2a25-4247-9fe6-53b5878129f2",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-large-warm-c4070448-23b9-430f-9736-59184ca48b78",
+    "compared_to": "bff-web-large-warm-f421da0d-af44-4fea-82e8-edb4f2a92fc4",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-warm-730d3949-dce5-4ebf-8eee-1e5c09ab200b",
+    "compared_to": "baseline-mobile-large-warm-d32fff5b-57c6-426b-8002-6f41a316e1cc",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-warm-f56d6648-0339-4afd-8a81-092f41ce4252",
+    "compared_to": "bff-mobile-large-warm-730d3949-dce5-4ebf-8eee-1e5c09ab200b",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-warm-3b7e9a13-c42b-453a-9207-0b72d9a3030e",
+    "compared_to": "bff-mobile-large-warm-f56d6648-0339-4afd-8a81-092f41ce4252",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-warm-fa6c664f-2250-4951-b907-94d7d1a3e58d",
+    "compared_to": "bff-mobile-large-warm-3b7e9a13-c42b-453a-9207-0b72d9a3030e",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-large-warm-c1518815-504d-4a7f-a66b-777ea86f72f1",
+    "compared_to": "bff-mobile-large-warm-fa6c664f-2250-4951-b907-94d7d1a3e58d",
+    "equal": true
+  }
+]

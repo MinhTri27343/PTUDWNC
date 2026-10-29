@@ -1,0 +1,658 @@
+[
+  {
+    "group": "healthy/baseline/web/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 64.80000007152557,
+        "min": 54,
+        "max": 78.20000004768372
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1165,
+        "min": 1165,
+        "max": 1165
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/mobile/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 52,
+        "min": 51.200000047683716,
+        "max": 52.5
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1165,
+        "min": 1165,
+        "max": 1165
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/web/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 68.79999995231628,
+        "min": 68.20000004768372,
+        "max": 69.70000004768372
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1240,
+        "min": 1240,
+        "max": 1240
+      },
+      "upstream_bytes": {
+        "median": 1184,
+        "min": 1184,
+        "max": 1184
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/mobile/small/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 59.40000009536743,
+        "min": 51.799999952316284,
+        "max": 69.79999995231628
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 486,
+        "min": 486,
+        "max": 486
+      },
+      "upstream_bytes": {
+        "median": 1184,
+        "min": 1184,
+        "max": 1184
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/web/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.699999928474426,
+        "min": 36,
+        "max": 53.799999952316284
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1165,
+        "min": 1165,
+        "max": 1165
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/mobile/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 37.299999952316284,
+        "min": 36.89999997615814,
+        "max": 52
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1165,
+        "min": 1165,
+        "max": 1165
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/web/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.5,
+        "min": 35.5,
+        "max": 37.10000002384186
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1240,
+        "min": 1240,
+        "max": 1240
+      },
+      "upstream_bytes": {
+        "median": 1184,
+        "min": 1184,
+        "max": 1184
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/mobile/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 35.799999952316284,
+        "min": 34.89999997615814,
+        "max": 36.39999997615814
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 486,
+        "min": 486,
+        "max": 486
+      },
+      "upstream_bytes": {
+        "median": 1184,
+        "min": 1184,
+        "max": 1184
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/web/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 135.29999995231628,
+        "min": 118.69999992847443,
+        "max": 135.79999995231628
+      },
+      "browser_api_requests": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/mobile/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 118.29999995231628,
+        "min": 117.89999997615814,
+        "max": 119.39999997615814
+      },
+      "browser_api_requests": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/web/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 69.20000004768372,
+        "min": 68.39999997615814,
+        "max": 69.60000002384186
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 23509,
+        "min": 23509,
+        "max": 23509
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/mobile/large/cold/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 69.09999990463257,
+        "min": 68.5,
+        "max": 70
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 9283,
+        "min": 9283,
+        "max": 9283
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/web/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 120.29999995231628,
+        "min": 119.79999995231628,
+        "max": 120.39999997615814
+      },
+      "browser_api_requests": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/baseline/mobile/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 103.89999997615814,
+        "min": 102.79999995231628,
+        "max": 104.30000007152557
+      },
+      "browser_api_requests": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 102,
+        "min": 102,
+        "max": 102
+      },
+      "api_bytes": {
+        "median": 22389,
+        "min": 22389,
+        "max": 22389
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/web/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 37.299999952316284,
+        "min": 36.699999928474426,
+        "max": 53.40000009536743
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 23509,
+        "min": 23509,
+        "max": 23509
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  },
+  {
+    "group": "healthy/bff/mobile/large/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.60000002384186,
+        "min": 35.700000047683716,
+        "max": 37.700000047683716
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 9283,
+        "min": 9283,
+        "max": 9283
+      },
+      "upstream_bytes": {
+        "median": 14580,
+        "min": 14580,
+        "max": 14580
+      },
+      "static_bytes": {
+        "median": 13405,
+        "min": 13405,
+        "max": 13405
+      }
+    }
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "orders": [
+    {
+      "id": "O001",
+      "status": "pending",
+      "product_name": "Bàn phím",
+      "thumbnail_url": "/images/P1.svg"
+    },
+    {
+      "id": "O002",
+      "status": "shipping",
+      "product_name": "Tai nghe",
+      "thumbnail_url": "/images/P2.svg"
+    },
+    {
+      "id": "O003",
+      "status": "delivered",
+      "product_name": "Bàn phím",
+      "thumbnail_url": "/images/P1.svg"
+    },
+    {
+      "id": "O004",
+      "status": "pending",
+      "product_name": "Chuột",
+      "thumbnail_url": "/images/P3.svg"
+    },
+    {
+      "id": "O005",
+      "status": "shipping",
+      "product_name": "Tai nghe",
+      "thumbnail_url": "/images/P2.svg"
+    }
+  ],
+  "errors": []
+}

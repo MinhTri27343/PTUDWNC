@@ -1,0 +1,148 @@
+
+> test
+> tsx --test --test-concurrency=1 tests/*.test.ts
+
+TAP version 13
+# Subtest: integration acceptance — real HTTP, separate SQLite processes, browser
+    # Subtest: small: baseline/BFF equality, mobile projection, measured calls and SQL
+    ok 1 - small: baseline/BFF equality, mobile projection, measured calls and SQL
+      ---
+      duration_ms: 487.911667
+      type: 'test'
+      ...
+    # Subtest: large: baseline/BFF equality, mobile projection, measured calls and SQL
+    ok 2 - large: baseline/BFF equality, mobile projection, measured calls and SQL
+      ---
+      duration_ms: 584.660084
+      type: 'test'
+      ...
+    # Subtest: empty orders, input errors, batch validation, unknown user
+    ok 3 - empty orders, input errors, batch validation, unknown user
+      ---
+      duration_ms: 430.322584
+      type: 'test'
+      ...
+    # Subtest: partial Product missing: both client models match
+    ok 4 - partial Product missing: both client models match
+      ---
+      duration_ms: 407.79
+      type: 'test'
+      ...
+    # Subtest: partial Product error: both client models match
+    ok 5 - partial Product error: both client models match
+      ---
+      duration_ms: 405.083333
+      type: 'test'
+      ...
+    # Subtest: partial Product timeout: both client models match
+    ok 6 - partial Product timeout: both client models match
+      ---
+      duration_ms: 12450.080209
+      type: 'test'
+      ...
+    # Subtest: User down keeps orders; Order down keeps user; all down gives HTTP200 errors
+    ok 7 - User down keeps orders; Order down keeps user; all down gives HTTP200 errors
+      ---
+      duration_ms: 2867.859875
+      type: 'test'
+      ...
+    # Subtest: browser UI: correct regions, shared rendering, no stale data, image decode
+    ok 8 - browser UI: correct regions, shared rendering, no stale data, image decode
+      ---
+      duration_ms: 1480.423541
+      type: 'test'
+      ...
+    1..8
+ok 1 - integration acceptance — real HTTP, separate SQLite processes, browser
+  ---
+  duration_ms: 19123.097791
+  type: 'test'
+  ...
+# Subtest: report computes median/range and separates partial samples
+ok 2 - report computes median/range and separates partial samples
+  ---
+  duration_ms: 0.484375
+  type: 'test'
+  ...
+# Subtest: integrated GraphQL shares REST/SQLite, naive N+1 versus request-scoped batching
+    # Subtest: small: equality, mobile, counters and request-scoped loader
+    ok 1 - small: equality, mobile, counters and request-scoped loader
+      ---
+      duration_ms: 632.21675
+      type: 'test'
+      ...
+    # Subtest: large: equality, mobile, counters and request-scoped loader
+    ok 2 - large: equality, mobile, counters and request-scoped loader
+      ---
+      duration_ms: 944.331333
+      type: 'test'
+      ...
+    # Subtest: partial missing: same view model/errors, GraphQL paths
+    ok 3 - partial missing: same view model/errors, GraphQL paths
+      ---
+      duration_ms: 433.999666
+      type: 'test'
+      ...
+    # Subtest: partial error: same view model/errors, GraphQL paths
+    ok 4 - partial error: same view model/errors, GraphQL paths
+      ---
+      duration_ms: 425.564125
+      type: 'test'
+      ...
+    # Subtest: partial timeout: same view model/errors, GraphQL paths
+    ok 5 - partial timeout: same view model/errors, GraphQL paths
+      ---
+      duration_ms: 14517.281917
+      type: 'test'
+      ...
+    # Subtest: User and Order failures stay independent; invalid queries rejected
+    ok 6 - User and Order failures stay independent; invalid queries rejected
+      ---
+      duration_ms: 1817.173917
+      type: 'test'
+      ...
+    # Subtest: UI changes dataset, Product faults and naive/batched; live comparison needs no commands
+    ok 7 - UI changes dataset, Product faults and naive/batched; live comparison needs no commands
+      ---
+      duration_ms: 3373.393667
+      type: 'test'
+      ...
+    1..7
+ok 3 - integrated GraphQL shares REST/SQLite, naive N+1 versus request-scoped batching
+  ---
+  duration_ms: 22153.155
+  type: 'test'
+  ...
+# Subtest: dashboard median/range uses real samples, including even sample count and unavailable values
+ok 4 - dashboard median/range uses real samples, including even sample count and unavailable values
+  ---
+  duration_ms: 0.696417
+  type: 'test'
+  ...
+# Subtest: dashboard isolates client/dataset/mode/state and does not mix failed with complete samples
+ok 5 - dashboard isolates client/dataset/mode/state and does not mix failed with complete samples
+  ---
+  duration_ms: 0.1235
+  type: 'test'
+  ...
+# Subtest: timeout waterfall recovers missing start from saved HAR, matching repeated URLs in order
+ok 6 - timeout waterfall recovers missing start from saved HAR, matching repeated URLs in order
+  ---
+  duration_ms: 2.433125
+  type: 'test'
+  ...
+# Subtest: localhost reports: latest complete, filtering, artifact links, empty state
+ok 7 - localhost reports: latest complete, filtering, artifact links, empty state
+  ---
+  duration_ms: 58.923625
+  type: 'test'
+  ...
+1..7
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 42517.377042

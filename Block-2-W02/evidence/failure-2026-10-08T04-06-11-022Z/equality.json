@@ -1,0 +1,762 @@
+[
+  {
+    "run_id": "baseline-web-small-warm-6f634c48-67f3-4ae6-b8b5-8d728ec3de24",
+    "compared_to": "baseline-web-small-warm-b6979540-f3ec-4e4f-90a3-902d649744e8",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-0707a4ea-e129-491f-a7ee-36fac37545fc",
+    "compared_to": "baseline-web-small-warm-6f634c48-67f3-4ae6-b8b5-8d728ec3de24",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-c9c3dd42-a4bd-4bbb-9503-d7f12f1e81ad",
+    "compared_to": "baseline-web-small-warm-0707a4ea-e129-491f-a7ee-36fac37545fc",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-1dea54a5-5437-4791-a9da-186026a972ff",
+    "compared_to": "baseline-web-small-warm-c9c3dd42-a4bd-4bbb-9503-d7f12f1e81ad",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-21b8ca90-d5c0-4f78-ab06-a409e79dfb84",
+    "compared_to": "baseline-mobile-small-warm-d5e94208-e215-47f4-8f08-560a9e158bb9",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-e3e38a16-acca-471d-8c10-0d5691957fc1",
+    "compared_to": "baseline-mobile-small-warm-21b8ca90-d5c0-4f78-ab06-a409e79dfb84",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-5d1bee46-c21c-4f80-9ea2-acf5e9cd60a3",
+    "compared_to": "baseline-mobile-small-warm-e3e38a16-acca-471d-8c10-0d5691957fc1",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-af846cb4-7164-4202-a4a2-f7396254c12d",
+    "compared_to": "baseline-mobile-small-warm-5d1bee46-c21c-4f80-9ea2-acf5e9cd60a3",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-7c79a30a-9ece-49fd-96a1-726e1e2b38c1",
+    "compared_to": "baseline-web-small-warm-1dea54a5-5437-4791-a9da-186026a972ff",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-ee86e207-9aa7-42ad-904f-6c480bd67ce9",
+    "compared_to": "bff-web-small-warm-7c79a30a-9ece-49fd-96a1-726e1e2b38c1",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-ebf47f50-70f1-4226-871e-c586ba838a0a",
+    "compared_to": "bff-web-small-warm-ee86e207-9aa7-42ad-904f-6c480bd67ce9",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-9871bbc2-1cfd-4ea1-92f5-3b9f559259c0",
+    "compared_to": "bff-web-small-warm-ebf47f50-70f1-4226-871e-c586ba838a0a",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-1e09e535-2a5e-47e7-ad86-d3586a67c434",
+    "compared_to": "bff-web-small-warm-9871bbc2-1cfd-4ea1-92f5-3b9f559259c0",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-11471de5-d255-4697-8af3-3737cdcd9f66",
+    "compared_to": "baseline-mobile-small-warm-af846cb4-7164-4202-a4a2-f7396254c12d",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-e4552073-495a-4e0d-9d54-0324d9014b75",
+    "compared_to": "bff-mobile-small-warm-11471de5-d255-4697-8af3-3737cdcd9f66",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-4710adb5-e9ed-4acd-85e3-3555c29b9f37",
+    "compared_to": "bff-mobile-small-warm-e4552073-495a-4e0d-9d54-0324d9014b75",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-b70af77e-1ecc-4252-9138-003ad15664ce",
+    "compared_to": "bff-mobile-small-warm-4710adb5-e9ed-4acd-85e3-3555c29b9f37",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-294b6939-3f46-49fe-9fdc-2605fa90d889",
+    "compared_to": "bff-mobile-small-warm-b70af77e-1ecc-4252-9138-003ad15664ce",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-9513abd9-265e-4c3e-a194-5967a1eb91be",
+    "compared_to": "bff-web-small-warm-1e09e535-2a5e-47e7-ad86-d3586a67c434",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-cba05abd-b3ad-4057-92a6-91a5db86f59a",
+    "compared_to": "graphql-naive-web-small-warm-9513abd9-265e-4c3e-a194-5967a1eb91be",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-a50fc7ee-ae40-4642-8271-66d348e3df32",
+    "compared_to": "graphql-naive-web-small-warm-cba05abd-b3ad-4057-92a6-91a5db86f59a",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-2d0726c2-9e7d-4ce2-b590-2d75eac671d9",
+    "compared_to": "graphql-naive-web-small-warm-a50fc7ee-ae40-4642-8271-66d348e3df32",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-dac98639-0dc4-4782-ad2d-b00346205fec",
+    "compared_to": "graphql-naive-web-small-warm-2d0726c2-9e7d-4ce2-b590-2d75eac671d9",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-5730ca58-93f4-42ff-b705-14b35285a70c",
+    "compared_to": "bff-mobile-small-warm-294b6939-3f46-49fe-9fdc-2605fa90d889",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-5d34d236-c163-44ed-9f1f-5b922cd89de4",
+    "compared_to": "graphql-naive-mobile-small-warm-5730ca58-93f4-42ff-b705-14b35285a70c",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-f3660260-eb74-4df5-823b-339c07e3342e",
+    "compared_to": "graphql-naive-mobile-small-warm-5d34d236-c163-44ed-9f1f-5b922cd89de4",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-41499f04-bc8d-436d-a4de-a68932838cc3",
+    "compared_to": "graphql-naive-mobile-small-warm-f3660260-eb74-4df5-823b-339c07e3342e",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-d1622583-6146-44f1-922c-f4ac28668075",
+    "compared_to": "graphql-naive-mobile-small-warm-41499f04-bc8d-436d-a4de-a68932838cc3",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-ed128fd1-b683-405b-9b23-3630b6273f26",
+    "compared_to": "graphql-naive-web-small-warm-dac98639-0dc4-4782-ad2d-b00346205fec",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-fcd1d384-954b-436d-93ea-e8647314abbb",
+    "compared_to": "graphql-batched-web-small-warm-ed128fd1-b683-405b-9b23-3630b6273f26",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-d705d786-c3ad-4d04-b53a-353be55cad85",
+    "compared_to": "graphql-batched-web-small-warm-fcd1d384-954b-436d-93ea-e8647314abbb",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-51b5d935-1744-4925-8e7a-7b63df11cea6",
+    "compared_to": "graphql-batched-web-small-warm-d705d786-c3ad-4d04-b53a-353be55cad85",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-3345f1dc-c2d8-43b8-830c-de65f9459b70",
+    "compared_to": "graphql-batched-web-small-warm-51b5d935-1744-4925-8e7a-7b63df11cea6",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-3b31eef8-af7f-4edb-a3ce-bd57417ea5c2",
+    "compared_to": "graphql-naive-mobile-small-warm-d1622583-6146-44f1-922c-f4ac28668075",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-bfeca459-1031-467b-8776-c1175017969b",
+    "compared_to": "graphql-batched-mobile-small-warm-3b31eef8-af7f-4edb-a3ce-bd57417ea5c2",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-f75ed806-47f1-4db4-b314-2e0c8f19978d",
+    "compared_to": "graphql-batched-mobile-small-warm-bfeca459-1031-467b-8776-c1175017969b",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-66d627bb-2a04-4285-ab3a-46ed00d53029",
+    "compared_to": "graphql-batched-mobile-small-warm-f75ed806-47f1-4db4-b314-2e0c8f19978d",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-3b696f3b-f96c-4563-abd2-a185b3a147d3",
+    "compared_to": "graphql-batched-mobile-small-warm-66d627bb-2a04-4285-ab3a-46ed00d53029",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-df22d3e5-9e73-41bc-aa83-8e090361a504",
+    "compared_to": "baseline-web-small-warm-a0c475e6-4abb-4ce7-b8bf-428284abfa06",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-c0393695-4e9a-438c-8c4a-32f19a1b7de7",
+    "compared_to": "baseline-web-small-warm-df22d3e5-9e73-41bc-aa83-8e090361a504",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-5cd24c50-4f50-428e-b037-2d39c3bdfd34",
+    "compared_to": "baseline-web-small-warm-c0393695-4e9a-438c-8c4a-32f19a1b7de7",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-7b823495-794d-45c7-9a34-4a6c0f1b05be",
+    "compared_to": "baseline-web-small-warm-5cd24c50-4f50-428e-b037-2d39c3bdfd34",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-bf48246d-3f53-4add-83ae-da0064e45bda",
+    "compared_to": "baseline-mobile-small-warm-444810eb-c158-4cac-9b4b-fae6760c4c57",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-9f94f87a-8496-4248-9a90-b544074ac98d",
+    "compared_to": "baseline-mobile-small-warm-bf48246d-3f53-4add-83ae-da0064e45bda",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-bc41bd7c-6437-433a-8973-032969dcf0b6",
+    "compared_to": "baseline-mobile-small-warm-9f94f87a-8496-4248-9a90-b544074ac98d",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-26097c1e-4966-497a-aca4-970712441b4c",
+    "compared_to": "baseline-mobile-small-warm-bc41bd7c-6437-433a-8973-032969dcf0b6",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-76ca481b-ce0a-4eed-8b50-aba44d1b323e",
+    "compared_to": "baseline-web-small-warm-7b823495-794d-45c7-9a34-4a6c0f1b05be",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-7654a48f-5aa8-42fa-9c89-5212d7e8042c",
+    "compared_to": "bff-web-small-warm-76ca481b-ce0a-4eed-8b50-aba44d1b323e",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-4a146a81-9eac-423c-b534-7ff8e24f70bc",
+    "compared_to": "bff-web-small-warm-7654a48f-5aa8-42fa-9c89-5212d7e8042c",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-56d9b3e8-fea3-4b36-9680-cc555310f71f",
+    "compared_to": "bff-web-small-warm-4a146a81-9eac-423c-b534-7ff8e24f70bc",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-4ab122cd-ac54-44e8-a851-ab8a04d320c1",
+    "compared_to": "bff-web-small-warm-56d9b3e8-fea3-4b36-9680-cc555310f71f",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-c03a24d4-8684-4759-8e95-6010d3a4ce76",
+    "compared_to": "baseline-mobile-small-warm-26097c1e-4966-497a-aca4-970712441b4c",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-133db959-2d17-478f-b7f7-f83f1688882e",
+    "compared_to": "bff-mobile-small-warm-c03a24d4-8684-4759-8e95-6010d3a4ce76",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-5e25e51f-c127-4f4c-a4fa-4defaa4b301a",
+    "compared_to": "bff-mobile-small-warm-133db959-2d17-478f-b7f7-f83f1688882e",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-102ecd6c-cc3e-40a8-a1a8-ef6e311bdd6b",
+    "compared_to": "bff-mobile-small-warm-5e25e51f-c127-4f4c-a4fa-4defaa4b301a",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-cded99f9-7ad3-4764-b688-e1227b3729b3",
+    "compared_to": "bff-mobile-small-warm-102ecd6c-cc3e-40a8-a1a8-ef6e311bdd6b",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-03c25bb8-bd7e-4ed2-9ad2-3bef54fd833c",
+    "compared_to": "bff-web-small-warm-4ab122cd-ac54-44e8-a851-ab8a04d320c1",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-9f293fe9-6a2e-47a4-bb63-6623c16e5cb9",
+    "compared_to": "graphql-naive-web-small-warm-03c25bb8-bd7e-4ed2-9ad2-3bef54fd833c",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-4043ad19-2ae3-42e8-bcf8-ea0f48fb45c2",
+    "compared_to": "graphql-naive-web-small-warm-9f293fe9-6a2e-47a4-bb63-6623c16e5cb9",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-a64455b4-7b97-4a03-b8fc-3c963264b8b2",
+    "compared_to": "graphql-naive-web-small-warm-4043ad19-2ae3-42e8-bcf8-ea0f48fb45c2",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-88f68ac4-8187-4ba0-ab8e-73125d6dfe9a",
+    "compared_to": "graphql-naive-web-small-warm-a64455b4-7b97-4a03-b8fc-3c963264b8b2",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-d7b96217-1a3a-4546-95dc-fd1696b54f8e",
+    "compared_to": "bff-mobile-small-warm-cded99f9-7ad3-4764-b688-e1227b3729b3",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-c6ea089d-1771-49c5-bdd7-3d9844d1bbc0",
+    "compared_to": "graphql-naive-mobile-small-warm-d7b96217-1a3a-4546-95dc-fd1696b54f8e",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-09087bba-aff2-46af-be92-093308263014",
+    "compared_to": "graphql-naive-mobile-small-warm-c6ea089d-1771-49c5-bdd7-3d9844d1bbc0",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-9cb61717-92fe-43c0-87a2-041b392f52a6",
+    "compared_to": "graphql-naive-mobile-small-warm-09087bba-aff2-46af-be92-093308263014",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-75175dda-0c86-40b2-803b-4f0cf991d4ac",
+    "compared_to": "graphql-naive-mobile-small-warm-9cb61717-92fe-43c0-87a2-041b392f52a6",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-ad305cbb-4879-413a-9870-b04b293aa3b4",
+    "compared_to": "graphql-naive-web-small-warm-88f68ac4-8187-4ba0-ab8e-73125d6dfe9a",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-cd14e5fa-c076-4ef0-a979-204d4089557f",
+    "compared_to": "graphql-batched-web-small-warm-ad305cbb-4879-413a-9870-b04b293aa3b4",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-f9c61209-ac2a-4672-86d3-bd12dad43ac1",
+    "compared_to": "graphql-batched-web-small-warm-cd14e5fa-c076-4ef0-a979-204d4089557f",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-a2e27c5c-aa41-4af4-aa99-99e5753f8dfb",
+    "compared_to": "graphql-batched-web-small-warm-f9c61209-ac2a-4672-86d3-bd12dad43ac1",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-bed9f106-7240-4f8b-b7f7-6e1eca024941",
+    "compared_to": "graphql-batched-web-small-warm-a2e27c5c-aa41-4af4-aa99-99e5753f8dfb",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-565e2848-394a-4085-a053-3052c70670d6",
+    "compared_to": "graphql-naive-mobile-small-warm-75175dda-0c86-40b2-803b-4f0cf991d4ac",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-5641c5ab-4e58-4b89-bd95-7c299d9a78af",
+    "compared_to": "graphql-batched-mobile-small-warm-565e2848-394a-4085-a053-3052c70670d6",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-e2ff0dbc-68da-4e2f-b53e-1d62952801a8",
+    "compared_to": "graphql-batched-mobile-small-warm-5641c5ab-4e58-4b89-bd95-7c299d9a78af",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-a18998f0-fb04-4607-a173-e8e39776ef7a",
+    "compared_to": "graphql-batched-mobile-small-warm-e2ff0dbc-68da-4e2f-b53e-1d62952801a8",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-d593e1dc-1afc-47d3-acef-36f2856ac1f4",
+    "compared_to": "graphql-batched-mobile-small-warm-a18998f0-fb04-4607-a173-e8e39776ef7a",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-eddaf1d1-0cd4-4bc5-a79c-947845d2396a",
+    "compared_to": "baseline-web-small-warm-8bc91819-d2e9-4504-94de-b1c39609e845",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-64806b65-ab94-46a0-98c3-c1613517bff5",
+    "compared_to": "baseline-web-small-warm-eddaf1d1-0cd4-4bc5-a79c-947845d2396a",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-194167fc-8a0d-4968-b0e4-cb39b7848a6a",
+    "compared_to": "baseline-web-small-warm-64806b65-ab94-46a0-98c3-c1613517bff5",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-838c56fa-2728-4b11-87db-240f8869fd4f",
+    "compared_to": "baseline-web-small-warm-194167fc-8a0d-4968-b0e4-cb39b7848a6a",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-f23b375b-3d21-4cd9-8262-20a6277befca",
+    "compared_to": "baseline-mobile-small-warm-4029b81f-ec47-4086-9a5a-d73853728b39",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-f37a5392-80a9-4e74-a0d0-f40b410ae5d8",
+    "compared_to": "baseline-mobile-small-warm-f23b375b-3d21-4cd9-8262-20a6277befca",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-19f6defb-dcb0-44e2-81e5-4df25f71a776",
+    "compared_to": "baseline-mobile-small-warm-f37a5392-80a9-4e74-a0d0-f40b410ae5d8",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-c437b5c0-0661-4889-bfcc-e0b73470a47a",
+    "compared_to": "baseline-mobile-small-warm-19f6defb-dcb0-44e2-81e5-4df25f71a776",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-09c489df-480b-4e7b-a023-d2916d4026ee",
+    "compared_to": "baseline-web-small-warm-838c56fa-2728-4b11-87db-240f8869fd4f",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-cecc1b20-6ad1-40ad-96d8-7b5aa7fc5e53",
+    "compared_to": "bff-web-small-warm-09c489df-480b-4e7b-a023-d2916d4026ee",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-d9424263-cc9f-4ffd-9246-cbdc5e194bc8",
+    "compared_to": "bff-web-small-warm-cecc1b20-6ad1-40ad-96d8-7b5aa7fc5e53",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-30a461ce-bd80-4367-9157-b989a349936f",
+    "compared_to": "bff-web-small-warm-d9424263-cc9f-4ffd-9246-cbdc5e194bc8",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-918978e9-ad78-4259-b29b-c411ca9e03da",
+    "compared_to": "bff-web-small-warm-30a461ce-bd80-4367-9157-b989a349936f",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-b55eb1cf-e22f-4523-9372-63066d9fad10",
+    "compared_to": "baseline-mobile-small-warm-c437b5c0-0661-4889-bfcc-e0b73470a47a",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-2edff904-b0e5-4a7d-a216-3afc44abcad2",
+    "compared_to": "bff-mobile-small-warm-b55eb1cf-e22f-4523-9372-63066d9fad10",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-d0058ae6-39d4-4f19-9268-4537b2612cf4",
+    "compared_to": "bff-mobile-small-warm-2edff904-b0e5-4a7d-a216-3afc44abcad2",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-52ded546-ccef-49cc-bccc-cdb46ac7e579",
+    "compared_to": "bff-mobile-small-warm-d0058ae6-39d4-4f19-9268-4537b2612cf4",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-05a91d3c-7092-43c4-94e1-6062f4c5c82f",
+    "compared_to": "bff-mobile-small-warm-52ded546-ccef-49cc-bccc-cdb46ac7e579",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-c56ca735-7f21-459e-8935-380f0b93bb9f",
+    "compared_to": "bff-web-small-warm-918978e9-ad78-4259-b29b-c411ca9e03da",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-98314661-49a4-462d-b288-0a97c29c326c",
+    "compared_to": "graphql-naive-web-small-warm-c56ca735-7f21-459e-8935-380f0b93bb9f",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-52d51bd3-0c69-4de3-bea5-3bc9636780e1",
+    "compared_to": "graphql-naive-web-small-warm-98314661-49a4-462d-b288-0a97c29c326c",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-908b16f0-e4ff-4d85-9126-7961bf2718e5",
+    "compared_to": "graphql-naive-web-small-warm-52d51bd3-0c69-4de3-bea5-3bc9636780e1",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-2a7b70dd-b8f5-4e2e-aafd-691344aa50be",
+    "compared_to": "graphql-naive-web-small-warm-908b16f0-e4ff-4d85-9126-7961bf2718e5",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-5516d333-eb1d-493f-a0e7-297440459524",
+    "compared_to": "bff-mobile-small-warm-05a91d3c-7092-43c4-94e1-6062f4c5c82f",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-6e3a6e59-bc37-40b7-bad7-cbd530816e6c",
+    "compared_to": "graphql-naive-mobile-small-warm-5516d333-eb1d-493f-a0e7-297440459524",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-a4dcd655-b6b9-464a-9088-fb532c8b192e",
+    "compared_to": "graphql-naive-mobile-small-warm-6e3a6e59-bc37-40b7-bad7-cbd530816e6c",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-13f7df08-ebf7-4f22-a763-b8b127e111a7",
+    "compared_to": "graphql-naive-mobile-small-warm-a4dcd655-b6b9-464a-9088-fb532c8b192e",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-5002b185-1c64-40de-85d9-83c6d0dc5493",
+    "compared_to": "graphql-naive-mobile-small-warm-13f7df08-ebf7-4f22-a763-b8b127e111a7",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-bb8fc91f-d5d4-4029-8543-95ca32d22fc2",
+    "compared_to": "graphql-naive-web-small-warm-2a7b70dd-b8f5-4e2e-aafd-691344aa50be",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-73f6c351-3377-43b3-adc7-77da716db0ca",
+    "compared_to": "graphql-batched-web-small-warm-bb8fc91f-d5d4-4029-8543-95ca32d22fc2",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-75949956-53c8-4df7-8c73-61cc0baa0d99",
+    "compared_to": "graphql-batched-web-small-warm-73f6c351-3377-43b3-adc7-77da716db0ca",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-f9049434-c0a5-49b5-91b7-db5934ddc0be",
+    "compared_to": "graphql-batched-web-small-warm-75949956-53c8-4df7-8c73-61cc0baa0d99",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-125103ee-c342-40e3-b9b0-4379077b1de1",
+    "compared_to": "graphql-batched-web-small-warm-f9049434-c0a5-49b5-91b7-db5934ddc0be",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-95542b70-03f4-4df0-9470-204bc1aef34f",
+    "compared_to": "graphql-naive-mobile-small-warm-5002b185-1c64-40de-85d9-83c6d0dc5493",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-6b5ad801-e4d1-490a-b29c-e51656c2f4ac",
+    "compared_to": "graphql-batched-mobile-small-warm-95542b70-03f4-4df0-9470-204bc1aef34f",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-b3fad2d9-ae16-40b2-a021-3ad42723f749",
+    "compared_to": "graphql-batched-mobile-small-warm-6b5ad801-e4d1-490a-b29c-e51656c2f4ac",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-82b1f0dd-9e5e-4a9f-bc49-5b0e5ce5ac76",
+    "compared_to": "graphql-batched-mobile-small-warm-b3fad2d9-ae16-40b2-a021-3ad42723f749",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-590a16f7-f442-40b9-9b59-4b94cedd5be4",
+    "compared_to": "graphql-batched-mobile-small-warm-82b1f0dd-9e5e-4a9f-bc49-5b0e5ce5ac76",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-0fe75136-9d2f-4378-ac32-0e11f3063ad9",
+    "compared_to": "baseline-web-small-warm-c7a404ce-86ab-482c-a0d6-320d342c2d1b",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-b043c5b0-8ed0-45fd-9d45-5721a6b46fb4",
+    "compared_to": "baseline-web-small-warm-0fe75136-9d2f-4378-ac32-0e11f3063ad9",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-4577e9c9-390a-4775-bbd9-e220b81a0c35",
+    "compared_to": "baseline-web-small-warm-b043c5b0-8ed0-45fd-9d45-5721a6b46fb4",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-web-small-warm-d112b16a-b8f6-4a68-bd9c-6f784d4d044a",
+    "compared_to": "baseline-web-small-warm-4577e9c9-390a-4775-bbd9-e220b81a0c35",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-6a0c30db-1c42-4366-8c19-7e11c6f2719d",
+    "compared_to": "baseline-mobile-small-warm-425b21f2-b02f-4da6-9c41-e25785300ac6",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-0af89142-278c-4b4d-b1ee-be1302425847",
+    "compared_to": "baseline-mobile-small-warm-6a0c30db-1c42-4366-8c19-7e11c6f2719d",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-951cdc68-efe6-40b0-8986-a47feb085c1a",
+    "compared_to": "baseline-mobile-small-warm-0af89142-278c-4b4d-b1ee-be1302425847",
+    "equal": true
+  },
+  {
+    "run_id": "baseline-mobile-small-warm-5438fb65-769c-4fb9-a646-75b9050516a9",
+    "compared_to": "baseline-mobile-small-warm-951cdc68-efe6-40b0-8986-a47feb085c1a",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-0ea4b3a1-7f8b-40c1-90e1-5899e6de5800",
+    "compared_to": "baseline-web-small-warm-d112b16a-b8f6-4a68-bd9c-6f784d4d044a",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-2daf120a-57fb-486b-9262-8fae80d766d7",
+    "compared_to": "bff-web-small-warm-0ea4b3a1-7f8b-40c1-90e1-5899e6de5800",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-8848d98c-f350-4581-94ae-1714fe9ec04a",
+    "compared_to": "bff-web-small-warm-2daf120a-57fb-486b-9262-8fae80d766d7",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-ef725175-29a9-4b9c-9c7c-dd44cb320850",
+    "compared_to": "bff-web-small-warm-8848d98c-f350-4581-94ae-1714fe9ec04a",
+    "equal": true
+  },
+  {
+    "run_id": "bff-web-small-warm-911aba15-d17e-4986-b211-44cdf9ee9ea1",
+    "compared_to": "bff-web-small-warm-ef725175-29a9-4b9c-9c7c-dd44cb320850",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-f12ffdcb-0dbb-4970-9b21-4e5b135d12c2",
+    "compared_to": "baseline-mobile-small-warm-5438fb65-769c-4fb9-a646-75b9050516a9",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-02bb68df-3229-4c34-a875-9b0466afeb51",
+    "compared_to": "bff-mobile-small-warm-f12ffdcb-0dbb-4970-9b21-4e5b135d12c2",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-5a076c9f-af97-4b69-85ff-4f6562ab5799",
+    "compared_to": "bff-mobile-small-warm-02bb68df-3229-4c34-a875-9b0466afeb51",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-bfa31f52-0c40-47b5-8668-b063ef658719",
+    "compared_to": "bff-mobile-small-warm-5a076c9f-af97-4b69-85ff-4f6562ab5799",
+    "equal": true
+  },
+  {
+    "run_id": "bff-mobile-small-warm-9a294396-d55b-40d7-9e21-f30d6f565a73",
+    "compared_to": "bff-mobile-small-warm-bfa31f52-0c40-47b5-8668-b063ef658719",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-7e501d36-515e-443b-b88c-8411fd1ef96e",
+    "compared_to": "bff-web-small-warm-911aba15-d17e-4986-b211-44cdf9ee9ea1",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-1230cede-e13b-4d44-a54e-524e865da016",
+    "compared_to": "graphql-naive-web-small-warm-7e501d36-515e-443b-b88c-8411fd1ef96e",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-698b73a9-65d9-4a08-bc69-a4a21df150d8",
+    "compared_to": "graphql-naive-web-small-warm-1230cede-e13b-4d44-a54e-524e865da016",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-00215820-d39f-422c-a9c2-2aa91f286ade",
+    "compared_to": "graphql-naive-web-small-warm-698b73a9-65d9-4a08-bc69-a4a21df150d8",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-web-small-warm-f9f2995b-733b-41bf-83aa-7ecabcb9b95b",
+    "compared_to": "graphql-naive-web-small-warm-00215820-d39f-422c-a9c2-2aa91f286ade",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-eb220e2c-62a7-4960-8e15-d723dfd6313d",
+    "compared_to": "bff-mobile-small-warm-9a294396-d55b-40d7-9e21-f30d6f565a73",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-7ee42702-7ee7-44ba-83ec-cf430dc5ce49",
+    "compared_to": "graphql-naive-mobile-small-warm-eb220e2c-62a7-4960-8e15-d723dfd6313d",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-85283e80-b174-4655-b518-5350ea34c340",
+    "compared_to": "graphql-naive-mobile-small-warm-7ee42702-7ee7-44ba-83ec-cf430dc5ce49",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-3677b0c4-7309-4b73-bc25-67ca4b81044d",
+    "compared_to": "graphql-naive-mobile-small-warm-85283e80-b174-4655-b518-5350ea34c340",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-naive-mobile-small-warm-99549cd7-62f7-4dc4-9f2c-4ecc0b9dbef6",
+    "compared_to": "graphql-naive-mobile-small-warm-3677b0c4-7309-4b73-bc25-67ca4b81044d",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-91f18fb4-8826-4c90-b524-193690836cd4",
+    "compared_to": "graphql-naive-web-small-warm-f9f2995b-733b-41bf-83aa-7ecabcb9b95b",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-dbc44782-64c9-4ed0-a349-8ccad91394a9",
+    "compared_to": "graphql-batched-web-small-warm-91f18fb4-8826-4c90-b524-193690836cd4",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-e16af053-67e9-405e-8c1f-e1fba465ae4d",
+    "compared_to": "graphql-batched-web-small-warm-dbc44782-64c9-4ed0-a349-8ccad91394a9",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-61bebe4d-77d6-4b9b-a704-6a8fa4f6d9a1",
+    "compared_to": "graphql-batched-web-small-warm-e16af053-67e9-405e-8c1f-e1fba465ae4d",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-web-small-warm-817661a0-f482-49d9-a924-1a4f5658ac8a",
+    "compared_to": "graphql-batched-web-small-warm-61bebe4d-77d6-4b9b-a704-6a8fa4f6d9a1",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-b6f1c9ef-3826-4c5a-83ce-79730b298de1",
+    "compared_to": "graphql-naive-mobile-small-warm-99549cd7-62f7-4dc4-9f2c-4ecc0b9dbef6",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-6eb5702d-bc2f-48aa-a156-74c6b8981057",
+    "compared_to": "graphql-batched-mobile-small-warm-b6f1c9ef-3826-4c5a-83ce-79730b298de1",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-588cc9e3-0681-4fbf-89a2-40e3c97427c7",
+    "compared_to": "graphql-batched-mobile-small-warm-6eb5702d-bc2f-48aa-a156-74c6b8981057",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-19c8ac00-fc84-412a-878a-20eb2b0e5ae4",
+    "compared_to": "graphql-batched-mobile-small-warm-588cc9e3-0681-4fbf-89a2-40e3c97427c7",
+    "equal": true
+  },
+  {
+    "run_id": "graphql-batched-mobile-small-warm-a5ecd576-e2cd-46e0-928b-9e66f4e3d18d",
+    "compared_to": "graphql-batched-mobile-small-warm-19c8ac00-fc84-412a-878a-20eb2b0e5ae4",
+    "equal": true
+  }
+]
