@@ -1,4 +1,5 @@
 import type { Db } from '../db.js';
+import { SEED_RIDE } from '../labData.js';
 import { nowSec } from '../util.js';
 
 export interface WalletLink {
@@ -77,8 +78,21 @@ export class TaxiStore {
       .run(nowSec(), userId);
   }
 
-  expireAccessTokens(): void {
-    this.db.prepare("UPDATE wallet_links SET access_exp = ? WHERE status = 'linked'").run(nowSec() - 1);
+  /** Simulate "the user left more than one access-token lifetime ago" (one user, or all linked users). */
+  expireAccessTokens(userId?: string): void {
+    this.db
+      .prepare("UPDATE wallet_links SET access_exp = ? WHERE status = 'linked' AND (? IS NULL OR taxi_user_id = ?)")
+      .run(nowSec() - 1, userId ?? null, userId ?? null);
+  }
+
+  /** Demo reset: unlink everyone and restore the single seeded pending ride. */
+  reset(): void {
+    this.db.transaction(() => {
+      this.db.exec('DELETE FROM wallet_links; DELETE FROM rides;');
+      this.db
+        .prepare("INSERT INTO rides (id, taxi_user_id, amount_cents, status, created_at) VALUES (?, ?, ?, 'pending', ?)")
+        .run(SEED_RIDE.id, SEED_RIDE.taxiUser, SEED_RIDE.amountCents, nowSec());
+    })();
   }
 
   pendingRides(userId: string): Ride[] {

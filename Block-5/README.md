@@ -1,12 +1,13 @@
 # Block 5 — Wallet Authorization Server (OAuth 2.0 + PKCE)
 
-Three small apps, one repo. Scenario: **Taxi** charges **Alice**'s wallet after each ride, even when she is not in the app.
+Three small services plus a visualizer, one repo. Scenario: **Taxi** charges **Alice**'s wallet after each ride, even when she is not in the app.
 
 | App | URL | Role |
 |---|---|---|
 | Wallet AS | http://localhost:4000 | Authorization server: login, consent, `/authorize`, `/token`, JWKS, account page. **The focus of this lab.** |
 | Wallet API | http://localhost:4001 | Resource server: verifies ES256 access tokens offline via JWKS |
-| Taxi | http://localhost:4002 | OAuth client (`openid-client`): link wallet, payment job |
+| Taxi | http://localhost:4002 | OAuth client backend (`openid-client`): JSON API, `/callback`, payment job. **No UI of its own.** |
+| **Flow UI** | http://localhost:4003 | **Independent visualizer** of the OAuth2 + PKCE flow. Not the frontend of any service. |
 
 Swagger UI: AS `http://localhost:4000/docs`, Wallet API `http://localhost:4001/docs`.
 Lab accounts (fake): `alice` / `alice-pass`, `bob` / `bob-pass`. Lab only — use a vetted AS such as Keycloak in production.
@@ -49,9 +50,30 @@ npm run api
 npm run taxi
 ```
 
-## 4. Demo
+```bash
+npm run flow
+```
 
-1. **Link wallet:** open http://localhost:4002 → *Link wallet* → sign in as `alice` → *Allow* → *Show balance*. The browser only ever sees `code` and `state`; Taxi exchanges the code server-to-server.
+## 4. Flow UI — the way to demo (http://localhost:4003)
+
+The Flow UI shows **real traffic**: your browser calls Taxi, the Wallet AS and the Wallet API directly, and each of them streams the HTTP exchanges and decisions it really handled (`GET /_flow/stream`, Server-Sent Events). The page draws them as a sequence diagram with lanes *Browser · Taxi · Wallet AS · Wallet API (· Attacker)*. Click any arrow for the full request/response and a plain-language explanation. Codes, states, challenges and tokens are shown only as fingerprints such as `<code:867d63bf>`; **click a fingerprint to follow the same value through the flow** (e.g. `state` returns unchanged; the `code` in the redirect is the one sent to `/token`).
+
+**Reset demo (start over)** (top right) puts all three services back to their freshly seeded state without restarting anything or running `db:reset`: consents, codes and refresh tokens wiped, Taxi unlinked, balances restored, charge counter 0, one pending ride, everyone signed out, diagram cleared. **Clear diagram** only wipes the picture.
+
+Buttons on the left, in presentation order:
+
+1. **Link wallet** → opens the Wallet AS in a popup (allow popups for `localhost:4003`). Sign in `alice` / `alice-pass`, press **Allow**. Diagram: `POST /api/link/start` → `/authorize` → `/login` → `/consent` → `/callback` → Taxi→AS `POST /token` (+ `pkce_check`, `code_burned` decisions) → *Wallet linked*. Then **Show balance** (Taxi → API, JWT verified offline).
+2. **Make access token stale** + **Run payment job** (or the one-click button): refresh with rotation, then a single charge; the live-state panel shows the access/refresh token fingerprints change and the API charge counter.
+3. **Open AS account page** → *Revoke access*, then run the job again: `invalid_grant`, Taxi becomes *unlinked*.
+4. **Taxi M2M reads public rates** / **Try to charge with a client token** (`client_credentials`; the charge gets 403).
+5. **What the browser can't do**: call the API without a token or with a fake one (401), call `/token` directly (the browser blocks the response — no CORS — yet the AS still logged and rejected it), read the public JWKS.
+6. **Run attacks**: runs `scripts/attack.ts`; its requests show up on the *Attacker* lane with the AS's decisions (`token_rejected reason=…`, `refresh_family_revoked`). "Fast" skips the 60 s expired-code case.
+
+The services expose `/_flow/*` and CORS for the Flow UI origin only for this lab; they must not exist in production.
+
+## 5. Demo from the command line (no UI)
+
+1. **Link wallet:** use the Flow UI (§4) — the Taxi backend has no screen of its own. The browser only ever sees `code` and `state`; Taxi exchanges the code server-to-server.
 2. **Payment job (no user session, expired access token):**
    ```bash
    npm run taxi:job -- --expire
@@ -65,7 +87,7 @@ npm run taxi
 4. **Revocation:** sign in at http://localhost:4000/account as Alice → *Revoke access*. Taxi's next refresh gets `invalid_grant` and Taxi becomes *unlinked*.
 5. **Client Credentials:** in Swagger (`:4000/docs`) *Authorize* with `taxi-m2m` and call `POST /token` with `grant_type=client_credentials`, then use the token on the Wallet API (`/public/rates` 200, `/wallet/charges` 403).
 
-## 5. Generate all evidence
+## 6. Generate all evidence
 
 With a **fresh** `npm run db:reset` and the three apps running:
 
@@ -82,7 +104,7 @@ Codes, states, challenges and tokens are replaced by labelled fingerprints (e.g.
 npm test
 ```
 
-55 tests on a throw-away SQLite file per suite (authorize, token, refresh/revocation/client-credentials). `npm run typecheck` runs `tsc`.
+60 tests on a throw-away SQLite file per suite (authorize, token, refresh/revocation/client-credentials, flow redaction/tap). `npm run typecheck` runs `tsc`.
 
 ## Libraries (versions as installed)
 
@@ -94,7 +116,9 @@ Libraries only do JWT, hashing, randomness and Taxi's client side. The protocol 
 ```
 src/as/          Authorization server (routes/, services/grants.ts, keys.ts, views/)
 src/wallet-api/  Resource server (verify.ts = offline JWT verification)
-src/taxi/        OAuth client: oauthClient.ts, tokenManager.ts (per-user lock), paymentJob.ts
+src/taxi/        OAuth client backend: app.ts (JSON API), oauthClient.ts, tokenManager.ts (per-user lock), paymentJob.ts
+src/flow/        Event tap (bus.ts) + redaction (redact.ts) shared by the three services
+src/flow-ui/     The Flow UI: server.ts + public/ (index.html, app.js, style.css)
 migrations/      as/ api/ taxi/ (.sql)
 openapi/         as.yaml, wallet-api.yaml (Swagger UI)
 scripts/         keygen, seed, reset, attack, evidence

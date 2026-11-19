@@ -63,8 +63,10 @@ async function redirectTrace(): Promise<string[]> {
     return res;
   };
 
-  let res = await hop('POST', `${config.taxiUrl}/link`);
-  res = await hop('GET', new URL(res.headers.get('location')!, config.taxiUrl).toString());
+  let res = await hop('POST', `${config.taxiUrl}/api/link/start`);
+  const { authorize_url: authorizeUrl } = (await res.json()) as { authorize_url: string };
+  lines.push('              (Taxi created state + PKCE verifier server-side and returned the AS URL; the Flow UI opens it in a popup)');
+  res = await hop('GET', authorizeUrl);
   let html = await res.text();
   res = await hop('POST', `${AS}/login`, {
     ...form({ csrf: csrfOf(html), username: 'alice', password: 'alice-pass' }),
@@ -75,11 +77,10 @@ async function redirectTrace(): Promise<string[]> {
   lines.push('              (consent screen: Alice pressed Allow)');
   const callback = new URL(res.headers.get('location')!, config.taxiUrl).toString();
   res = await hop('GET', callback);
-  res = await hop('GET', new URL(res.headers.get('location')!, config.taxiUrl).toString());
   const body = await res.text();
-  lines.push('', `Result page shows: ${/Wallet linked\./.test(body) ? '"Wallet linked."' : '(not linked)'}`);
-  const status = (await (await send(jarFor(config.taxiUrl), `${config.taxiUrl}/status`)).json()) as { status: string };
-  lines.push(`Taxi /status (never contains tokens): ${JSON.stringify(status)}`);
+  lines.push('', `Callback page shows: ${/Wallet linked/.test(body) ? '"Wallet linked"' : '(not linked)'}`);
+  const state = (await (await send(jarFor(config.taxiUrl), `${config.taxiUrl}/api/state`)).json()) as { link: { status: string; access_exp: number } };
+  lines.push(`Taxi /api/state (never contains tokens): ${JSON.stringify({ status: state.link.status, access_exp: state.link.access_exp })}`);
   return lines;
 }
 
@@ -194,14 +195,18 @@ async function revocationEvidence(): Promise<string[]> {
   const taxi = jarFor(config.taxiUrl);
   const asJar = jarFor(AS);
   const balance = async (): Promise<string> => {
-    const r = await send(taxi, `${config.taxiUrl}/balance`, { method: 'POST' });
-    const home = await send(taxi, new URL(r.headers.get('location')!, config.taxiUrl).toString());
-    return /<p class="flash">([^<]*)</.exec(await home.text())?.[1] ?? '(no message)';
+    const r = await send(taxi, `${config.taxiUrl}/api/balance`, { method: 'POST' });
+    const j = (await r.json()) as { http_status?: number; body?: { balance_cents?: number }; error?: string };
+    return j.error ? `${r.status} ${j.error}` : `Balance: ${j.body?.balance_cents} (Wallet API ${j.http_status})`;
   };
-  const status = async (): Promise<string> =>
-    JSON.stringify(await (await send(taxi, `${config.taxiUrl}/status`)).json());
+  const status = async (): Promise<string> => {
+    const { link } = (await (await send(taxi, `${config.taxiUrl}/api/state`)).json()) as {
+      link: { status: string; access_exp: number | null };
+    };
+    return JSON.stringify({ status: link.status, access_exp: link.access_exp });
+  };
 
-  await send(taxi, `${config.taxiUrl}/rides`, { method: 'POST' });
+  await send(taxi, `${config.taxiUrl}/api/rides`, { method: 'POST' });
   lines.push(`${stamp()}  before revocation: Taxi status ${await status()}; balance call -> ${await balance()}`);
 
   // Alice's AS session is still in the jar from the linking run.

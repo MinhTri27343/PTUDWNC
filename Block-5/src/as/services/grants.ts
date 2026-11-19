@@ -1,6 +1,7 @@
 import type { Db } from '../../db.js';
 import { config } from '../../config.js';
-import { nowSec, randomToken, safeEqual, sha256B64Url, sha256Hex } from '../../util.js';
+import { label } from '../../flow/redact.js';
+import { log, nowSec, randomToken, safeEqual, sha256B64Url, sha256Hex } from '../../util.js';
 
 /** Result of a grant check: either an OAuth error (RFC 6749 §5.2) or what we are allowed to issue. */
 export type GrantResult<T> = { ok: true; value: T } | { ok: false; error: string; description: string; reason: string };
@@ -30,10 +31,10 @@ const VERIFIER_FORMAT = /^[A-Za-z0-9\-._~]{43,128}$/;
 const scopesOf = (scope: string): string[] => scope.split(' ').filter(Boolean);
 
 export function revokeFamily(db: Db, familyId: string): void {
-  db.prepare('UPDATE refresh_tokens SET revoked_at = ? WHERE family_id = ? AND revoked_at IS NULL').run(
-    nowSec(),
-    familyId,
-  );
+  const r = db
+    .prepare('UPDATE refresh_tokens SET revoked_at = ? WHERE family_id = ? AND revoked_at IS NULL')
+    .run(nowSec(), familyId);
+  log('as', 'refresh_family_revoked', { family: label('family', familyId), tokens_revoked: r.changes });
 }
 
 /** Insert a refresh token (hash only) in a family; returns the plaintext for the one-time response. */
@@ -87,6 +88,7 @@ export function redeemAuthorizationCode(
       .prepare('UPDATE auth_codes SET used_at = ? WHERE code_hash = ? AND used_at IS NULL')
       .run(now, codeHash);
     if (burned.changes !== 1) return fail('invalid_grant', 'Authorization code already used', 'code_reused');
+    log('as', 'code_burned', { code: label('code', input.code), note: 'marked used before any other check (single use)' });
 
     if (row.expires_at <= now) return fail('invalid_grant', 'Authorization code expired', 'code_expired');
     if (row.client_id !== client.client_id) {
@@ -95,13 +97,16 @@ export function redeemAuthorizationCode(
     if (row.redirect_uri !== input.redirectUri) {
       return fail('invalid_grant', 'redirect_uri does not match the authorization request', 'redirect_uri_mismatch');
     }
-    if (
-      !row.code_challenge ||
-      !VERIFIER_FORMAT.test(input.codeVerifier) ||
-      !safeEqual(sha256B64Url(input.codeVerifier), row.code_challenge)
-    ) {
-      return fail('invalid_grant', 'PKCE verification failed', 'pkce_mismatch');
-    }
+    const computed = sha256B64Url(input.codeVerifier);
+    const pkceOk =
+      !!row.code_challenge && VERIFIER_FORMAT.test(input.codeVerifier) && safeEqual(computed, row.code_challenge);
+    // Fingerprints only: equal labels mean BASE64URL(SHA-256(code_verifier)) == the challenge from /authorize.
+    log('as', 'pkce_check', {
+      stored_challenge: label('code_challenge', row.code_challenge ?? ''),
+      s256_of_verifier: label('code_challenge', computed),
+      match: pkceOk,
+    });
+    if (!pkceOk) return fail('invalid_grant', 'PKCE verification failed', 'pkce_mismatch');
 
     const value: Issuable = { userId: row.user_id, accessScope: row.scope };
     if (scopesOf(row.scope).includes('offline_access')) {
@@ -177,6 +182,11 @@ export function rotateRefreshToken(
       revokeFamily(db, row.family_id);
       return fail('invalid_grant', 'Refresh token already used', 'refresh_replayed');
     }
+    log('as', 'refresh_rotated', {
+      old: label('refresh_token', input.refreshToken),
+      new: label('refresh_token', successor.token),
+      note: 'old token marked used; presenting it again revokes the whole family',
+    });
     return { ok: true, value: { userId: row.user_id, accessScope: requested.join(' '), refreshToken: successor.token } };
   });
   return txn.immediate();

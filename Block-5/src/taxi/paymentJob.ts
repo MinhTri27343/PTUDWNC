@@ -2,6 +2,7 @@ import { pathToFileURL } from 'node:url';
 import { config } from '../config.js';
 import { openDb } from '../db.js';
 import { iso, log } from '../util.js';
+import { TAXI_HEADERS } from './oauthClient.js';
 import { getAccessToken, NotLinkedError } from './tokenManager.js';
 import { TaxiStore } from './store.js';
 
@@ -35,6 +36,7 @@ export async function runPaymentJob(store: TaxiStore, onlyUser?: string): Promis
         const res = await fetch(`${config.apiUrl}/wallet/charges`, {
           method: 'POST',
           headers: {
+            ...TAXI_HEADERS,
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
             'Idempotency-Key': ride.id,

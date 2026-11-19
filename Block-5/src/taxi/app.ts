@@ -1,8 +1,17 @@
-import express, { type Express, type Request, type Response } from 'express';
+import express, { type Express, type Request } from 'express';
 import session from 'express-session';
 import { config } from '../config.js';
-import { escapeHtml as h, fingerprint, iso, log, nowSec } from '../util.js';
-import { CLIENT_ID, getOAuthConfig, oidc, REDIRECT_URI, REQUESTED_SCOPE } from './oauthClient.js';
+import { corsFor, flowRouter, flowTap, FlowBus } from '../flow/bus.js';
+import { fingerprint, iso, log, nowSec } from '../util.js';
+import {
+  CLIENT_ID,
+  getM2mConfig,
+  getOAuthConfig,
+  oidc,
+  REDIRECT_URI,
+  REQUESTED_SCOPE,
+  TAXI_HEADERS,
+} from './oauthClient.js';
 import { runPaymentJob } from './paymentJob.js';
 import type { TaxiStore } from './store.js';
 import { getAccessToken, NotLinkedError } from './tokenManager.js';
@@ -11,15 +20,30 @@ declare module 'express-session' {
   interface SessionData {
     taxiUser?: string;
     oauth?: { state: string; codeVerifier: string };
-    flash?: string;
   }
 }
 
+/**
+ * Taxi is the OAuth *client* (a backend). It has no screen of its own: the Flow UI drives it through this
+ * small JSON API, and the browser popup only ever visits /callback. Tokens never leave this process.
+ */
 export function createTaxiApp(store: TaxiStore): Express {
   const app = express();
   app.disable('x-powered-by');
+
+  const bus = new FlowBus('taxi');
+  const sessions = new session.MemoryStore();
+  app.use(
+    flowRouter(bus, () => {
+      store.reset();
+      sessions.clear();
+    }),
+  );
+  // The Flow UI is another origin: allow it to call /api with the Taxi session cookie (same site: localhost).
+  app.use('/api', corsFor(config.flowUrl, { credentials: true }));
   app.use(
     session({
+      store: sessions,
       name: 'taxi_sid',
       secret: config.taxiSessionSecret,
       resave: false,
@@ -27,63 +51,50 @@ export function createTaxiApp(store: TaxiStore): Express {
       cookie: { httpOnly: true, sameSite: 'lax', maxAge: 60 * 60 * 1000 },
     }),
   );
+  app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
+  app.use(flowTap(bus));
 
   const currentUser = (req: Request): string => req.session.taxiUser ?? 'alice';
-  const back = (req: Request, res: Response, message: string): void => {
-    req.session.flash = message;
-    res.redirect(303, '/');
-  };
 
-  app.get('/', (req, res) => {
+  app.get('/', (_req, res) => {
+    res.type('text/plain').send(`Taxi backend (OAuth client). No UI here — open the Flow UI at ${config.flowUrl}`);
+  });
+
+  app.get('/api/state', (req, res) => {
     const userId = currentUser(req);
     const link = store.getLink(userId);
-    const flash = req.session.flash;
-    req.session.flash = undefined;
-    const rides = store.rides(userId);
-
-    const linkText =
-      link?.status === 'linked'
-        ? `Linked — scope <code>${h(link.scope)}</code>, access token expires ${link.access_exp ? h(iso(link.access_exp)) : '?'}`
-        : link?.status === 'unlinked'
-          ? 'Unlinked (the Wallet rejected our refresh token)'
-          : 'Not linked';
-
-    res.send(`<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Taxi</title>
-<style>body{font-family:system-ui,sans-serif;max-width:640px;margin:32px auto;padding:0 16px;color:#1b2430}
-button{padding:8px 14px;border:0;border-radius:8px;background:#0b5fff;color:#fff;cursor:pointer;margin:4px 4px 4px 0}
-.card{background:#f4f6f8;border-radius:10px;padding:14px 18px;margin:14px 0} code{background:#e8ecf1;padding:1px 5px;border-radius:4px}
-.flash{background:#fff7d6;padding:10px 14px;border-radius:8px} table{width:100%;border-collapse:collapse} td,th{text-align:left;padding:4px 6px;border-bottom:1px solid #dde2e8}</style>
-</head><body>
-<h1>Taxi</h1>
-${flash ? `<p class="flash">${h(flash)}</p>` : ''}
-<div class="card"><form method="post" action="/switch">
-  Taxi account: <select name="user" onchange="this.form.submit()">
-  ${store
-    .users()
-    .map((u) => `<option value="${h(u.id)}"${u.id === userId ? ' selected' : ''}>${h(u.display_name)}</option>`)
-    .join('')}</select></form></div>
-<div class="card"><strong>Wallet:</strong> ${linkText}
-  <form method="post" action="/link"><button>Link wallet</button></form>
-  <form method="post" action="/balance"><button>Show balance</button></form></div>
-<div class="card"><strong>Rides</strong>
-  <table><tr><th>Ride</th><th>Amount</th><th>Status</th></tr>
-  ${rides.map((r) => `<tr><td>${h(r.id)}</td><td>${r.amount_cents}</td><td>${h(r.status)}</td></tr>`).join('')}</table>
-  <form method="post" action="/rides"><button>New ride (2500)</button></form>
-  <form method="post" action="/payment-job"><button>Run payment job (no session)</button></form></div>
-</body></html>`);
+    res.json({
+      user: userId,
+      users: store.users(),
+      link: {
+        status: link?.status ?? 'none',
+        scope: link?.scope ?? null,
+        access_exp: link?.access_exp ?? null,
+        // fingerprints only: shows rotation (the value changes after each refresh) without exposing tokens
+        refresh_fp: link?.refresh_token ? fingerprint(link.refresh_token) : null,
+        access_fp: link?.access_token ? fingerprint(link.access_token) : null,
+      },
+      rides: store.rides(userId),
+      now: nowSec(),
+    });
   });
 
-  app.post('/switch', (req, res) => {
+  app.post('/api/user', (req, res) => {
     const user = String(req.body?.user ?? '');
-    if (store.users().some((u) => u.id === user)) req.session.taxiUser = user;
-    res.redirect(303, '/');
+    if (!store.users().some((u) => u.id === user)) {
+      res.status(400).json({ error: 'unknown_user' });
+      return;
+    }
+    req.session.taxiUser = user;
+    res.json({ user });
   });
 
-  app.post('/link', async (req, res) => {
+  /** Step 1 of linking: Taxi creates state + PKCE verifier (kept server side) and returns the AS URL. */
+  app.post('/api/link/start', async (req, res) => {
     const codeVerifier = oidc.randomPKCECodeVerifier();
     const state = oidc.randomState();
-    req.session.oauth = { state, codeVerifier }; // verifier stays server side, never in the browser
+    req.session.oauth = { state, codeVerifier };
     const url = oidc.buildAuthorizationUrl(getOAuthConfig(), {
       redirect_uri: REDIRECT_URI,
       scope: REQUESTED_SCOPE,
@@ -91,16 +102,24 @@ ${flash ? `<p class="flash">${h(flash)}</p>` : ''}
       code_challenge_method: 'S256',
       state,
     });
-    log('taxi', 'link_redirect', { user: currentUser(req), authorize_url: url.origin + url.pathname });
-    res.redirect(303, url.href);
+    log('taxi', 'pkce_started', { note: 'code_verifier stays in the Taxi session; only its S256 challenge goes to the AS', user: currentUser(req) });
+    res.json({ authorize_url: url.href });
   });
 
+  /** Step 2: the browser (popup) lands here with ?code&state. Taxi exchanges the code on the back channel. */
   app.get('/callback', async (req, res) => {
     const pending = req.session.oauth;
     req.session.oauth = undefined;
     const userId = currentUser(req);
+    const done = (ok: boolean, message: string): void => {
+      res.type('html').send(`<!doctype html><meta charset="utf-8"><title>Taxi callback</title>
+<body style="font-family:system-ui;padding:24px"><h1>${ok ? 'Wallet linked' : 'Link failed'}</h1><p>${message}</p><p>You can close this window.</p>
+<script>try{window.opener&&window.opener.postMessage({type:'taxi:link',ok:${ok}},${JSON.stringify(config.flowUrl)})}catch(e){}
+setTimeout(function(){window.close()},400)</script></body>`);
+    };
     if (!pending) {
-      back(req, res, 'Link failed: no pending authorization (state missing).');
+      log('taxi', 'link_failed', { user: userId, error: 'no pending authorization (state missing)' });
+      done(false, 'No pending authorization.');
       return;
     }
     try {
@@ -122,49 +141,73 @@ ${flash ? `<p class="flash">${h(flash)}</p>` : ''}
         client: CLIENT_ID,
         scope: tokens.scope,
         refresh: tokens.refresh_token ? fingerprint(tokens.refresh_token) : null,
+        access_exp: iso(nowSec() + (tokens.expires_in ?? 0)),
       });
-      back(req, res, 'Wallet linked.');
+      done(true, 'Taxi now holds the tokens server side.');
     } catch (err) {
       const code = err instanceof oidc.AuthorizationResponseError || err instanceof oidc.ResponseBodyError ? err.error : 'error';
       log('taxi', 'link_failed', { user: userId, error: code });
-      back(req, res, `Link failed: ${code}`);
+      done(false, `Error: ${code}`);
     }
   });
 
-  app.post('/balance', async (req, res) => {
+  app.post('/api/balance', async (req, res) => {
     const userId = currentUser(req);
     try {
       const accessToken = await getAccessToken(store, userId);
-      const r = await fetch(`${config.apiUrl}/wallet/balance`, { headers: { Authorization: `Bearer ${accessToken}` } });
-      const body = (await r.json()) as { balance_cents?: number; error?: string };
-      back(req, res, r.ok ? `Balance: ${body.balance_cents}` : `Wallet API said ${r.status} ${body.error ?? ''}`);
+      const r = await fetch(`${config.apiUrl}/wallet/balance`, {
+        headers: { ...TAXI_HEADERS, Authorization: `Bearer ${accessToken}` },
+      });
+      res.json({ http_status: r.status, body: await r.json() });
     } catch (err) {
       if (err instanceof NotLinkedError) {
-        back(req, res, 'Wallet is not linked.');
+        res.status(409).json({ error: 'not_linked' });
         return;
       }
       throw err;
     }
   });
 
-  app.post('/rides', (req, res) => {
-    store.createRide(currentUser(req), 2500);
-    res.redirect(303, '/');
+  app.post('/api/rides', (req, res) => {
+    res.status(201).json(store.createRide(currentUser(req), 2500));
   });
 
-  app.post('/payment-job', async (req, res) => {
+  /** "Simulate Alice being away": the stored access token is treated as expired. */
+  app.post('/api/expire', (req, res) => {
+    store.expireAccessTokens(currentUser(req));
+    log('taxi', 'access_token_aged', { note: 'simulated: stored access token considered expired', user: currentUser(req) });
+    res.json({ ok: true });
+  });
+
+  /** The background payment job: no browser session involved, only the stored refresh token. */
+  app.post('/api/payment-job', async (req, res) => {
     const summary = await runPaymentJob(store, currentUser(req));
-    back(
-      req,
-      res,
-      `Job: charged ${summary.charged.length}, skipped ${summary.skipped.length}, failed ${summary.failed.length}. Wallet API counter ${summary.counterBefore} → ${summary.counterAfter}.`,
-    );
+    res.json(summary);
   });
 
-  // JSON status for scripts/tests — never includes tokens.
-  app.get('/status', (req, res) => {
-    const link = store.getLink(currentUser(req));
-    res.json({ user: currentUser(req), status: link?.status ?? 'none', access_exp: link?.access_exp ?? null });
+  /** Machine-to-machine: Taxi's own identity (client_credentials) reading public rates. */
+  app.post('/api/m2m/rates', async (_req, res) => {
+    const t = await oidc.clientCredentialsGrant(getM2mConfig(), { scope: 'rates:read' });
+    const r = await fetch(`${config.apiUrl}/public/rates`, {
+      headers: { ...TAXI_HEADERS, Authorization: `Bearer ${t.access_token}` },
+    });
+    res.json({ token: { scope: t.scope, expires_in: t.expires_in, refresh_token_issued: !!t.refresh_token }, http_status: r.status, body: await r.json() });
+  });
+
+  /** A client token must NOT be able to charge a wallet: the API answers 403 (wrong scope / principal_type). */
+  app.post('/api/m2m/try-charge', async (_req, res) => {
+    const t = await oidc.clientCredentialsGrant(getM2mConfig(), { scope: 'rates:read' });
+    const r = await fetch(`${config.apiUrl}/wallet/charges`, {
+      method: 'POST',
+      headers: {
+        ...TAXI_HEADERS,
+        Authorization: `Bearer ${t.access_token}`,
+        'Content-Type': 'application/json',
+        'Idempotency-Key': `m2m-attempt-${Date.now()}`,
+      },
+      body: JSON.stringify({ amount_cents: 100 }),
+    });
+    res.json({ http_status: r.status, body: await r.json() });
   });
 
   return app;

@@ -51,6 +51,11 @@ Design decisions (see `PLAN.md`):
 - `evidence/grant-table.md` — filled from observed `/token` responses and the decoded claims, with the RFC 6749 §5.1 check (`Cache-Control: no-store`, `Pragma: no-cache`, `token_type`, `expires_in`, `refresh_token` rules).
 - `evidence/revocation.txt` — Alice revokes Taxi; the next refresh returns `invalid_grant` and Taxi becomes *unlinked*.
 
+## 4b. Flow UI (live visualizer)
+
+`npm run flow` (http://localhost:4003) is an independent page, not the frontend of any service. The browser calls Taxi (`/api/*`), the Wallet AS and the Wallet API directly and subscribes to each service's `/_flow/stream` (SSE). Every inbound HTTP exchange and every decision the service logs (`pkce_check`, `code_burned`, `token_rejected`, `refresh_family_revoked`, `jwt_verified`...) is drawn on a sequence diagram (Browser / Taxi / Wallet AS / Wallet API / Attacker). It is real traffic, not a simulation: the attack script's requests and the API's own JWKS download appear as they happen. Secrets never reach the page: codes, states, challenges, verifiers, refresh tokens, passwords and tokens are replaced by fingerprints (`<code:867d63bf>`), access tokens by their public claims; the redaction is covered by `tests/flow.test.ts`.
+Lab-only: the `/_flow/*` endpoints and the CORS allowances for the Flow UI origin must not exist in production.
+
 ## 5. Revocation policy
 
 Alice revokes Taxi at `/account`. The AS, in one transaction, sets `consents.revoked_at` and `refresh_tokens.revoked_at` for **every** refresh family of the (Alice, Taxi) pair. Taxi's next refresh gets `400 invalid_grant` and Taxi marks the wallet *unlinked*; other apps' consents are untouched.

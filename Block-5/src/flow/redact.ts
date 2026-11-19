@@ -63,7 +63,7 @@ export function redactLocation(location: string, base: string): string {
     for (const [k, v] of [...url.searchParams]) {
       if (SECRET_KEYS.has(k)) url.searchParams.set(k, label(k, v));
     }
-    return decodeURIComponent(url.toString());
+    return decodeURIComponent(location.startsWith('/') ? `${url.pathname}${url.search}` : url.toString());
   } catch {
     return location;
   }

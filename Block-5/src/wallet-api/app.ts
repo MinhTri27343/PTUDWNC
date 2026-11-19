@@ -2,6 +2,8 @@ import express, { type Express } from 'express';
 import type { Db } from '../db.js';
 import { config } from '../config.js';
 import { mountDocs } from '../docs.js';
+import { SEED_BALANCES } from '../labData.js';
+import { corsFor, flowRouter, flowTap, FlowBus } from '../flow/bus.js';
 import { log } from '../util.js';
 import { requireAuth } from './verify.js';
 
@@ -15,7 +17,21 @@ interface ChargeResult {
 export function createApiApp(db: Db): Express {
   const app = express();
   app.disable('x-powered-by');
+  const bus = new FlowBus('api');
+  app.use(
+    flowRouter(bus, () => {
+      // Demo reset: wallets back to their seed balance, no charges, counter 0.
+      db.transaction(() => {
+        db.exec('DELETE FROM charges; DELETE FROM idempotency_keys; UPDATE charge_counter SET count = 0 WHERE id = 1;');
+        const set = db.prepare('UPDATE wallets SET balance_cents = ? WHERE user_id = ?');
+        for (const [user, cents] of Object.entries(SEED_BALANCES)) set.run(cents, user);
+      })();
+    }),
+  );
+  // Lab-only: lets the Flow UI show what a *browser* gets when it calls the API directly (no token -> 401).
+  app.use(corsFor(config.flowUrl));
   app.use(express.json());
+  app.use(flowTap(bus));
   mountDocs(app, 'wallet-api.yaml', config.apiUrl);
 
   app.get('/wallet/balance', requireAuth({ scope: 'wallet:read' }), (req, res) => {

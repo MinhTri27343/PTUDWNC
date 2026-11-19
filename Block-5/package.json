@@ -15,6 +15,7 @@
     "api": "tsx src/wallet-api/server.ts",
     "taxi": "tsx src/taxi/server.ts",
     "taxi:job": "tsx src/taxi/paymentJob.ts",
+    "flow": "tsx src/flow-ui/server.ts",
     "attack": "tsx scripts/attack.ts",
     "evidence": "tsx scripts/evidence.ts",
     "typecheck": "tsc --noEmit",

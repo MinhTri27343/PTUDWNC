@@ -1,6 +1,6 @@
 (waiting 62s for the code to expire...)
 
-Attack run against http://localhost:4000 at 2026-10-22T03:42:44.493Z
+Attack run against http://localhost:4000 at 2026-10-22T04:04:13.617Z
 Control (legitimate code exchange): OK
 
 BLOCKED      1 unregistered redirect_uri
@@ -26,7 +26,7 @@ BLOCKED      7 code redeemed by other client
              observed: taxi-m2m: 400 invalid_grant
 BLOCKED      8 replay of old refresh token
              expected: 400 invalid_grant + family revoked
-             observed: rotate 200 OK (tok:400199d5); replay 400 invalid_grant; successor 400 invalid_grant
+             observed: rotate 200 OK (tok:254e62c2); replay 400 invalid_grant; successor 400 invalid_grant
 BLOCKED      9 refresh by other client
              expected: 400 invalid_grant
              observed: taxi-m2m: 400 invalid_grant

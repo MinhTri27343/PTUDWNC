@@ -1,6 +1,7 @@
 import argon2 from 'argon2';
 import { config, requireConfig } from '../src/config.js';
 import { openDb } from '../src/db.js';
+import { SEED_BALANCES, SEED_RIDE } from '../src/labData.js';
 import { nowSec } from '../src/util.js';
 
 requireConfig('taxiWebSecret', 'taxiM2mSecret');
@@ -58,8 +59,7 @@ const api = openDb('api');
 const upsertWallet = api.prepare(
   'INSERT INTO wallets (user_id, balance_cents) VALUES (?, ?) ON CONFLICT(user_id) DO NOTHING',
 );
-upsertWallet.run('u_alice', 100_000);
-upsertWallet.run('u_bob', 50_000);
+for (const [user, cents] of Object.entries(SEED_BALANCES)) upsertWallet.run(user, cents);
 api.close();
 
 // --- Taxi ---
@@ -72,9 +72,9 @@ upsertTaxiUser.run('bob', 'Bob');
 taxi
   .prepare(
     `INSERT INTO rides (id, taxi_user_id, amount_cents, status, created_at)
-     VALUES ('ride-1001', 'alice', 2500, 'pending', ?) ON CONFLICT(id) DO NOTHING`,
+     VALUES (?, ?, ?, 'pending', ?) ON CONFLICT(id) DO NOTHING`,
   )
-  .run(nowSec());
+  .run(SEED_RIDE.id, SEED_RIDE.taxiUser, SEED_RIDE.amountCents, nowSec());
 taxi.close();
 
 console.log('Seeded: users alice/bob, clients taxi-web/taxi-m2m, wallets, taxi accounts, ride-1001.');

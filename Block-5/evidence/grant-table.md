@@ -1,5 +1,5 @@
 # Grant table — filled from observed /token responses
-# Captured 2026-10-22T03:42:46.086Z. Values come from the responses and the decoded access-token claims, not from slides.
+# Captured 2026-10-22T04:04:15.230Z. Values come from the responses and the decoded access-token claims, not from slides.
 
 | grant_type | client | HTTP | refresh_token | sub | aud | scope | principal_type | expires_in | token_type |
 |---|---|---|---|---|---|---|---|---|---|

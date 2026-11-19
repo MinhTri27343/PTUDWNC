@@ -21,6 +21,9 @@ export const M2M = { id: 'taxi-m2m', secret: config.taxiM2mSecret };
 const arg = (name: string): string | undefined =>
   process.argv.find((a) => a.startsWith(`--${name}=`))?.split('=')[1];
 const waitSeconds = Number(arg('wait') ?? config.codeTtl + 2);
+const skipExpiry = process.argv.includes('--skip-expiry');
+/** Lets the Flow UI draw these requests on their own "Attacker" lane. */
+const ACTOR = process.env.FLOW_ACTOR ?? 'attacker';
 const strict = process.argv.includes('--strict');
 
 // ---------- tiny HTTP client with a cookie jar (no automatic redirects) ----------
@@ -41,6 +44,7 @@ export class Jar {
 
 export async function send(jar: Jar, url: string, init: RequestInit = {}): Promise<Response> {
   const headers = new Headers(init.headers);
+  headers.set('X-Flow-Actor', ACTOR);
   const cookie = jar.header();
   if (cookie) headers.set('Cookie', cookie);
   const res = await fetch(url, { ...init, headers, redirect: 'manual' });
@@ -140,7 +144,7 @@ export async function token(
   const basic = Buffer.from(`${encodeURIComponent(client.id)}:${encodeURIComponent(client.secret)}`).toString('base64');
   const res = await fetch(`${AS}/token`, {
     method: 'POST',
-    headers: { Authorization: `Basic ${basic}`, 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: { Authorization: `Basic ${basic}`, 'Content-Type': 'application/x-www-form-urlencoded', 'X-Flow-Actor': ACTOR },
     body: new URLSearchParams(params).toString(),
   });
   const body = (await res.json().catch(() => ({}))) as Record<string, unknown>;
@@ -221,8 +225,10 @@ async function run(): Promise<void> {
     });
   }
 
-  // 4. expired code -> invalid_grant
-  {
+  // 4. expired code -> invalid_grant (--skip-expiry omits it: it needs a ~60 s wait; the Flow UI uses that for speed)
+  if (skipExpiry) {
+    process.stdout.write('  (case 4 expired code skipped: --skip-expiry)\n');
+  } else {
     const pkce = newPkce();
     const code = await freshCode(jar, pkce);
     process.stdout.write(`  (waiting ${waitSeconds}s for the code to expire...)\n`);

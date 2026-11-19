@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OAuth2 PKCE Flow Lab</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>OAuth2 + PKCE Flow Lab</h1>
+  <span class="sub">Real traffic between Taxi, Wallet AS and Wallet API. Secrets are shown as fingerprints, never in full.</span>
+  <span id="health"></span>
+  <button id="clear" class="ghost">Clear diagram</button>
+  <button id="reset" class="danger" title="Wipes grants, tokens, consents, charges and sessions in all three services, then starts the demo over">Reset demo (start over)</button>
+</header>
+
+<main>
+  <aside id="controls">
+    <section class="card" id="state-card">
+      <h2>Live state</h2>
+      <div id="state">connecting…</div>
+    </section>
+
+    <section class="card">
+      <h2>Taxi account</h2>
+      <div class="row">
+        <select id="user"></select>
+        <span class="hint">the Taxi user whose wallet is used</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>1 · Link the wallet <small>front channel + back channel</small></h2>
+      <button data-action="link" class="primary">Link wallet (opens Wallet AS)</button>
+      <p class="hint">In the popup: sign in <code>alice</code> / <code>alice-pass</code> (fake lab account), press <b>Allow</b>.
+        Watch <code>/authorize</code> → login → consent → <code>/callback</code> → <code>POST /token</code>.</p>
+      <button data-action="balance">Show balance (Taxi → API)</button>
+    </section>
+
+    <section class="card">
+      <h2>2 · Pay while Alice is away <small>refresh token</small></h2>
+      <button data-action="ride">New ride (2500)</button>
+      <button data-action="expire">Make access token stale</button>
+      <button data-action="job" class="primary">Run payment job</button>
+      <button data-action="job-all">Ride + stale token + job (one click)</button>
+      <p class="hint">The job has no browser session: it refreshes, then charges once (idempotency key = ride id).</p>
+    </section>
+
+    <section class="card">
+      <h2>3 · Revoke <small>Alice's account page</small></h2>
+      <button data-action="account">Open AS account page (revoke Taxi)</button>
+      <p class="hint">After revoking, run the job again: refresh → <code>invalid_grant</code>, Taxi becomes unlinked. A still-valid access token keeps working until <code>exp</code>.</p>
+    </section>
+
+    <section class="card">
+      <h2>4 · Machine client <small>client_credentials</small></h2>
+      <button data-action="m2m-rates">Taxi M2M reads public rates</button>
+      <button data-action="m2m-charge">Try to charge with a client token</button>
+    </section>
+
+    <section class="card">
+      <h2>5 · What the browser can't do</h2>
+      <button data-action="api-notoken">Browser → API without token</button>
+      <button data-action="api-fake">Browser → API with a fake token</button>
+      <button data-action="as-token-direct">Browser → AS /token directly</button>
+      <button data-action="jwks">Browser → AS public keys (JWKS)</button>
+    </section>
+
+    <section class="card">
+      <h2>6 · Attack script</h2>
+      <button data-action="attack" class="danger">Run attacks (fast, 8 cases)</button>
+      <button data-action="attack-full">Run all 9 (waits ~62 s for the expired code)</button>
+      <pre id="attack-out" class="out" hidden></pre>
+    </section>
+
+    <section class="card">
+      <h2>Last result</h2>
+      <pre id="last" class="out">—</pre>
+    </section>
+  </aside>
+
+  <section id="diagram">
+    <div class="legend">
+      <span><i class="dot ok"></i>2xx</span><span><i class="dot redir"></i>3xx redirect</span><span><i class="dot rej"></i>4xx/5xx</span>
+      <span><i class="note-swatch"></i>decision the service made</span>
+      <label><input type="checkbox" id="show-notes" checked> decisions</label>
+      <span class="hint">Click an arrow for the details. Click a <span class="fp">‹fingerprint›</span> to follow the same value through the flow.</span>
+    </div>
+    <div id="lane-head"></div>
+    <div id="scroll"><svg id="canvas" role="img" aria-label="Sequence diagram of the OAuth2 flow"></svg></div>
+  </section>
+
+  <aside id="details">
+    <h2>Details</h2>
+    <div id="explain" class="explain">Select a message in the diagram.</div>
+    <div id="detail-body"></div>
+  </aside>
+</main>
+
+<div id="toast" role="status"></div>
+<script src="app.js" type="module"></script>
+</body>
+</html>

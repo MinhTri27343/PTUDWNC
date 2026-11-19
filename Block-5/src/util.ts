@@ -21,9 +21,19 @@ export const fingerprint = (secret: string): string => `tok:${sha256Hex(secret).
 
 export const iso = (epochSec: number): string => new Date(epochSec * 1000).toISOString();
 
+export type LogEntry = { ts: string; component: string; event: string } & Record<string, unknown>;
+const sinks: ((entry: LogEntry) => void)[] = [];
+
+/** Lets the Flow UI tap mirror structured log lines. log() only ever receives fingerprints, never secrets. */
+export const addLogSink = (sink: (entry: LogEntry) => void): void => {
+  sinks.push(sink);
+};
+
 export function log(component: string, event: string, data: Record<string, unknown> = {}): void {
+  const entry: LogEntry = { ts: new Date().toISOString(), component, event, ...data };
+  for (const sink of sinks) sink(entry);
   if (process.env.LOG_SILENT) return;
-  console.log(JSON.stringify({ ts: new Date().toISOString(), component, event, ...data }));
+  console.log(JSON.stringify(entry));
 }
 
 export const escapeHtml = (value: unknown): string =>

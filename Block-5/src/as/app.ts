@@ -3,6 +3,7 @@ import session from 'express-session';
 import type { Db } from '../db.js';
 import { config } from '../config.js';
 import { mountDocs } from '../docs.js';
+import { corsFor, flowRouter, flowTap, FlowBus } from '../flow/bus.js';
 import { randomToken, sha256B64Url } from '../util.js';
 import { getJwks } from './keys.js';
 import { accountRouter } from './routes/account.js';
@@ -13,8 +14,21 @@ export function createAsApp(db: Db): Express {
   const app = express();
   app.disable('x-powered-by');
 
+  // Flow UI hooks: event stream first (no session), JWKS is public so any page may read it.
+  const bus = new FlowBus('as');
+  const sessions = new session.MemoryStore();
+  app.use(
+    flowRouter(bus, () => {
+      // Demo reset: forget every grant and sign everyone out; users and clients stay.
+      db.exec('DELETE FROM auth_codes; DELETE FROM refresh_tokens; DELETE FROM consents;');
+      sessions.clear();
+    }),
+  );
+  app.use('/.well-known', corsFor(config.flowUrl));
+
   app.use(
     session({
+      store: sessions,
       name: 'as_sid',
       secret: config.taxiSessionSecret + ':as',
       resave: false,
@@ -23,6 +37,7 @@ export function createAsApp(db: Db): Express {
     }),
   );
   app.use(express.urlencoded({ extended: false }));
+  app.use(flowTap(bus));
 
   app.get('/.well-known/jwks.json', (_req, res) => {
     res.set('Cache-Control', 'public, max-age=300');
