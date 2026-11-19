@@ -9,7 +9,7 @@ import { parse } from 'yaml';
 import { bearerAuthHandler } from './auth';
 import { config } from './config';
 import { errorHandler, notFoundHandler } from './errors';
-import { createLogger } from './logger';
+import { createLogger } from './logging';
 import { authRouter } from './routes/auth';
 import { cartsRouter } from './routes/carts';
 import { productsRouter } from './routes/products';

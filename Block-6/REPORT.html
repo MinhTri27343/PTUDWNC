@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>REPORT · Block-6 · Cách hoạt động Starter và V1–V4</title>
+<meta name="description" content="Báo cáo kỹ thuật Block-6: middleware JWT, truy vấn membership, RBAC, assignee và status, tenant boundary, code và kịch bản demo.">
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#243447;background:#f3f5f8;font-size:15px;line-height:1.75;scroll-behavior:smooth}
+*{box-sizing:border-box}body{margin:0}a{color:#235ea2;text-underline-offset:3px}a:hover{color:#143c70}p{margin:12px 0 16px}strong{color:#163d60}
+.skip{position:absolute;left:20px;top:-60px;padding:9px 15px;background:white;z-index:5}.skip:focus{top:10px}
+.hero{background:#152c48;color:#fff;padding:38px max(24px,calc((100vw - 1320px)/2)) 30px}.eyebrow{color:#a6c8e6;font-size:11px;font-weight:750;letter-spacing:2px}h1{max-width:980px;font-size:clamp(26px,3vw,38px);line-height:1.25;letter-spacing:-.8px;margin:12px 0 14px}.hero p{color:#cfdeeb;max-width:920px;margin-bottom:20px}.hero a{color:#e3effa}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;font-size:12px}.hero-meta span,.hero-meta a{border:1px solid #54708a;border-radius:6px;padding:5px 10px;text-decoration:none}
+.layout{max-width:1368px;margin:auto;padding:28px 24px 44px;display:grid;grid-template-columns:252px minmax(0,1fr);gap:28px;align-items:start}.toc{position:sticky;top:18px;max-height:calc(100dvh - 36px);overflow:auto;background:white;border:1px solid #dce4ed;border-radius:10px;padding:19px 16px}.toc-label{font-size:11px;font-weight:750;letter-spacing:1.8px;color:#6d8095;margin:0 0 12px}.toc a{display:block;font-size:12px;line-height:1.55;padding:8px 9px;margin:2px 0;color:#496078;text-decoration:none;border-left:2px solid transparent;border-radius:3px}.toc a:hover,.toc a.active{background:#edf4fb;border-left-color:#3973ad;color:#174774}.toc .readme{border-top:1px solid #e5ebf2;margin-top:12px;padding-top:14px}
+article{min-width:0}.intro{font-size:15px;border:1px solid #dce4ed;border-left:4px solid #4c7eac;border-radius:8px;padding:20px 25px;background:white;margin-bottom:22px}.intro p:last-child{margin-bottom:0}.version-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:20px 0 24px}.version-nav a{background:#eaf1f9;padding:10px 8px;border-radius:6px;font-size:12px;font-weight:700;text-align:center;text-decoration:none}
+.report-section{padding:26px 30px;margin-bottom:22px;background:white;border:1px solid #dce4ed;border-radius:10px;min-width:0}.report-section>h2:first-child{margin-top:0}h2{font-size:23px;color:#183d62;line-height:1.4;margin:30px 0 18px;scroll-margin-top:24px;letter-spacing:-.3px}h3{font-size:17px;color:#2f5273;margin:25px 0 12px;line-height:1.5;scroll-margin-top:24px}ul,ol{padding-left:23px}li{margin:7px 0}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.86em;background:#edf2f8;color:#25486b;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}
+.code-block{margin:18px 0 22px;border-radius:8px;overflow:hidden;background:#142539}.code-label{background:#1d344d;color:#abc3db;font:11px ui-monospace,monospace;padding:8px 15px;text-transform:uppercase;letter-spacing:1px}pre{margin:0;padding:17px 18px;overflow-x:auto;line-height:1.7;font-size:12px;tab-size:2}pre code{background:transparent;color:#edf3fa;padding:0;border-radius:0;font-size:inherit;overflow-wrap:normal;white-space:pre}
+.table-wrap{max-width:100%;overflow-x:auto;margin:18px 0 22px;border:1px solid #dbe4ee;border-radius:7px}table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.6;min-width:540px}th,td{padding:11px 12px;text-align:left;vertical-align:top;border-bottom:1px solid #e3eaf1}th{background:#edf3f9;color:#3c5570;font-size:11px;font-weight:750}tr:last-child td{border-bottom:0}tbody tr:nth-child(even){background:#fafbfd}td code{font-size:11px}
+.flow{margin:20px 0 26px;background:#f1f6fb;border:1px solid #dbe6f2;border-radius:8px;padding:19px}.flow figcaption{font-size:13px;font-weight:750;color:#355a7e;margin-bottom:15px}.flow ol{display:grid;grid-template-columns:1fr 1fr;gap:12px;list-style:none;padding:0;margin:0}.flow li{display:flex;gap:12px;align-items:flex-start;background:white;border:1px solid #dde7f0;border-radius:6px;padding:13px;margin:0}.flow li>span{font-size:11px;font-weight:800;color:#357399;padding-top:3px}.flow b{font-size:12px;color:#28496b}.flow small{display:block;font-size:11px;color:#677b90;line-height:1.6;margin-top:4px}
+footer{text-align:center;color:#6f8093;font-size:12px;padding:0 24px 30px}:focus-visible{outline:3px solid #cf9e38;outline-offset:3px}
+@media(max-width:1050px){.layout{grid-template-columns:210px minmax(0,1fr);gap:18px}.report-section{padding:23px}.toc{padding:15px 11px}}
+@media(max-width:780px){.hero{padding:28px 18px 25px}.layout{display:block;padding:18px 12px 30px}.toc{position:static;max-height:none;margin-bottom:20px;padding:16px}.toc nav{display:grid;grid-template-columns:1fr 1fr;gap:2px 8px}.toc a{font-size:11px}.report-section{padding:21px 18px}h2{font-size:21px}.flow ol{grid-template-columns:1fr}.version-nav{gap:5px}.version-nav a{font-size:11px;padding:10px 4px}.intro{padding:18px}pre{font-size:11px}}
+@media(max-width:400px){.toc nav{display:block}}
+@media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}}
+@media print{:root{background:white;color:#111;font-size:10pt;line-height:1.55}.hero{background:white;color:#111;padding:0 0 18px;border-bottom:2px solid #294a6c}.hero p,.eyebrow{color:#444}.hero-meta,.toc,.skip,.version-nav{display:none}.layout{display:block;padding:20px 0;margin:0;max-width:none}.report-section{border:0;border-radius:0;padding:0;margin:0 0 24px}h1{font-size:23pt}h2{font-size:17pt;break-after:avoid}h3{font-size:12pt;break-after:avoid}.table-wrap{overflow:visible;border-radius:0}table{min-width:0;font-size:8pt}th,td{padding:7px;overflow-wrap:anywhere}.code-block{background:#f3f5f7;break-inside:avoid}.code-label{background:#e7ecf1;color:#333}pre code{color:#111;white-space:pre-wrap;overflow-wrap:anywhere}.flow{break-inside:avoid}.flow ol{grid-template-columns:1fr 1fr}a{color:#111;text-decoration:underline}footer{padding:10px 0}.intro{border:0;padding:0}}
+</style></head><body>
+<a class="skip" href="#report">Bỏ qua mục lục, đọc báo cáo</a>
+<header class="hero"><span class="eyebrow">BÁO CÁO KỸ THUẬT · BLOCK 6</span><h1>Hệ thống kiểm quyền hoạt động như thế nào?</h1>
+<p>Từ Starter đến V4: theo dõi request, truy vấn SQLite và từng điều kiện được thêm vào policy.</p>
+<div class="hero-meta"><span>Express · TypeScript · SQLite · jose</span><span>198 test API/business · 13 test giao diện</span><a href="REPORT.md">Đọc bản Markdown ↗</a></div></header>
+<div class="layout"><aside class="toc" aria-label="Mục lục"><p class="toc-label">NỘI DUNG BÁO CÁO</p><nav><a href="#1-moi-phien-ban-a-bo-sung-ky-thuat-gi">1. Mỗi phiên bản đã bổ sung kỹ thuật gì?</a><a href="#2-du-lieu-va-thanh-phan-tham-gia-kiem-quyen">2. Dữ liệu và thành phần tham gia kiểm quyền</a><a href="#3-luong-chung-tu-ang-nhap-en-thuc-thi-policy">3. Luồng chung: từ đăng nhập đến thực thi policy</a><a href="#4-starter-ban-co-loi-e-lam-oi-chung">4. Starter — bản có lỗi để làm đối chứng</a><a href="#5-v1-them-kiem-tra-membership-khi-oc">5. V1 — thêm kiểm tra membership khi đọc</a><a href="#6-v2-them-rbac-theo-project-va-action">6. V2 — thêm RBAC theo project và action</a><a href="#7-v3-them-quan-he-assignee-va-ieu-kien-open">7. V3 — thêm quan hệ assignee và điều kiện Open</a><a href="#8-v4-them-ranh-gioi-tenant-truoc-khi-cap-quyen">8. V4 — thêm ranh giới tenant trước khi cấp quyền</a><a href="#9-loc-danh-sach-va-thu-hoi-quyen">9. Lọc danh sách và thu hồi quyền</a><a href="#10-iem-thuc-thi-du-lieu-tin-cay-va-ma-http">10. Điểm thực thi, dữ liệu tin cậy và mã HTTP</a><a href="#11-so-sanh-ket-qua-va-cach-demo-tung-phien-ban">11. So sánh kết quả và cách demo từng phiên bản</a><a href="#12-kiem-thu-evidence-va-oi-chieu-yeu-cau-bai-nop">12. Kiểm thử, evidence và đối chiếu yêu cầu bài nộp</a><a href="#13-gioi-han-va-cac-truong-hop-chua-kiem-tra">13. Giới hạn và các trường hợp chưa kiểm tra</a><a href="#14-cach-oc-va-cap-nhat-bao-cao">14. Cách đọc và cập nhật báo cáo</a></nav><a class="readme" href="README.md">Hướng dẫn chạy ứng dụng ↗</a></aside>
+<article id="report" aria-label="Báo cáo kỹ thuật"><div class="intro"><p>Bài thực hành: <strong>Task Management API — Authorization và access control</strong>. Báo cáo giải thích đúng cách ứng dụng hiện tại xử lý request, đọc dữ liệu và kiểm quyền trong mã nguồn; đồng thời cung cấp kịch bản demo để đối chiếu từng phiên bản.</p>
+<p>Nguồn yêu cầu: <a href="https://pub.nndkhoa9.win/webadv/w4/block-06-authorization-interactive.html#21">Học liệu Block-6, phần thực hành</a>.</p>
+<nav class="version-nav" aria-label="Đi thẳng đến phiên bản"><a href="#4-starter-ban-co-loi-e-lam-oi-chung">Starter</a><a href="#5-v1-them-kiem-tra-membership-khi-oc">V1</a><a href="#6-v2-them-rbac-theo-project-va-action">V2</a><a href="#7-v3-them-quan-he-assignee-va-ieu-kien-open">V3</a><a href="#8-v4-them-ranh-gioi-tenant-truoc-khi-cap-quyen">V4</a></nav></div><section class="report-section" aria-labelledby="1-moi-phien-ban-a-bo-sung-ky-thuat-gi">
+<h2 id="1-moi-phien-ban-a-bo-sung-ky-thuat-gi">1. Mỗi phiên bản đã bổ sung kỹ thuật gì?</h2>
+<p><strong>Cách đăng nhập và xác thực JWT không thay đổi giữa các phiên bản.</strong> Phần được bổ sung là điều kiện kiểm quyền trong business layer. Ứng dụng dùng Express, TypeScript, SQLite, <code>jose</code> và các API mật mã có sẵn của Node.js; không cài thêm một authorization server hay policy engine riêng cho mỗi phiên bản.</p>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Phiên bản</th><th scope="col">Kỹ thuật kiểm quyền được áp dụng</th><th scope="col">Dữ liệu server kiểm tra</th><th scope="col">Giới hạn còn lại</th></tr></thead><tbody><tr><td>Starter</td><td>Policy luôn trả <code>true</code> sau bước xác thực</td><td>JWT xác định người gọi; tài nguyên phải tồn tại</td><td>Chưa kiểm quyền tài nguyên; Alice có thể đọc B1</td></tr><tr><td>V1</td><td>Tra membership khi đọc task</td><td>Cặp <code>(projectId, userId)</code> trong <code>project_members</code></td><td>Chưa bảo vệ sửa, xóa và quản lý thành viên bằng ma trận quyền</td></tr><tr><td>V2</td><td>RBAC theo project bằng <code>MATRIX[role][action]</code></td><td>Role của người gọi trong đúng project</td><td>Member còn sửa được task chưa giao hoặc Closed; Admin còn toàn cục</td></tr><tr><td>V3</td><td>V2 + so sánh assignee và trạng thái task</td><td><code>task.assigneeId</code>, <code>task.status</code>, ID người gọi</td><td>Admin chưa bị giới hạn tenant</td></tr><tr><td>V4</td><td>V3 + kiểm tenant trước khi cấp quyền</td><td><code>user.tenantId</code> và <code>project.tenantId</code> từ database</td><td>Bản đầy đủ cho phạm vi bài lab; vẫn có các giới hạn vận hành nêu ở cuối báo cáo</td></tr></tbody></table></div>
+<p>Các phiên bản dùng <strong>cùng cấu trúc bảng</strong>, nhưng có database riêng: <code>starter.db</code>, <code>v1.db</code>, <code>v2.db</code>, <code>v3.db</code>, <code>v4.db</code>. Chọn V2 trên giao diện làm request đi tới <code>/api/v2/...</code>; server chọn database V2 và truyền <code>version: &#x27;v2&#x27;</code> vào service. Chuyển phiên bản không tạo bảng mới, không tự reset dữ liệu và không sửa policy bằng body/header người gọi gửi lên.</p>
+</section>
+<section class="report-section" aria-labelledby="2-du-lieu-va-thanh-phan-tham-gia-kiem-quyen">
+<h2 id="2-du-lieu-va-thanh-phan-tham-gia-kiem-quyen">2. Dữ liệu và thành phần tham gia kiểm quyền</h2>
+<h3 id="2-1-du-lieu-mau">2.1. Dữ liệu mẫu</h3>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Người dùng</th><th scope="col">Tenant</th><th scope="col">Vai trò ban đầu</th></tr></thead><tbody><tr><td>Alice</td><td>Alpha</td><td>Owner project Alpha</td></tr><tr><td>Bob</td><td>Alpha</td><td>Member project Alpha</td></tr><tr><td>Eve</td><td>Alpha</td><td>Viewer project Alpha</td></tr><tr><td>Charlie</td><td>Beta</td><td>Owner project Beta</td></tr><tr><td>Dana</td><td>Alpha</td><td>Admin của tenant Alpha; không có membership project ban đầu</td></tr></tbody></table></div>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Task</th><th scope="col">Project</th><th scope="col">Assignee</th><th scope="col">Status</th><th scope="col">Mục đích demo</th></tr></thead><tbody><tr><td>A1</td><td>Alpha</td><td>Bob</td><td>Open</td><td>Member sửa task đúng điều kiện</td></tr><tr><td>A2</td><td>Alpha</td><td>Chưa giao</td><td>Open</td><td>Member sửa task chưa được giao</td></tr><tr><td>A3</td><td>Alpha</td><td>Bob</td><td>Closed</td><td>Member sửa task đã đóng</td></tr><tr><td>B1</td><td>Beta</td><td>Charlie</td><td>Open</td><td>Truy cập sai project hoặc sai tenant</td></tr><tr><td>B2</td><td>Beta</td><td>Chưa giao</td><td>Open</td><td>Dữ liệu bổ sung của Beta</td></tr></tbody></table></div>
+<p>Các bảng chính là <code>users</code>, <code>projects</code>, <code>project_members</code>, <code>tasks</code> và <code>tenants</code>. Bảng <code>project_members</code> có khóa chính ghép <code>(projectId, userId)</code>, nên cùng một user được xét role theo từng project. Task chứa <code>projectId</code>, <code>assigneeId</code> và <code>status</code>; các thuộc tính này được tải từ database trước khi xét quyền.</p>
+<h3 id="2-2-ma-nguon-can-theo-doi">2.2. Mã nguồn cần theo dõi</h3>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Thành phần</th><th scope="col">Vai trò trong luồng xử lý</th><th scope="col">Nguồn</th></tr></thead><tbody><tr><td><code>authenticate()</code></td><td>Xác minh JWT, gán <code>res.locals.uid</code></td><td><a href="src/auth.ts">src/auth.ts</a></td></tr><tr><td>Route <code>/api/:version</code></td><td>Chọn database và tạo <code>TaskService</code></td><td><a href="src/app.ts">src/app.ts</a></td></tr><tr><td><code>roleFor()</code> và <code>authorize()</code></td><td>Đọc role, quyết định allow/deny</td><td><a href="src/authorization.ts">src/authorization.ts</a></td></tr><tr><td><code>TaskService.enforce()</code></td><td>Biến quyết định deny thành lỗi 403</td><td><a href="src/service.ts">src/service.ts</a></td></tr><tr><td><code>readFilter()</code></td><td>Tạo điều kiện SQL lọc danh sách theo quyền đọc</td><td><a href="src/authorization.ts">src/authorization.ts</a></td></tr><tr><td>Policy Starter</td><td>Bản thiếu kiểm quyền dùng tái hiện IDOR</td><td><a href="src/starter-policy.ts">src/starter-policy.ts</a></td></tr><tr><td>Schema và seed</td><td>Bảng, quan hệ, ràng buộc và dữ liệu mẫu</td><td><a href="migrations/001_init.sql">migrations/001_init.sql</a>, <a href="src/db.ts">src/db.ts</a></td></tr></tbody></table></div>
+<p>Hàm quyết định có giao diện:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>authorize(subject, action, resource, context): boolean</code></pre></div>
+<ul><li><code>subject</code>: bản ghi user lấy từ database theo ID đã xác thực.</li><li><code>action</code>: một trong <code>read</code>, <code>edit</code>, <code>delete</code>, <code>members</code>, do service chọn theo thao tác.</li><li><code>resource</code>: project và, nếu cần, task thực tế được tải từ database.</li><li><code>context</code>: database của phiên bản và tên phiên bản đang chạy.</li></ul>
+<p>Client không được tự chọn <code>action</code> để vượt quyền. Ví dụ route PATCH task luôn dẫn đến action <code>edit</code>; route xem danh sách thành viên dẫn đến action <code>members</code>.</p>
+</section>
+<section class="report-section" aria-labelledby="3-luong-chung-tu-ang-nhap-en-thuc-thi-policy">
+<h2 id="3-luong-chung-tu-ang-nhap-en-thuc-thi-policy">3. Luồng chung: từ đăng nhập đến thực thi policy</h2>
+<figure class="flow" aria-labelledby="flow-caption">
+<figcaption id="flow-caption">Một request đi qua hệ thống như thế nào?</figcaption>
+<ol><li><span>01</span><div><b>JWT middleware</b><small>Xác minh token → lấy user ID</small></div></li>
+<li><span>02</span><div><b>Business service</b><small>Tải user, task và project từ SQLite</small></div></li>
+<li><span>03</span><div><b>Policy theo phiên bản</b><small>Membership → role/action → assignee/status → tenant</small></div></li>
+<li><span>04</span><div><b>Thực thi quyết định</b><small>Deny: 403 · Allow: đọc/ghi và trả kết quả</small></div></li></ol>
+</figure>
+<h3 id="3-1-ang-nhap-va-cap-token">3.1. Đăng nhập và cấp token</h3>
+<ol><li>Client gửi <code>POST /auth/login</code> với username và password.</li><li>Server tra user và kiểm tra password bằng <code>scryptSync</code>, salt ngẫu nhiên và <code>timingSafeEqual</code> trong <code>src/password.ts</code>.</li><li>Nếu đúng, server dùng <code>jose.SignJWT</code> ký token HS256, đặt <code>sub</code> bằng user ID, issuer <code>block-6-lab</code>, audience <code>task-api</code>, thời hạn 1 giờ.</li><li>Giao diện giữ token trong bộ nhớ và gắn vào header <code>Authorization: Bearer &lt;token&gt;</code> khi gọi API.</li></ol>
+<p>Token được tạo bằng mã thực tế sau:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>return new SignJWT({}).setProtectedHeader({ alg: &#x27;HS256&#x27; }).setSubject(id)
+  .setIssuedAt().setIssuer(ISSUER).setAudience(AUDIENCE)
+  .setExpirationTime(expiry).sign(secret);</code></pre></div>
+<p>Token chứa các claim định danh/thời gian, <strong>không chứa role hoặc tenant để cấp quyền</strong>. Khóa ký được sinh ngẫu nhiên, lưu trong <code>data/.jwt-secret</code> với mode 0600 và không đưa vào Git. Trong ứng dụng demo, endpoint đăng nhập dùng bảng user của database V4 làm nguồn tài khoản chung; business service vẫn tải user từ database của phiên bản đang xử lý request.</p>
+<h3 id="3-2-xac-thuc-request">3.2. Xác thực request</h3>
+<p><code>authenticate()</code> kiểm tra Bearer token bằng <code>jose.jwtVerify</code>:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>const { payload } = await jwtVerify(match[1], secret, {
+  algorithms: [&#x27;HS256&#x27;],
+  issuer: ISSUER,
+  audience: AUDIENCE,
+  requiredClaims: [&#x27;sub&#x27;, &#x27;exp&#x27;, &#x27;iat&#x27;]
+});
+res.locals.uid = payload.sub;</code></pre></div>
+<p>Middleware còn kiểm tra <code>sub</code> phải là chuỗi không rỗng. Thiếu token, token sai chữ ký, hết hạn, sai issuer/audience hoặc thiếu claim bắt buộc đều bị từ chối <code>401</code> trước bước phân quyền. Một token hợp lệ chỉ chứng minh người gọi là ai, không tự cho phép truy cập mọi tài nguyên.</p>
+<h3 id="3-3-chon-phien-ban-va-goi-business-layer">3.3. Chọn phiên bản và gọi business layer</h3>
+<p>Route <code>/api/:version</code> chỉ chấp nhận <code>starter</code>, <code>v1</code>, <code>v2</code>, <code>v3</code>, <code>v4</code>, rồi khởi tạo:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>res.locals.service = new TaskService({
+  db: stores[version],
+  version
+});</code></pre></div>
+<p>Ví dụ <code>PATCH /api/v3/tasks/A1</code> có luồng:</p>
+<div class="code-block"><div class="code-label">text</div><pre><code>Bearer JWT
+  → authenticate(): xác định uid = bob
+  → chọn database v3 và policy v3
+  → TaskService.editTask(bob, A1, body)
+  → tải user Bob, task A1 và project Alpha
+  → enforce(Bob, edit, {task: A1, project: Alpha})
+  → authorize(...): true hoặc false
+  → false: trả 403, không UPDATE
+  → true: kiểm trường được sửa, validation, UPDATE và trả kết quả</code></pre></div>
+<p><code>TaskService.enforce()</code> là điểm chặn thực tế:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>if (!authorize(subject, action, resource, this.context))
+  fail(403, &#x27;forbidden&#x27;, &#x27;Bạn không có quyền thực hiện thao tác này.&#x27;);</code></pre></div>
+<p>Đọc task chỉ trả nội dung sau khi qua <code>enforce()</code>. Tài nguyên không tồn tại trả <code>404</code>; response bị từ chối không chứa nội dung task. Gọi service trực tiếp cũng phải qua kiểm quyền, không phụ thuộc việc người gọi có bấm nút trên giao diện hay không.</p>
+</section>
+<section class="report-section" aria-labelledby="4-starter-ban-co-loi-e-lam-oi-chung">
+<h2 id="4-starter-ban-co-loi-e-lam-oi-chung">4. Starter — bản có lỗi để làm đối chứng</h2>
+<h3 id="4-1-ky-thuat-hien-co-va-phan-con-thieu">4.1. Kỹ thuật hiện có và phần còn thiếu</h3>
+<p>Starter đã đi qua middleware xác thực, tải user và tài nguyên như các phiên bản khác. Tuy nhiên policy thực tế trong <code>src/starter-policy.ts</code> luôn cho phép:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>export function authorize(_subject, _action, _resource, _context): boolean {
+  return true;
+}</code></pre></div>
+<p>Đoạn trích lược phần kiểu TypeScript để tập trung vào quyết định <code>return true</code>. Starter không phải toàn bộ API đều không validation: các ràng buộc dữ liệu chung vẫn tồn tại, nhưng không có kiểm quyền tài nguyên tại policy.</p>
+<h3 id="4-2-vi-du-alice-oc-b1">4.2. Ví dụ Alice đọc B1</h3>
+<div class="code-block"><div class="code-label">text</div><pre><code>GET /api/starter/tasks/B1
+Token hợp lệ → uid = alice
+B1 tồn tại → project = beta
+Policy trả true, không tra membership của Alice trong Beta
+→ 200 và trả dữ liệu B1</code></pre></div>
+<p>Đây là IDOR/BOLA: đổi ID tài nguyên trong một request đã xác thực vẫn lấy được dữ liệu ngoài phạm vi của người gọi. Bằng chứng trước sửa nằm trong <code>evidence/idor-http.txt</code> và test đỏ <code>evidence/idor-before.txt</code>.</p>
+</section>
+<section class="report-section" aria-labelledby="5-v1-them-kiem-tra-membership-khi-oc">
+<h2 id="5-v1-them-kiem-tra-membership-khi-oc">5. V1 — thêm kiểm tra membership khi đọc</h2>
+<h3 id="5-1-truy-van-uoc-bo-sung">5.1. Truy vấn được bổ sung</h3>
+<p>Server lấy project từ chính task trong database, không dùng <code>projectId</code> do request tự khai. Hàm <code>roleFor()</code> tra membership:</p>
+<div class="code-block"><div class="code-label">sql</div><pre><code>SELECT role
+FROM project_members
+WHERE projectId = ? AND userId = ?;</code></pre></div>
+<p>Ở V1, giá trị role chỉ được dùng để xác định có membership hay không. Nhánh policy thực tế là:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>if (context.version === &#x27;v1&#x27;)
+  return action !== &#x27;read&#x27; || !!roleFor(subject, resource, context);</code></pre></div>
+<p>Với action <code>read</code>, không tìm được membership thì <code>roleFor()</code> trả <code>undefined</code>, chuyển thành <code>false</code> và <code>enforce()</code> trả <code>403</code>. Có membership thì được đọc, chưa phân biệt Viewer/Member/Owner cho thao tác này.</p>
+<h3 id="5-2-truy-vet-cho-phep-va-tu-choi">5.2. Truy vết cho phép và từ chối</h3>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Request</th><th scope="col">Dữ liệu server tra</th><th scope="col">Quyết định</th></tr></thead><tbody><tr><td>Alice đọc A1</td><td><code>(alpha, alice)</code> có role Owner</td><td>Cho phép, <code>200</code></td></tr><tr><td>Alice đọc B1</td><td><code>(beta, alice)</code> không có membership</td><td>Từ chối, <code>403</code></td></tr><tr><td>Charlie đọc B1</td><td><code>(beta, charlie)</code> có role Owner</td><td>Cho phép, <code>200</code></td></tr></tbody></table></div>
+<p>Điểm bổ sung so với Starter là lookup membership theo tài nguyên thực tế trước khi trả dữ liệu. Không được sửa bằng cách từ chối mọi request: Alice đọc A1 và Charlie đọc B1 vẫn phải thành công.</p>
+<h3 id="5-3-gioi-han-co-y-cua-v1">5.3. Giới hạn cố ý của V1</h3>
+<p>Biểu thức <code>action !== &#x27;read&#x27;</code> cho phép các action ngoài đọc đi qua policy. Vì vậy V1 chưa bảo vệ sửa task, xóa project và quản lý thành viên bằng ma trận quyền; Bob bấm xem thành viên Alpha có thể nhận <code>200</code> ở V1. Đây là khác biệt có chủ đích để V2 sửa tiếp. Dana chưa được cấp đặc quyền Admin ở V1 và không có membership, nên đọc A1 cũng bị <code>403</code>.</p>
+</section>
+<section class="report-section" aria-labelledby="6-v2-them-rbac-theo-project-va-action">
+<h2 id="6-v2-them-rbac-theo-project-va-action">6. V2 — thêm RBAC theo project và action</h2>
+<h3 id="6-1-ma-tran-quyen-trong-ma-nguon">6.1. Ma trận quyền trong mã nguồn</h3>
+<p>V2 dùng role trả về từ membership để tra bảng ánh xạ sau:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>export const MATRIX = {
+  Viewer: { read: true, edit: false, delete: false, members: false },
+  Member: { read: true, edit: true, delete: false, members: false },
+  Owner:  { read: true, edit: true, delete: true, members: true }
+};</code></pre></div>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Role trong project</th><th scope="col">Task: read</th><th scope="col">Task: edit</th><th scope="col">Project: delete</th><th scope="col">Membership: members</th></tr></thead><tbody><tr><td>Viewer</td><td>Có</td><td>Không</td><td>Không</td><td>Không</td></tr><tr><td>Member</td><td>Có</td><td>Có</td><td>Không</td><td>Không</td></tr><tr><td>Owner</td><td>Có</td><td>Có</td><td>Có</td><td>Có</td></tr></tbody></table></div>
+<p>Đoạn quyết định thực tế sau nhánh V1:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>const role = roleFor(subject, resource, context);
+if (!role || !MATRIX[role]?.[action]) return false;</code></pre></div>
+<p>Không có role hoặc ô ma trận không cho phép thì từ chối. Quyền được kiểm theo project đang thao tác: là Owner của Alpha không có nghĩa là Owner của Beta.</p>
+<h3 id="6-2-vi-du-bob-bam-thanh-vien-cua-alpha">6.2. Ví dụ Bob bấm Thành viên của Alpha</h3>
+<div class="code-block"><div class="code-label">text</div><pre><code>GET /api/v2/projects/alpha/members
+JWT xác định uid = bob
+TaskService.listMembers() chọn action = members
+Tải project Alpha và user Bob
+roleFor() truy vấn membership (alpha, bob) → Member
+MATRIX.Member.members = false
+→ enforce() ném lỗi 403
+→ không chạy truy vấn trả danh sách thành viên</code></pre></div>
+<p>Nếu thay người gọi bằng Alice, membership trả Owner; <code>MATRIX.Owner.members = true</code>, nên service mới SELECT danh sách và trả <code>200</code>. Cả GET danh sách lẫn POST/PATCH/DELETE membership đều kiểm cùng action <code>members</code> trước khi thao tác.</p>
+<h3 id="6-3-truong-uoc-sua-va-ac-quyen-admin">6.3. Trường được sửa và đặc quyền Admin</h3>
+<p>Từ V2, Member chỉ được PATCH <code>title</code> và <code>description</code>. Nếu gửi <code>assigneeId</code> hoặc <code>status</code>, service trả <code>403</code>. Quy tắc trường này đã có từ V2; phần bổ sung riêng ở V3 là kiểm assignee/status hiện hành của task.</p>
+<p>V2 và V3 quy đổi user có <code>admin = 1</code> trong database thành role Owner cho việc xét policy, kể cả project khác tenant. Đây là quyền Admin toàn cục của các bản trung gian; V4 giới hạn lại. Một chuỗi <code>role: &quot;Admin&quot;</code> trong request không làm user trở thành Admin, vì <code>roleFor()</code> không đọc giá trị đó để xác định quyền người gọi.</p>
+<h3 id="6-4-gioi-han-con-lai">6.4. Giới hạn còn lại</h3>
+<p>Bob có role Member tại Alpha nên ở V2 vẫn sửa nội dung A2 chưa được giao, hoặc A3 đã Closed. Server chưa có điều kiện đối chiếu từng task cho Member; chỉ biết role đó có quyền edit nói chung.</p>
+</section>
+<section class="report-section" aria-labelledby="7-v3-them-quan-he-assignee-va-ieu-kien-open">
+<h2 id="7-v3-them-quan-he-assignee-va-ieu-kien-open">7. V3 — thêm quan hệ assignee và điều kiện Open</h2>
+<h3 id="7-1-ieu-kien-uoc-them-sau-rbac">7.1. Điều kiện được thêm sau RBAC</h3>
+<p>V3 vẫn phải vượt qua bước tìm role và tra ma trận của V2. Riêng action <code>edit</code> của role Member, policy kiểm tra:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>if ((context.version === &#x27;v3&#x27; || context.version === &#x27;v4&#x27;)
+    &amp;&amp; action === &#x27;edit&#x27; &amp;&amp; role === &#x27;Member&#x27;)
+  return resource.task?.assigneeId === subject.id
+    &amp;&amp; resource.task.status === &#x27;Open&#x27;;</code></pre></div>
+<p><code>subject.id</code> đến từ user đã xác thực. <code>assigneeId</code> và <code>status</code> đến từ bản ghi task hiện hành trong database. Dấu <code>&amp;&amp;</code> nghĩa là cả hai điều kiện đều phải đúng. Viewer đã bị ma trận chặn trước khi đến đây; Owner không bị nhánh điều kiện dành riêng cho Member này giới hạn.</p>
+<h3 id="7-2-truy-vet-bob-sua-ba-task">7.2. Truy vết Bob sửa ba task</h3>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Task</th><th scope="col">Role trong Alpha</th><th scope="col">Đối chiếu assignee</th><th scope="col">Đối chiếu status</th><th scope="col">Kết quả V3</th></tr></thead><tbody><tr><td>A1</td><td>Member có edit</td><td><code>bob === bob</code>: đúng</td><td>Open: đúng</td><td><code>200</code>, cập nhật nội dung</td></tr><tr><td>A2</td><td>Member có edit</td><td><code>null === bob</code>: sai</td><td>Open</td><td><code>403</code>, không cập nhật</td></tr><tr><td>A3</td><td>Member có edit</td><td><code>bob === bob</code>: đúng</td><td>Closed: sai</td><td><code>403</code>, không cập nhật</td></tr></tbody></table></div>
+<p>So với V2, chính request Bob sửa A2/A3 đổi từ <code>200</code> sang <code>403</code>. Owner Alice vẫn sửa được A3 Closed theo chính sách đã chọn.</p>
+<h3 id="7-3-chan-cach-tu-oi-du-lieu-e-vuot-ieu-kien">7.3. Chặn cách tự đổi dữ liệu để vượt điều kiện</h3>
+<p>Member không thể gửi một PATCH vừa tự giao A2 cho mình vừa sửa title. Service kiểm quyền trên <strong>trạng thái cũ tải từ database</strong>, trước mọi UPDATE; A2 chưa giao nên request bị từ chối. Với A1 được giao và Open, Member cũng không được đổi <code>assigneeId/status</code> vì giới hạn trường từ V2. Bob không thể mở lại A3 Closed rồi sửa trong cùng request.</p>
+<p>Toàn bộ tải dữ liệu, kiểm quyền, validation và UPDATE của <code>editTask()</code> nằm trong transaction đồng bộ của <code>better-sqlite3</code>. Nếu bị từ chối hoặc validation lỗi, không ghi một phần dữ liệu. Điều này bảo đảm check và write của thao tác trong mô hình một process của lab được thực hiện trong cùng transaction; không thay thế cho kiểm thử đồng thời trên hệ thống phân tán.</p>
+</section>
+<section class="report-section" aria-labelledby="8-v4-them-ranh-gioi-tenant-truoc-khi-cap-quyen">
+<h2 id="8-v4-them-ranh-gioi-tenant-truoc-khi-cap-quyen">8. V4 — thêm ranh giới tenant trước khi cấp quyền</h2>
+<h3 id="8-1-kiem-tenant-tu-database">8.1. Kiểm tenant từ database</h3>
+<p>V4 bổ sung điều kiện trước bước lấy role và tra ma trận:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>if (context.version === &#x27;v4&#x27;
+    &amp;&amp; subject.tenantId !== resource.project.tenantId)
+  return false;</code></pre></div>
+<p>Một Admin chỉ được quy đổi thành Owner trong tenant của mình. Nhánh Admin thực tế trong <code>roleFor()</code>:</p>
+<div class="code-block"><div class="code-label">ts</div><pre><code>if (subject.admin &amp;&amp; context.version !== &#x27;v1&#x27;
+    &amp;&amp; (context.version !== &#x27;v4&#x27;
+        || subject.tenantId === resource.project.tenantId))
+  return &#x27;Owner&#x27;;</code></pre></div>
+<p>Ở V4, ngay cả một membership có role cao cũng không vượt được ranh giới tenant, vì guard tenant chạy trước bước cấp quyền. Dana có thể quản trị project Alpha dù không có membership, nhưng không quản trị project Beta.</p>
+<h3 id="8-2-vi-du-dana-truy-cap-hai-tenant">8.2. Ví dụ Dana truy cập hai tenant</h3>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Request và người gọi</th><th scope="col">V3</th><th scope="col">V4</th><th scope="col">Giải thích</th></tr></thead><tbody><tr><td>Dana đọc A1 của Alpha</td><td><code>200</code></td><td><code>200</code></td><td>Admin Alpha thao tác đúng phạm vi</td></tr><tr><td>Dana đọc B1 của Beta</td><td><code>200</code></td><td><code>403</code></td><td>V4 chặn tenant Alpha khác Beta</td></tr><tr><td>Dana đọc B1, thêm <code>X-Tenant-Id: beta</code></td><td><code>200</code></td><td><code>403</code></td><td>Header không thay tenant của tài khoản</td></tr><tr><td>Alice sửa B1, gửi <code>userId: charlie</code></td><td><code>403</code></td><td><code>403</code></td><td>Body không thay danh tính người gọi</td></tr></tbody></table></div>
+<p>Server không dùng <code>X-Tenant-Id</code>, <code>body.tenantId</code>, <code>body.userId</code> hoặc <code>body.role</code> để cấp quyền cho người gọi. Các claim role/tenant thừa trong JWT cũng không được dùng để cấp quyền. Với quản lý thành viên, service còn kiểm tra user đích có cùng tenant với project; dữ liệu chéo tenant bị từ chối <code>400</code> sau khi kiểm quyền người gọi.</p>
+</section>
+<section class="report-section" aria-labelledby="9-loc-danh-sach-va-thu-hoi-quyen">
+<h2 id="9-loc-danh-sach-va-thu-hoi-quyen">9. Lọc danh sách và thu hồi quyền</h2>
+<h3 id="9-1-danh-sach-khong-tra-het-roi-kiem-quyen-tung-dong">9.1. Danh sách không trả hết rồi kiểm quyền từng dòng</h3>
+<p><code>GET /tasks</code> và <code>GET /projects</code> dùng <code>readFilter()</code>, biểu diễn chính sách đọc bằng điều kiện SQL. Ví dụ cho user thông thường từ V1:</p>
+<div class="code-block"><div class="code-label">sql</div><pre><code>SELECT t.*
+FROM tasks t
+JOIN projects p ON p.id = t.projectId
+WHERE EXISTS (
+  SELECT 1 FROM project_members m
+  WHERE m.projectId = p.id AND m.userId = ?
+)
+ORDER BY t.id;</code></pre></div>
+<p>Ở V4, thêm điều kiện <code>p.tenantId = ?</code>. Admin V4 có thể đọc mọi task trong tenant của mình; Admin V2/V3 có thể đọc toàn bộ; Starter không lọc quyền; Admin V1 vẫn cần membership. Các danh sách không gọi <code>authorize()</code> riêng cho từng dòng, mà dùng bộ lọc tương đương chính sách đọc. Test so sánh danh sách và GET từng task cho 5 tài khoản × 5 phiên bản để tránh hai đường kiểm quyền khác nhau.</p>
+<h3 id="9-2-quyen-thay-oi-co-hieu-luc-ngay">9.2. Quyền thay đổi có hiệu lực ngay</h3>
+<p>Role/membership được đọc lại mỗi request; không nhúng quyền vào token và không cache quyết định allow. Khi Owner gỡ Bob, database xóa membership và đặt assignee của task Bob trong project đó thành <code>NULL</code>. Token cũ vẫn có thể được xác thực là Bob, nhưng lookup membership mới không tìm thấy nên request bị <code>403</code>. Hạ role của Bob xuống Viewer cũng làm request sửa tiếp theo bị chặn, dù token chưa hết hạn.</p>
+<p>Các thay đổi membership phải giữ ít nhất một Owner; gỡ hoặc hạ role Owner cuối cùng trả <code>409</code>. Xóa toàn bộ project vẫn được phép với Owner/Admin đúng phạm vi, và cascade xóa task/membership của project.</p>
+</section>
+<section class="report-section" aria-labelledby="10-iem-thuc-thi-du-lieu-tin-cay-va-ma-http">
+<h2 id="10-iem-thuc-thi-du-lieu-tin-cay-va-ma-http">10. Điểm thực thi, dữ liệu tin cậy và mã HTTP</h2>
+<h3 id="10-1-pep-pdp-va-mo-hinh-uoc-su-dung">10.1. PEP, PDP và mô hình được sử dụng</h3>
+<ul><li><strong>PDP — điểm quyết định:</strong> <code>authorize(subject, action, resource, context)</code> trả allow/deny, dùng role từ <code>roleFor()</code> và dữ liệu tài nguyên thật.</li><li><strong>PEP — điểm thực thi:</strong> <code>TaskService.enforce()</code> chặn request bằng lỗi 403 trước khi trả nội dung hoặc ghi dữ liệu. Route HTTP gọi service; gọi service trực tiếp vẫn được kiểm tra.</li><li><strong>RBAC:</strong> role trong từng project được đối chiếu action qua ma trận.</li><li><strong>ReBAC:</strong> quan hệ user → membership → project → task và quan hệ được giao task làm cơ sở cấp quyền.</li><li><strong>ABAC:</strong> trạng thái Open và tenant là điều kiện bổ sung. Không cần OpenFGA hay một policy engine bên ngoài cho quy mô lab này.</li></ul>
+<h3 id="10-2-validation-va-chong-sua-ngoai-y-muon">10.2. Validation và chống sửa ngoài ý muốn</h3>
+<p>Các câu SQL truyền tham số cho giá trị; danh sách cột UPDATE chỉ lấy từ whitelist <code>title</code>, <code>description</code>, <code>assigneeId</code>, <code>status</code>. Không đưa khóa tùy ý từ body vào SQL. Task ID/projectId bất biến; title phải không rỗng và tối đa 200 ký tự; description tối đa 5000; status chỉ Open/Closed; assignee phải có membership của project hoặc là <code>NULL</code>.</p>
+<p>Cần phân biệt hai ý nghĩa của <code>userId/role</code>: trong body sửa task, chúng không thay danh tính/quyền người gọi; trong API quản lý thành viên, chúng là <strong>user đích và role muốn gán</strong>, chỉ được xét sau khi người gọi đã qua action <code>members</code>.</p>
+<h3 id="10-3-oc-ung-ket-qua-http-khi-demo">10.3. Đọc đúng kết quả HTTP khi demo</h3>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">HTTP</th><th scope="col">Ý nghĩa trong ứng dụng</th></tr></thead><tbody><tr><td><code>200</code></td><td>Thao tác thành công, bao gồm đăng nhập, đọc, PATCH, DELETE</td></tr><tr><td><code>201</code></td><td>Thêm thành viên thành công</td></tr><tr><td><code>400</code></td><td>Dữ liệu không hợp lệ, assignee không thuộc project hoặc user đích sai tenant</td></tr><tr><td><code>401</code></td><td>Thiếu/sai/hết hạn token hoặc sai thông tin đăng nhập</td></tr><tr><td><code>403</code></td><td>Đã xác thực nhưng policy hoặc giới hạn trường không cho phép</td></tr><tr><td><code>404</code></td><td>Tài nguyên hoặc phiên bản không tồn tại</td></tr><tr><td><code>409</code></td><td>Thành viên đã tồn tại hoặc thay đổi làm mất Owner cuối cùng</td></tr></tbody></table></div>
+<p>Khi thấy <code>200</code>, kiểm tra cả dòng method/path trong khung kết quả. <code>POST /auth/login → 200</code> chỉ là đăng nhập thành công. <code>GET /api/v1/projects/alpha/members → 200</code> là giới hạn cố ý của V1. Với Bob còn là Member, <code>GET /api/v2/projects/alpha/members</code> phải trả <code>403</code>.</p>
+<p>Chính sách bài chọn 403 cho tài nguyên ngoài phạm vi để dễ quan sát. Không che sự tồn tại bằng 404; lỗi deny không trả nội dung task, nhưng sự khác nhau giữa 403 và 404 có thể cho biết tài nguyên tồn tại.</p>
+</section>
+<section class="report-section" aria-labelledby="11-so-sanh-ket-qua-va-cach-demo-tung-phien-ban">
+<h2 id="11-so-sanh-ket-qua-va-cach-demo-tung-phien-ban">11. So sánh kết quả và cách demo từng phiên bản</h2>
+<h3 id="11-1-ieu-kien-chuan-bi">11.1. Điều kiện chuẩn bị</h3>
+<p>Kết quả bên dưới giả định dữ liệu seed chưa bị thay đổi. Trong thư mục Block-6, dừng server bằng Ctrl+C trước khi reset:</p>
+<div class="code-block"><div class="code-label">bash</div><pre><code>npm run db:reset
+npm start</code></pre></div>
+<p>Mở <code>http://localhost:4006</code>. Chỉ chọn phiên bản một lần ở đầu trang. Chọn tình huống sẽ tự đăng nhập và điền request, chưa thực hiện request nghiệp vụ; bấm <strong>Gửi request</strong> để nhận kết quả. Khung bên phải luôn hiển thị kết quả trên desktop; mobile có khung cố định dưới màn hình, tự mở và có thể thu gọn.</p>
+<h3 id="11-2-trinh-tu-thuyet-trinh">11.2. Trình tự thuyết trình</h3>
+<ol><li><strong>Starter:</strong> chọn Alice đọc B1 → 200, thấy dữ liệu Beta. Giải thích policy luôn allow sau xác thực.</li><li><strong>V1:</strong> gửi cùng request → 403; Alice đọc A1 và Charlie đọc B1 vẫn 200. Giải thích lookup membership theo project chứa task.</li><li><strong>V2:</strong> Eve sửa A1 → 403; Bob sửa A1 → 200; Bob xem thành viên/xóa project → 403. Alice xem thành viên → 200. Bob giả role Admin vẫn bị chặn. Giải thích bảng role/action và role từ database.</li><li><strong>V3:</strong> Bob sửa A1 → 200, A2 chưa giao → 403, A3 Closed → 403. Đối chiếu A2/A3 ở V2 còn 200. Alice sửa A3 vẫn 200. Giải thích assignee/status kiểm trên dữ liệu trước cập nhật.</li><li><strong>V4:</strong> Dana đọc A1 → 200, đọc B1 → 403; thêm X-Tenant-Id beta vẫn 403. Đối chiếu V3, Dana đọc B1 còn 200. Giải thích tenant guard trước cấp quyền Admin.</li><li><strong>Thu hồi quyền:</strong> hai tab, Alice gỡ Bob ở một tab; tab Bob giữ nguyên token cũ, gửi GET A1 → 403. Thực hiện xóa project ở cuối demo nếu cần, rồi reset trước khi lặp lại.</li></ol>
+<p>Muốn demo Charlie đọc B1, đăng nhập nhanh Charlie rồi nhập thủ công <code>GET /tasks/B1</code>; không chọn tình huống Alice đọc B1 vì thao tác đó tự đăng nhập lại Alice. Tương tự, không đăng nhập lại Bob khi đang chứng minh token cũ mất quyền sau khi bị gỡ.</p>
+<h3 id="11-3-oracle-17-tinh-huong">11.3. Oracle 17 tình huống</h3>
+<p>Bảng dưới được lấy từ evidence của các request thật. Trường hợp cho phép sai ở bản trung gian là giới hạn cố ý; cột Đích thể hiện yêu cầu hoàn chỉnh ở V4. Dòng Closed trong oracle đổi A1 thành Closed trong fixture; tình huống giao diện dùng A3 Closed được seed sẵn để chứng minh cùng điều kiện.</p>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Tình huống</th><th scope="col">Starter</th><th scope="col">V1</th><th scope="col">V2</th><th scope="col">V3</th><th scope="col">V4</th><th scope="col">Đích</th></tr></thead><tbody><tr><td>01 Anonymous đọc A1</td><td>401</td><td>401</td><td>401</td><td>401</td><td>401</td><td>401</td></tr><tr><td>02 Alice đọc A1</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td></tr><tr><td>03 Alice đọc B1 (IDOR)</td><td>200</td><td>403</td><td>403</td><td>403</td><td>403</td><td>403</td></tr><tr><td>04 Charlie đọc B1</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td></tr><tr><td>05 Viewer sửa A1</td><td>200</td><td>200</td><td>403</td><td>403</td><td>403</td><td>403</td></tr><tr><td>06 Member xóa Alpha</td><td>200</td><td>200</td><td>403</td><td>403</td><td>403</td><td>403</td></tr><tr><td>07 Member quản lý thành viên</td><td>200</td><td>200</td><td>403</td><td>403</td><td>403</td><td>403</td></tr><tr><td>08 Owner xóa Alpha</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td></tr><tr><td>09 Owner quản lý thành viên</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td></tr><tr><td>10 Bob giả role Admin</td><td>200</td><td>200</td><td>403</td><td>403</td><td>403</td><td>403</td></tr><tr><td>11 Member sửa task được giao Open</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td></tr><tr><td>12 Member sửa task chưa giao</td><td>200</td><td>200</td><td>200</td><td>403</td><td>403</td><td>403</td></tr><tr><td>13 Member sửa task Closed</td><td>200</td><td>200</td><td>200</td><td>403</td><td>403</td><td>403</td></tr><tr><td>14 Member sửa task project khác</td><td>200</td><td>200</td><td>403</td><td>403</td><td>403</td><td>403</td></tr><tr><td>15 Admin Alpha đọc A1</td><td>200</td><td>403</td><td>200</td><td>200</td><td>200</td><td>200</td></tr><tr><td>16 Admin Alpha đọc B1</td><td>200</td><td>403</td><td>200</td><td>200</td><td>403</td><td>403</td></tr><tr><td>17 Admin giả X-Tenant-Id beta</td><td>200</td><td>403</td><td>200</td><td>200</td><td>403</td><td>403</td></tr></tbody></table></div>
+</section>
+<section class="report-section" aria-labelledby="12-kiem-thu-evidence-va-oi-chieu-yeu-cau-bai-nop">
+<h2 id="12-kiem-thu-evidence-va-oi-chieu-yeu-cau-bai-nop">12. Kiểm thử, evidence và đối chiếu yêu cầu bài nộp</h2>
+<p>Kết quả evidence đã lưu: <strong>198/198 test API/business và 13/13 test Playwright headless đạt</strong>. Đây là kết quả các lần kiểm chứng trước khi viết báo cáo; thay đổi tài liệu không đồng nghĩa chạy lại toàn bộ ứng dụng. Test API dùng Supertest và SQLite in-memory; mỗi test giao diện có server cổng tạm, database riêng và browser profile headless riêng, không thao tác trình duyệt người dùng.</p>
+<div class="table-wrap" role="region" aria-label="Bảng đối chiếu" tabindex="0"><table><thead><tr><th scope="col">Thành phần cần nộp</th><th scope="col">Nơi thực hiện</th><th scope="col">Bằng chứng/kiểm tra</th></tr></thead><tbody><tr><td>Bảng role, resource, action và điều kiện</td><td>Ma trận ở mục 6; điều kiện Member ở mục 7; tenant ở mục 8</td><td>12 ô ma trận × V2/V3/V4, kỳ vọng độc lập mã policy</td></tr><tr><td>V1 sửa IDOR, có allow và deny</td><td><code>authorize()</code> và <code>TaskService.getTask()</code></td><td><code>evidence/idor-http.txt</code>, test Alice A1/B1 và Charlie B1</td></tr><tr><td>V2 RBAC theo project</td><td>Membership và <code>MATRIX[role][action]</code></td><td>Oracle 05–10, test ma trận, test CRUD thành viên</td></tr><tr><td>V3 assignee/status và chống vượt điều kiện</td><td>Policy V3 và giới hạn trường trong service</td><td>Oracle 11–14; test task chưa giao, Closed, tự giao/mở lại</td></tr><tr><td>V4 tenant boundary và giả mạo</td><td>Tenant guard, Admin từ DB, kiểm user đích</td><td>Oracle 15–17; test giả user/role/tenant</td></tr><tr><td>Cùng test đỏ trước, xanh sau</td><td><code>tests/idor.test.ts</code>, đổi <code>TEST_VERSION</code></td><td><code>evidence/idor-before.txt</code>, <code>evidence/idor-after.txt</code></td></tr><tr><td>Code diff và điểm chặn phía server</td><td>Policy Starter so với policy đầy đủ; service enforce</td><td><code>evidence/authorization.diff</code>, mục 3 và 10 của báo cáo</td></tr><tr><td>Các entry point dùng chung kiểm quyền</td><td>Service đọc/sửa/xóa/membership; SQL filter cho list</td><td>Test gọi service trực tiếp; test list khớp GET từng ID</td></tr><tr><td>Giao diện demo và kết quả tại chỗ</td><td>HTML/CSS/JS, khung kết quả cố định</td><td><code>evidence/playwright-results.json</code>, <code>ui-desktop.png</code>, <code>ui-mobile.png</code></td></tr><tr><td>Giải thích lựa chọn và giới hạn</td><td>Mục 10 và 13</td><td>Báo cáo này</td></tr></tbody></table></div>
+<p>Các lệnh có thể tái chạy:</p>
+<div class="code-block"><div class="code-label">bash</div><pre><code>npm run typecheck
+npm test
+npm run test:e2e
+npm run evidence</code></pre></div>
+<p>Để chứng minh đúng một regression test:</p>
+<div class="code-block"><div class="code-label">bash</div><pre><code>npm run test:idor:before
+npm run test:idor:after</code></pre></div>
+<p>Lệnh before cố ý thoát mã 1 vì Starter trả 200 khi test kỳ vọng chặn Alice đọc B1; hai test allow vẫn xanh. Lệnh after dùng cùng test trên V4 và thoát mã 0. Suite <code>npm test</code> kiểm hành vi mong đợi của từng giai đoạn và bản sửa, nên suite xanh không có nghĩa Starter an toàn.</p>
+<p><code>npm run evidence</code> tạo request/response trước–sau, log test, oracle 17 tình huống và diff nguồn policy thực tế; token được che. Diff so sánh hai module thực tế của lab, không phải lịch sử commit giả lập. Evidence chạy trên dữ liệu tạm, không thay đổi <code>data/</code> của demo. Chạy <code>npm run test:e2e</code> cập nhật JSON và ảnh giao diện; trace khi lỗi được lưu trong <code>test-results/</code> và không đưa vào Git.</p>
+</section>
+<section class="report-section" aria-labelledby="13-gioi-han-va-cac-truong-hop-chua-kiem-tra">
+<h2 id="13-gioi-han-va-cac-truong-hop-chua-kiem-tra">13. Giới hạn và các trường hợp chưa kiểm tra</h2>
+<ul><li>Đây là lab localhost có chủ đích giữ Starter/V1 chưa an toàn. Việc cho client chọn phiên bản policy chỉ phục vụ so sánh, không dùng làm thiết kế cấp quyền cho dữ liệu production.</li><li>Chưa có HTTPS, MFA, giới hạn tốc độ đăng nhập, refresh/revoke token, audit log lâu dài, quản lý nhiều khóa ký hoặc tích hợp OAuth2 bên ngoài. Token bị đánh cắp có thể dùng đến hết hạn, nhưng quyền tài nguyên vẫn được xét theo database hiện hành.</li><li>Chưa kiểm tải lớn, stress đồng thời, nhiều process/máy chủ, thay tenant giữa request hoặc sự cố lưu trữ. Transaction của SQLite trong mô hình lab không chứng minh mọi trường hợp của hệ thống phân tán.</li><li>Chưa có chia sẻ qua nhóm/thư mục nhiều cấp, nhiều tenant cho một user, phân trang, tìm kiếm, export, tạo project/task hoặc ACL riêng từng task. Khi thêm entry point phải bổ sung kiểm quyền và test tương ứng.</li><li>Kiểm soát trường PATCH, Owner được sửa Closed, giữ Owner cuối cùng và gỡ assignee khi thu hồi membership là các lựa chọn cụ thể của bài này; không phải mặc định bắt buộc cho mọi hệ thống.</li><li>Reset là công cụ offline: dừng server trước khi chạy. Chuyển phiên bản không tự reset dữ liệu. Nếu kết quả demo khác oracle, kiểm tra endpoint, user/role hiện hành và dữ liệu đã bị thay đổi trước đó.</li></ul>
+</section>
+<section class="report-section" aria-labelledby="14-cach-oc-va-cap-nhat-bao-cao">
+<h2 id="14-cach-oc-va-cap-nhat-bao-cao">14. Cách đọc và cập nhật báo cáo</h2>
+<p><code>REPORT.md</code> là nguồn nội dung. <code>REPORT.html</code> được tạo từ Markdown bằng <code>scripts/render-report.py</code>, dùng CSS và sơ đồ HTML/CSS có sẵn trong file, đọc được offline và không tải thư viện/font từ mạng. Bản HTML có mục lục theo section, sơ đồ luồng chung và liên kết tới code/evidence tương đối với thư mục Block-6.</p>
+<div class="code-block"><div class="code-label">bash</div><pre><code>python3 scripts/render-report.py</code></pre></div>
+<p>Mở trực tiếp <code>REPORT.html</code> trong trình duyệt. Báo cáo không được đặt trong thư mục <code>public/</code>, nên không mặc định có URL <code>/REPORT.html</code> trên ứng dụng demo. Đối chiếu đoạn trích code với các file liên kết khi thay đổi implementation; các đoạn được rút gọn đã được ghi rõ trong nội dung.</p>
+</section></article></div>
+<footer>Block-6 · Nội dung từ REPORT.md · Đối chiếu mã nguồn và evidence trong cùng thư mục</footer>
+<script>
+const links = [...document.querySelectorAll('.toc nav a')];
+const observer = new IntersectionObserver(entries => {
+  for (const entry of entries) if (entry.isIntersecting) {
+    links.forEach(link => {
+      const active = link.hash === '#' + entry.target.id;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+}, {rootMargin: '-5% 0px -75% 0px'});
+document.querySelectorAll('h2[id]').forEach(heading => observer.observe(heading));
+</script></body></html>

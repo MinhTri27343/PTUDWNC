@@ -1,0 +1,37 @@
+{
+  "name": "block-6-authorization-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "dev": "tsx watch src/server.ts",
+    "db:reset": "tsx scripts/reset.ts",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:idor:before": "TEST_VERSION=starter vitest run tests/idor.test.ts",
+    "test:idor:after": "TEST_VERSION=v4 vitest run tests/idor.test.ts",
+    "typecheck": "tsc --noEmit",
+    "evidence": "tsx scripts/evidence.ts"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "express": "^5.2.1",
+    "jose": "^5.10.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}

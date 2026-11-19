@@ -1,0 +1,65 @@
+{
+  "orders": [
+    {
+      "id": "O001",
+      "status": "pending",
+      "product_name": null,
+      "thumbnail_url": null
+    },
+    {
+      "id": "O002",
+      "status": "shipping",
+      "product_name": null,
+      "thumbnail_url": null
+    },
+    {
+      "id": "O003",
+      "status": "delivered",
+      "product_name": null,
+      "thumbnail_url": null
+    },
+    {
+      "id": "O004",
+      "status": "pending",
+      "product_name": null,
+      "thumbnail_url": null
+    },
+    {
+      "id": "O005",
+      "status": "shipping",
+      "product_name": null,
+      "thumbnail_url": null
+    }
+  ],
+  "errors": [
+    {
+      "scope": "product",
+      "resource_id": "P1",
+      "code": "UPSTREAM_ERROR",
+      "message": "Không tải được thông tin sản phẩm. Service không khả dụng.",
+      "order_ids": [
+        "O001",
+        "O003"
+      ]
+    },
+    {
+      "scope": "product",
+      "resource_id": "P2",
+      "code": "UPSTREAM_ERROR",
+      "message": "Không tải được thông tin sản phẩm. Service không khả dụng.",
+      "order_ids": [
+        "O002",
+        "O005"
+      ]
+    },
+    {
+      "scope": "product",
+      "resource_id": "P3",
+      "code": "UPSTREAM_ERROR",
+      "message": "Không tải được thông tin sản phẩm. Service không khả dụng.",
+      "order_ids": [
+        "O004"
+      ]
+    }
+  ]
+}

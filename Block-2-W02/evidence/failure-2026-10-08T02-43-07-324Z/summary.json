@@ -1,0 +1,658 @@
+[
+  {
+    "group": "slow/baseline/web/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 1586.4000000953674,
+        "min": 1585.7000000476837,
+        "max": 1586.8000000715256
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 12809,
+        "min": 12809,
+        "max": 12809
+      }
+    }
+  },
+  {
+    "group": "slow/baseline/mobile/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 1570.1000000238419,
+        "min": 1569.1000000238419,
+        "max": 1585.2000000476837
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1169,
+        "min": 1169,
+        "max": 1169
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 12809,
+        "min": 12809,
+        "max": 12809
+      }
+    }
+  },
+  {
+    "group": "slow/bff/web/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 353.6999999284744,
+        "min": 352.6999999284744,
+        "max": 354
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1244,
+        "min": 1244,
+        "max": 1244
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 12809,
+        "min": 12809,
+        "max": 12809
+      }
+    }
+  },
+  {
+    "group": "slow/bff/mobile/small/warm/complete",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 336.89999997615814,
+        "min": 336.09999990463257,
+        "max": 353.5
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 491,
+        "min": 491,
+        "max": 491
+      },
+      "upstream_bytes": {
+        "median": 1018,
+        "min": 1018,
+        "max": 1018
+      },
+      "static_bytes": {
+        "median": 12809,
+        "min": 12809,
+        "max": 12809
+      }
+    }
+  },
+  {
+    "group": "timeout/baseline/web/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 5037.299999952316,
+        "min": 5034.5,
+        "max": 5040.399999976158
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 752,
+        "min": 752,
+        "max": 752
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 11915,
+        "min": 11915,
+        "max": 11915
+      }
+    }
+  },
+  {
+    "group": "timeout/baseline/mobile/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 5035.5,
+        "min": 5035.399999976158,
+        "max": 5036.199999928474
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 752,
+        "min": 752,
+        "max": 752
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 11915,
+        "min": 11915,
+        "max": 11915
+      }
+    }
+  },
+  {
+    "group": "timeout/bff/web/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 1036.2999999523163,
+        "min": 1035.6999999284744,
+        "max": 1036.6000000238419
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1367,
+        "min": 1367,
+        "max": 1367
+      },
+      "upstream_bytes": {
+        "median": 752,
+        "min": 752,
+        "max": 752
+      },
+      "static_bytes": {
+        "median": 11915,
+        "min": 11915,
+        "max": 11915
+      }
+    }
+  },
+  {
+    "group": "timeout/bff/mobile/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 1035.6000000238419,
+        "min": 1034.3999999761581,
+        "max": 1036.5999999046326
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 918,
+        "min": 918,
+        "max": 918
+      },
+      "upstream_bytes": {
+        "median": 752,
+        "min": 752,
+        "max": 752
+      },
+      "static_bytes": {
+        "median": 11915,
+        "min": 11915,
+        "max": 11915
+      }
+    }
+  },
+  {
+    "group": "error/baseline/web/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.5,
+        "min": 35.5,
+        "max": 49.299999952316284
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 2,
+        "min": 2,
+        "max": 2
+      },
+      "api_bytes": {
+        "median": 1097,
+        "min": 1097,
+        "max": 1097
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 11915,
+        "min": 11915,
+        "max": 11915
+      }
+    }
+  },
+  {
+    "group": "error/baseline/mobile/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.10000002384186,
+        "min": 34.10000002384186,
+        "max": 37
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 2,
+        "min": 2,
+        "max": 2
+      },
+      "api_bytes": {
+        "median": 1097,
+        "min": 1097,
+        "max": 1097
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 11915,
+        "min": 11915,
+        "max": 11915
+      }
+    }
+  },
+  {
+    "group": "error/bff/web/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.300000071525574,
+        "min": 35.799999952316284,
+        "max": 37.200000047683716
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 2,
+        "min": 2,
+        "max": 2
+      },
+      "api_bytes": {
+        "median": 1376,
+        "min": 1376,
+        "max": 1376
+      },
+      "upstream_bytes": {
+        "median": 821,
+        "min": 821,
+        "max": 821
+      },
+      "static_bytes": {
+        "median": 11915,
+        "min": 11915,
+        "max": 11915
+      }
+    }
+  },
+  {
+    "group": "error/bff/mobile/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.299999952316284,
+        "min": 36,
+        "max": 36.60000002384186
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 2,
+        "min": 2,
+        "max": 2
+      },
+      "api_bytes": {
+        "median": 927,
+        "min": 927,
+        "max": 927
+      },
+      "upstream_bytes": {
+        "median": 821,
+        "min": 821,
+        "max": 821
+      },
+      "static_bytes": {
+        "median": 11915,
+        "min": 11915,
+        "max": 11915
+      }
+    }
+  },
+  {
+    "group": "missing/baseline/web/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.300000071525574,
+        "min": 35.699999928474426,
+        "max": 53.5
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1249,
+        "min": 1249,
+        "max": 1249
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 12511,
+        "min": 12511,
+        "max": 12511
+      }
+    }
+  },
+  {
+    "group": "missing/baseline/mobile/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.90000009536743,
+        "min": 34.89999997615814,
+        "max": 52.299999952316284
+      },
+      "browser_api_requests": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "service_calls": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "db_queries": {
+        "median": 7,
+        "min": 7,
+        "max": 7
+      },
+      "api_bytes": {
+        "median": 1249,
+        "min": 1249,
+        "max": 1249
+      },
+      "upstream_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0
+      },
+      "static_bytes": {
+        "median": 12511,
+        "min": 12511,
+        "max": 12511
+      }
+    }
+  },
+  {
+    "group": "missing/bff/web/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.299999952316284,
+        "min": 35.699999928474426,
+        "max": 39.5
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 1267,
+        "min": 1267,
+        "max": 1267
+      },
+      "upstream_bytes": {
+        "median": 932,
+        "min": 932,
+        "max": 932
+      },
+      "static_bytes": {
+        "median": 12511,
+        "min": 12511,
+        "max": 12511
+      }
+    }
+  },
+  {
+    "group": "missing/bff/mobile/small/warm/partial",
+    "count": 5,
+    "metrics": {
+      "duration_ms": {
+        "median": 36.199999928474426,
+        "min": 35.700000047683716,
+        "max": 38.10000002384186
+      },
+      "browser_api_requests": {
+        "median": 1,
+        "min": 1,
+        "max": 1
+      },
+      "service_calls": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "db_queries": {
+        "median": 3,
+        "min": 3,
+        "max": 3
+      },
+      "api_bytes": {
+        "median": 636,
+        "min": 636,
+        "max": 636
+      },
+      "upstream_bytes": {
+        "median": 932,
+        "min": 932,
+        "max": 932
+      },
+      "static_bytes": {
+        "median": 12511,
+        "min": 12511,
+        "max": 12511
+      }
+    }
+  }
+]

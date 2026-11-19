@@ -1,0 +1,35 @@
+import type { User, Action, Resource, Context, Role } from './types.js';
+import { authorize as starter } from './starter-policy.js';
+export const MATRIX: Record<Role, Record<Action, boolean>> = {
+  Viewer: { read: true, edit: false, delete: false, members: false },
+  Member: { read: true, edit: true, delete: false, members: false },
+  Owner: { read: true, edit: true, delete: true, members: true },
+};
+export function roleFor(subject: User, resource: Resource, context: Context): Role | undefined {
+  if (subject.admin && context.version !== 'v1' &&
+      (context.version !== 'v4' || subject.tenantId === resource.project.tenantId)) return 'Owner';
+  return (context.db.prepare('SELECT role FROM project_members WHERE projectId = ? AND userId = ?')
+    .get(resource.project.id, subject.id) as { role: Role } | undefined)?.role;
+}
+export function authorize(subject: User, action: Action, resource: Resource, context: Context): boolean {
+  if (context.version === 'starter') return starter(subject, action, resource, context);
+  // V1 intentionally fixes only read access; later versions protect all actions.
+  if (context.version === 'v1') return action !== 'read' || !!roleFor(subject, resource, context);
+  if (context.version === 'v4' && subject.tenantId !== resource.project.tenantId) return false;
+  const role = roleFor(subject, resource, context);
+  if (!role || !MATRIX[role]?.[action]) return false;
+  if ((context.version === 'v3' || context.version === 'v4') && action === 'edit' && role === 'Member')
+    return resource.task?.assigneeId === subject.id && resource.task.status === 'Open';
+  return true;
+}
+// SQL equivalent of the read policy, shared by task and project lists.
+export function readFilter(subject: User, context: Context): { sql: string; params: string[] } {
+  if (context.version === 'starter') return { sql: '1=1', params: [] };
+  const member = 'EXISTS (SELECT 1 FROM project_members m WHERE m.projectId = p.id AND m.userId = ?)';
+  if (context.version === 'v4') return {
+    sql: `p.tenantId = ? AND (${subject.admin ? '1=1' : member})`,
+    params: subject.admin ? [subject.tenantId] : [subject.tenantId, subject.id],
+  };
+  if (subject.admin && context.version !== 'v1') return { sql: '1=1', params: [] };
+  return { sql: member, params: [subject.id] };
+}

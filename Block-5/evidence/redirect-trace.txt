@@ -1,0 +1,21 @@
+# Redirect trace — wallet linking (Taxi -> Wallet AS -> Taxi)
+# Captured 2026-10-22T03:42:44.526Z. codes/states/challenges are labelled fingerprints, cookies are not shown.
+# Browser view only. The code->token exchange is a server-to-server call (Taxi -> AS /token) the browser never sees.
+
+03:42:44.595Z  POST http://localhost:4002/link
+              -> 303  Location: http://localhost:4000/authorize?redirect_uri=http://localhost:4002/callback&scope=wallet:read+wallet:charge+offline_access&code_challenge=<challenge:2d55d30e>&code_challenge_method=S256&state=<state:f2fe3a80>&client_id=taxi-web&response_type=code
+03:42:44.602Z  GET  http://localhost:4000/authorize?redirect_uri=http://localhost:4002/callback&scope=wallet:read+wallet:charge+offline_access&code_challenge=<challenge:2d55d30e>&code_challenge_method=S256&state=<state:f2fe3a80>&client_id=taxi-web&response_type=code
+              -> 200
+03:42:44.674Z  POST http://localhost:4000/login
+              -> 200
+              (login form submitted as Alice; password not shown)
+03:42:44.678Z  POST http://localhost:4000/consent
+              -> 302  Location: http://localhost:4002/callback?code=<code:ce71c353>&state=<state:f2fe3a80>
+              (consent screen: Alice pressed Allow)
+03:42:44.797Z  GET  http://localhost:4002/callback?code=<code:ce71c353>&state=<state:f2fe3a80>
+              -> 303  Location: http://localhost:4002/
+03:42:44.801Z  GET  http://localhost:4002/
+              -> 200
+
+Result page shows: "Wallet linked."
+Taxi /status (never contains tokens): {"user":"alice","status":"linked","access_exp":1792640684}

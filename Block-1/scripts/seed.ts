@@ -1,7 +1,7 @@
 import { config } from '../src/config';
 import { openDatabase } from '../src/db';
-import { seed } from '../src/dbSetup';
-import { SEED_CART_ITEMS, SEED_CARTS, SEED_PRODUCTS } from '../src/seedData';
+import { seed } from '../src/db/setup';
+import { SEED_CART_ITEMS, SEED_CARTS, SEED_PRODUCTS } from '../src/db/seedData';
 
 // fileMustExist: phải chạy db:migrate trước.
 const db = openDatabase(config.dbPath);

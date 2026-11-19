@@ -5,8 +5,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { createApp } from '../src/app';
 import { config } from '../src/config';
-import { createLogger } from '../src/logger';
-import { CART_IDS } from '../src/seedData';
+import { createLogger } from '../src/logging';
+import { CART_IDS } from '../src/db/seedData';
 
 config.dbPath = path.join(os.tmpdir(), 'cart-api-does-not-exist', 'missing.db');
 const server = createApp({ logger: createLogger(), validateResponses: true }).listen(0);

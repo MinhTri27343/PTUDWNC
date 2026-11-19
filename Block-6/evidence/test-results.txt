@@ -1,0 +1,209 @@
+$ vitest run --reporter=verbose
+Exit code: 0
+
+
+ RUN  v5.0.5 /Users/macbook/Documents/HCMUS_Documents/Web NC/PTUDWNC/Block-6
+
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 01 Anonymous đọc A1 20ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 02 Alice đọc A1 7ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 03 Alice đọc B1 (IDOR) 4ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 04 Charlie đọc B1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 05 Viewer sửa A1 8ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 06 Member xóa Alpha 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 07 Member quản lý thành viên 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 08 Owner xóa Alpha 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 09 Owner quản lý thành viên 5ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 10 Bob giả role Admin 5ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 11 Member sửa task được giao Open 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 12 Member sửa task chưa giao 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 13 Member sửa task Closed 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 14 Member sửa task project khác 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 15 Admin Alpha đọc A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 16 Admin Alpha đọc B1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / starter > 17 Admin giả X-Tenant-Id beta 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 01 Anonymous đọc A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 02 Alice đọc A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 03 Alice đọc B1 (IDOR) 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 04 Charlie đọc B1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 05 Viewer sửa A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 06 Member xóa Alpha 4ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 07 Member quản lý thành viên 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 08 Owner xóa Alpha 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 09 Owner quản lý thành viên 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 10 Bob giả role Admin 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 11 Member sửa task được giao Open 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 12 Member sửa task chưa giao 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 13 Member sửa task Closed 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 14 Member sửa task project khác 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 15 Admin Alpha đọc A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 16 Admin Alpha đọc B1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v1 > 17 Admin giả X-Tenant-Id beta 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 01 Anonymous đọc A1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 02 Alice đọc A1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 03 Alice đọc B1 (IDOR) 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 04 Charlie đọc B1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 05 Viewer sửa A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 06 Member xóa Alpha 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 07 Member quản lý thành viên 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 08 Owner xóa Alpha 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 09 Owner quản lý thành viên 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 10 Bob giả role Admin 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 11 Member sửa task được giao Open 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 12 Member sửa task chưa giao 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 13 Member sửa task Closed 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 14 Member sửa task project khác 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 15 Admin Alpha đọc A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 16 Admin Alpha đọc B1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v2 > 17 Admin giả X-Tenant-Id beta 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 01 Anonymous đọc A1 4ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 02 Alice đọc A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 03 Alice đọc B1 (IDOR) 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 04 Charlie đọc B1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 05 Viewer sửa A1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 06 Member xóa Alpha 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 07 Member quản lý thành viên 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 08 Owner xóa Alpha 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 09 Owner quản lý thành viên 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 10 Bob giả role Admin 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 11 Member sửa task được giao Open 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 12 Member sửa task chưa giao 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 13 Member sửa task Closed 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 14 Member sửa task project khác 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 15 Admin Alpha đọc A1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 16 Admin Alpha đọc B1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v3 > 17 Admin giả X-Tenant-Id beta 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 01 Anonymous đọc A1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 02 Alice đọc A1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 03 Alice đọc B1 (IDOR) 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 04 Charlie đọc B1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 05 Viewer sửa A1 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 06 Member xóa Alpha 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 07 Member quản lý thành viên 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 08 Owner xóa Alpha 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 09 Owner quản lý thành viên 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 10 Bob giả role Admin 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 11 Member sửa task được giao Open 4ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 12 Member sửa task chưa giao 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 13 Member sửa task Closed 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 14 Member sửa task project khác 3ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 15 Admin Alpha đọc A1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 16 Admin Alpha đọc B1 2ms
+ ✓ tests/authorization.test.ts > 17 tình huống học liệu / v4 > 17 Admin giả X-Tenant-Id beta 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Viewer / read 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Viewer / edit 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Viewer / delete 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Viewer / members 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Member / read 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Member / edit 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Member / delete 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Member / members 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Owner / read 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Owner / edit 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Owner / delete 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v2 > Owner / members 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Viewer / read 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Viewer / edit 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Viewer / delete 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Viewer / members 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Member / read 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Member / edit 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Member / delete 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Member / members 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Owner / read 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Owner / edit 4ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Owner / delete 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v3 > Owner / members 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Viewer / read 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Viewer / edit 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Viewer / delete 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Viewer / members 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Member / read 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Member / edit 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Member / delete 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Member / members 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Owner / read 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Owner / edit 3ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Owner / delete 2ms
+ ✓ tests/authorization.test.ts > 12 ô ma trận / v4 > Owner / members 2ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > đăng nhập mẫu; token chỉ chứa sub, không nhúng role/tenant 38ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > mật khẩu sai sai 37ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > mật khẩu sai  36ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > user không tồn tại 36ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > password không phải string 3ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > từ chối token missing 3ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > từ chối token broken 2ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > từ chối token expired 2ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > từ chối token wrong-key 2ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > từ chối token wrong-audience 3ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > từ chối token wrong-issuer 2ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > từ chối token unknown-user 2ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > từ chối token missing-exp 2ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > resource không tồn tại trả 404 2ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > phiên bản không hợp lệ trả 404 4ms
+ ✓ tests/authorization.test.ts > Authentication và lỗi đầu vào > JSON sai trả 400 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > không tin userId/role/tenantId do Alice tự khai khi sửa B1 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > claim role/tenant trong JWT ký hợp lệ cũng không cấp quyền 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Member không được sửa trường quản trị {"assigneeId":"bob"} 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Member không được sửa trường quản trị {"status":"Open"} 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Member không được sửa trường quản trị {"title":"X","status":"Open"} 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Member không thể tự vượt điều kiện trên A2 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Member không thể tự vượt điều kiện trên A3 2ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner sửa Closed và gán task; Member sửa sau khi được giao 4ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner đóng task, token cũ của Bob lập tức không sửa được 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner gửi patch sai {"projectId":"beta"} 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner gửi patch sai {"id":"B1"} 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner gửi patch sai {"title":""} 2ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner gửi patch sai {"title":42} 2ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner gửi patch sai {"status":"Done"} 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner gửi patch sai {"assigneeId":"charlie"} 2ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner gửi patch sai {"description":[]} 2ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > Owner gửi patch sai {} 3ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > ghi dữ liệu thật và không ảnh hưởng phiên bản khác 7ms
+ ✓ tests/authorization.test.ts > Trust boundary, ABAC và ghi dữ liệu > gọi trực tiếp business layer vẫn bị kiểm quyền 3ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > starter/alice 7ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > starter/bob 7ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > starter/eve 8ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > starter/charlie 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > starter/dana 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v1/alice 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v1/bob 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v1/eve 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v1/charlie 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v1/dana 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v2/alice 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v2/bob 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v2/eve 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v2/charlie 7ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v2/dana 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v3/alice 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v3/bob 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v3/eve 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v3/charlie 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v3/dana 7ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v4/alice 7ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v4/bob 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v4/eve 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v4/charlie 6ms
+ ✓ tests/authorization.test.ts > Danh sách khớp quyền đọc đơn lẻ > v4/dana 8ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > Viewer/Member không có quyền POST và không thay đổi DB 4ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > Viewer/Member không có quyền PATCH và không thay đổi DB 3ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > Viewer/Member không có quyền DELETE và không thay đổi DB 3ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > Owner thêm, đổi role, gỡ thành viên 4ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > gỡ Bob thu hồi ngay cả với token đã cấp và xóa assignee 4ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > không được DELETE Owner cuối cùng 2ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > không được PATCH Owner cuối cùng 2ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > gỡ một Owner khi đã có Owner khác 3ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > thêm nobody/Viewer trả 400 3ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > thêm charlie/Viewer trả 400 2ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > thêm dana/Admin trả 400 2ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > thêm bob/Viewer trả 409 2ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > Admin Alpha không quản lý project Beta 3ms
+ ✓ tests/authorization.test.ts > Quản lý thành viên > Admin quản lý project cùng tenant không cần membership 2ms
+ ✓ tests/idor.test.ts > IDOR regression — v4 > Alice đọc B1 phải bị chặn và không lộ nội dung task 21ms
+ ✓ tests/idor.test.ts > IDOR regression — v4 > Alice vẫn đọc được A1 7ms
+ ✓ tests/idor.test.ts > IDOR regression — v4 > Charlie vẫn đọc được B1 4ms
+
+ Test Files  2 passed (2)
+      Tests  198 passed (198)
+   Start at  10:21:48
+   Duration  1.52s (tests 59%, import 38%, transform 3%)

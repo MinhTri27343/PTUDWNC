@@ -1,0 +1,14 @@
+$ TEST_VERSION=v4 vitest run tests/idor.test.ts --reporter=verbose
+Exit code: 0
+
+
+ RUN  v5.0.5 /Users/macbook/Documents/HCMUS_Documents/Web NC/PTUDWNC/Block-6
+
+ ✓ tests/idor.test.ts > IDOR regression — v4 > Alice đọc B1 phải bị chặn và không lộ nội dung task 21ms
+ ✓ tests/idor.test.ts > IDOR regression — v4 > Alice vẫn đọc được A1 7ms
+ ✓ tests/idor.test.ts > IDOR regression — v4 > Charlie vẫn đọc được B1 4ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  10:21:48
+   Duration  372ms (import 84%, tests 11%, transform 5%, worker 1%)

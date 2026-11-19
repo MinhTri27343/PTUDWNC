@@ -1,0 +1,38 @@
+$ TEST_VERSION=starter vitest run tests/idor.test.ts --reporter=verbose
+Exit code: 1
+
+
+ RUN  v5.0.5 /Users/macbook/Documents/HCMUS_Documents/Web NC/PTUDWNC/Block-6
+
+ × tests/idor.test.ts > IDOR regression — starter > Alice đọc B1 phải bị chặn và không lộ nội dung task 24ms
+   → expected 200 to be 403 // Object.is equality
+ ✓ tests/idor.test.ts > IDOR regression — starter > Alice vẫn đọc được A1 7ms
+ ✓ tests/idor.test.ts > IDOR regression — starter > Charlie vẫn đọc được B1 3ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  10:21:47
+   Duration  415ms (import 75%, transform 14%, tests 10%, worker 1%)
+
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/idor.test.ts > IDOR regression — starter > Alice đọc B1 phải bị chặn và không lộ nội dung task
+AssertionError: expected 200 to be 403 // Object.is equality
+
+- Expected
++ Received
+
+- 403
++ 200
+
+ ❯ tests/idor.test.ts:10:27
+      8|   it('Alice đọc B1 phải bị chặn và không lộ nội dung task',async()=>{
+      9|     const result=await lab.send(version,'GET','/tasks/B1','alice');
+     10|     expect(result.status).toBe(403);
+       |                           ^
+     11|     expect(result.body).not.toHaveProperty('title');
+     12|     expect(JSON.stringify(result.body)).not.toContain('Ngân sách');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯

@@ -1,0 +1,46 @@
+{
+  "orders": [
+    {
+      "id": "O001",
+      "status": "pending",
+      "product_name": null,
+      "thumbnail_url": null
+    },
+    {
+      "id": "O002",
+      "status": "shipping",
+      "product_name": "Tai nghe",
+      "thumbnail_url": "/images/P2.svg"
+    },
+    {
+      "id": "O003",
+      "status": "delivered",
+      "product_name": null,
+      "thumbnail_url": null
+    },
+    {
+      "id": "O004",
+      "status": "pending",
+      "product_name": "Chuột",
+      "thumbnail_url": "/images/P3.svg"
+    },
+    {
+      "id": "O005",
+      "status": "shipping",
+      "product_name": "Tai nghe",
+      "thumbnail_url": "/images/P2.svg"
+    }
+  ],
+  "errors": [
+    {
+      "scope": "product",
+      "resource_id": "P1",
+      "code": "RESOURCE_NOT_FOUND",
+      "message": "Không tải được thông tin sản phẩm. Dữ liệu không tồn tại.",
+      "order_ids": [
+        "O001",
+        "O003"
+      ]
+    }
+  ]
+}

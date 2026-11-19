@@ -1,0 +1,34 @@
+  (waiting 62s for the code to expire...)
+
+Attack run against http://localhost:4000 at 2026-10-22T03:25:45.486Z
+Control (legitimate code exchange): OK
+
+NOT BLOCKED  1 unregistered redirect_uri
+             expected: 400, no redirect
+             observed: 302 -> http://evil.example/callback?code=<redacted>&state=st-I7PfKzHI
+NOT BLOCKED  2 missing code_challenge
+             expected: 302 error=invalid_request
+             observed: 302 code issued WITHOUT PKCE
+NOT BLOCKED  3 reused authorization code
+             expected: 400 invalid_grant + family revoked
+             observed: 1st 200 OK; reuse 200 OK; refresh from 1st exchange 200 OK
+NOT BLOCKED  4 expired code (+62s)
+             expected: 400 invalid_grant
+             observed: 200 OK
+NOT BLOCKED  5 wrong code_verifier
+             expected: 400 invalid_grant
+             observed: 200 OK
+NOT BLOCKED  6 wrong client secret
+             expected: 401 invalid_client
+             observed: 200 OK
+NOT BLOCKED  7 code redeemed by other client
+             expected: 400 invalid_grant
+             observed: taxi-m2m: 200 OK
+NOT BLOCKED  8 replay of old refresh token
+             expected: 400 invalid_grant + family revoked
+             observed: rotate 200 OK (tok:58c5afb9); replay 200 OK; successor 200 OK
+NOT BLOCKED  9 refresh by other client
+             expected: 400 invalid_grant
+             observed: taxi-m2m: 200 OK
+
+Summary: 0/9 attacks blocked
