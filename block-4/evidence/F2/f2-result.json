@@ -1,0 +1,78 @@
+{
+  "batch_id": "F2-dbb8d10c",
+  "job": {
+    "job_id": "J-0d46b1e18e91",
+    "video_id": "V1",
+    "version": 96,
+    "status": "DONE",
+    "message_id": "M-3f3d1e1e73ae432aacdd44131c1e1872",
+    "correlation_id": "C-0061d922152d4d93b542e080177ef312",
+    "summary": "Mock summary for J-0d46b1e18e91"
+  },
+  "attempts": {
+    "job_id": "J-0d46b1e18e91",
+    "attempts": [
+      {
+        "message_id": "M-3f3d1e1e73ae432aacdd44131c1e1872",
+        "attempt_number": 1,
+        "replay_number": 0,
+        "worker_name": "worker-1",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:04.530969+00:00",
+        "finished_at": "2026-11-15T05:56:04.562688+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_429"
+      },
+      {
+        "message_id": "M-3f3d1e1e73ae432aacdd44131c1e1872",
+        "attempt_number": 2,
+        "replay_number": 0,
+        "worker_name": "worker-2",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:05.581940+00:00",
+        "finished_at": "2026-11-15T05:56:05.638046+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_429"
+      },
+      {
+        "message_id": "M-3f3d1e1e73ae432aacdd44131c1e1872",
+        "attempt_number": 3,
+        "replay_number": 0,
+        "worker_name": "worker-1",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:08.651222+00:00",
+        "finished_at": "2026-11-15T05:56:08.692286+00:00",
+        "result": "SUCCEEDED",
+        "error_type": null
+      }
+    ]
+  },
+  "retry_start_gaps_seconds": [
+    1.050971,
+    3.069282
+  ],
+  "mock_llm_calls": {
+    "job_id": "J-0d46b1e18e91",
+    "count": 3,
+    "calls": [
+      {
+        "call_number": 1,
+        "outcome": "429",
+        "delay_ms": 0,
+        "at": 1794722164.5542607
+      },
+      {
+        "call_number": 2,
+        "outcome": "429",
+        "delay_ms": 0,
+        "at": 1794722165.6293507
+      },
+      {
+        "call_number": 3,
+        "outcome": "success",
+        "delay_ms": 0,
+        "at": 1794722168.6784186
+      }
+    ]
+  }
+}

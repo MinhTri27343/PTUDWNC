@@ -1,0 +1,74 @@
+﻿[
+    {
+        "Case":  "B0",
+        "Result":  "PASS",
+        "DurationSeconds":  2.1,
+        "Evidence":  "evidence/B0"
+    },
+    {
+        "Case":  "H0",
+        "Result":  "PASS",
+        "DurationSeconds":  2.77,
+        "Evidence":  "evidence/H0"
+    },
+    {
+        "Case":  "D4",
+        "Result":  "PASS",
+        "DurationSeconds":  2.49,
+        "Evidence":  "evidence/D4"
+    },
+    {
+        "Case":  "H1",
+        "Result":  "PASS",
+        "DurationSeconds":  5.34,
+        "Evidence":  "evidence/H1"
+    },
+    {
+        "Case":  "F7",
+        "Result":  "PASS",
+        "DurationSeconds":  3.43,
+        "Evidence":  "evidence/F7"
+    },
+    {
+        "Case":  "F2",
+        "Result":  "PASS",
+        "DurationSeconds":  5.61,
+        "Evidence":  "evidence/F2"
+    },
+    {
+        "Case":  "F3",
+        "Result":  "PASS",
+        "DurationSeconds":  1.66,
+        "Evidence":  "evidence/F3"
+    },
+    {
+        "Case":  "F4",
+        "Result":  "PASS",
+        "DurationSeconds":  15.23,
+        "Evidence":  "evidence/F4"
+    },
+    {
+        "Case":  "F1",
+        "Result":  "PASS",
+        "DurationSeconds":  1.13,
+        "Evidence":  "evidence/F1"
+    },
+    {
+        "Case":  "F5",
+        "Result":  "PASS",
+        "DurationSeconds":  1.42,
+        "Evidence":  "evidence/F5"
+    },
+    {
+        "Case":  "F8",
+        "Result":  "PASS",
+        "DurationSeconds":  1.28,
+        "Evidence":  "evidence/F8"
+    },
+    {
+        "Case":  "F6",
+        "Result":  "PASS",
+        "DurationSeconds":  15.6,
+        "Evidence":  "evidence/F6"
+    }
+]

@@ -1,0 +1,6 @@
+﻿Timeout: 60.0 seconds ...
+Listing queues for vhost / ...
+name	messages_ready	messages_unacknowledged
+summaries.dlq	0	0
+summaries.retry	0	0
+summaries	0	0

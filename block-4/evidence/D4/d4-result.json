@@ -1,0 +1,75 @@
+﻿{
+    "broker_publish":  {
+                           "routed":  true
+                       },
+    "mock_llm_calls":  {
+                           "job_id":  "J-2f934bb8c5a4",
+                           "count":  1,
+                           "calls":  [
+                                         {
+                                             "call_number":  1,
+                                             "outcome":  "success",
+                                             "delay_ms":  50,
+                                             "at":  1794722153.0080879
+                                         }
+                                     ]
+                       },
+    "attempts_before":  {
+                            "job_id":  "J-2f934bb8c5a4",
+                            "attempts":  [
+                                             {
+                                                 "message_id":  "M-ee1c7cc891884d73b2c9eb4a8478bf07",
+                                                 "attempt_number":  1,
+                                                 "replay_number":  0,
+                                                 "worker_name":  "worker-2",
+                                                 "redelivered":  false,
+                                                 "started_at":  "2026-11-15T05:55:52.967729+00:00",
+                                                 "finished_at":  "2026-11-15T05:55:53.088836+00:00",
+                                                 "result":  "SUCCEEDED",
+                                                 "error_type":  null
+                                             }
+                                         ]
+                        },
+    "attempts_after":  {
+                           "job_id":  "J-2f934bb8c5a4",
+                           "attempts":  [
+                                            {
+                                                "message_id":  "M-ee1c7cc891884d73b2c9eb4a8478bf07",
+                                                "attempt_number":  1,
+                                                "replay_number":  0,
+                                                "worker_name":  "worker-2",
+                                                "redelivered":  false,
+                                                "started_at":  "2026-11-15T05:55:52.967729+00:00",
+                                                "finished_at":  "2026-11-15T05:55:53.088836+00:00",
+                                                "result":  "SUCCEEDED",
+                                                "error_type":  null
+                                            },
+                                            {
+                                                "message_id":  "M-ee1c7cc891884d73b2c9eb4a8478bf07",
+                                                "attempt_number":  2,
+                                                "replay_number":  0,
+                                                "worker_name":  "worker-1",
+                                                "redelivered":  false,
+                                                "started_at":  "2026-11-15T05:55:53.218555+00:00",
+                                                "finished_at":  "2026-11-15T05:55:53.240115+00:00",
+                                                "result":  "DUPLICATE",
+                                                "error_type":  null
+                                            }
+                                        ]
+                       },
+    "queued_response":  {
+                            "job_id":  "J-2f934bb8c5a4",
+                            "message_id":  "M-ee1c7cc891884d73b2c9eb4a8478bf07",
+                            "status":  "QUEUED",
+                            "status_url":  "/summaries/J-2f934bb8c5a4"
+                        },
+    "job":  {
+                "job_id":  "J-2f934bb8c5a4",
+                "video_id":  "V7",
+                "version":  16,
+                "status":  "DONE",
+                "message_id":  "M-ee1c7cc891884d73b2c9eb4a8478bf07",
+                "correlation_id":  "C-4804478f27da4e20a1810102e10d0e4e",
+                "summary":  "Mock summary for J-2f934bb8c5a4"
+            }
+}

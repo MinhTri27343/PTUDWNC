@@ -1,0 +1,171 @@
+name: video-summary-lab
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-video_summary}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-app_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  rabbitmq:
+    # RabbitMQ 3 Management is already available locally on this machine.
+    # It provides the AMQP broker and management UI required in this phase.
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-app}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-app_password}
+    ports:
+      - "127.0.0.1:${RABBITMQ_PORT:-5672}:5672"
+      - "127.0.0.1:${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  mock-llm:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    command: ["python", "src/mock-llm/server.py"]
+    environment:
+      PORT: 3001
+    ports:
+      - "127.0.0.1:${MOCK_LLM_PORT:-3001}:3001"
+    healthcheck:
+      test: ["CMD", "python", "src/check_health.py", "http://localhost:3001/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  migrator:
+    image: postgres:17-alpine
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: ${POSTGRES_DB:-video_summary}
+      PGUSER: ${POSTGRES_USER:-app}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-app_password}
+    volumes:
+      - ./db/migrations:/migrations:ro
+      - ./db/seed:/seed:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command:
+      - sh
+      - -ec
+      - |
+        for file in /migrations/*.sql /seed/*.sql; do
+          echo "Applying $$file"
+          psql -v ON_ERROR_STOP=1 -f "$$file"
+        done
+
+  api:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    command: ["python", "src/api/server.py"]
+    environment:
+      PORT: 3000
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-video_summary}
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: ${RABBITMQ_USER:-app}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-app_password}
+      MOCK_LLM_URL: http://mock-llm:3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mock-llm:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+    ports:
+      - "127.0.0.1:${API_PORT:-3000}:3000"
+    healthcheck:
+      test: ["CMD", "python", "src/check_health.py", "http://localhost:3000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  worker-1:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    command: ["python", "src/worker/worker.py"]
+    restart: unless-stopped
+    volumes:
+      - ./V9.mp4:/app/videos/V9.mp4:ro
+    environment:
+      WORKER_NAME: worker-1
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: ${RABBITMQ_USER:-app}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-app_password}
+      MOCK_LLM_URL: http://mock-llm:3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mock-llm:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /tmp/worker-ready"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  worker-2:
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    command: ["python", "src/worker/worker.py"]
+    restart: unless-stopped
+    volumes:
+      - ./V9.mp4:/app/videos/V9.mp4:ro
+    environment:
+      WORKER_NAME: worker-2
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: ${RABBITMQ_USER:-app}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-app_password}
+      MOCK_LLM_URL: http://mock-llm:3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      mock-llm:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /tmp/worker-ready"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+volumes:
+  postgres_data:

@@ -1,0 +1,39 @@
+{
+  "mock_delay_ms": 1000,
+  "accepted_response_time_ms": 57.47,
+  "queued_response": {
+    "job_id": "J-58cfe7b9862c",
+    "message_id": "M-d012de8cb436424fac7a60a1754e10df",
+    "status": "QUEUED",
+    "status_url": "/summaries/J-58cfe7b9862c"
+  },
+  "initial_status": {
+    "job_id": "J-58cfe7b9862c",
+    "video_id": "V1",
+    "version": 75,
+    "status": "QUEUED",
+    "message_id": "M-d012de8cb436424fac7a60a1754e10df",
+    "correlation_id": "C-7486ac319f814618b614d8dba798fb66"
+  },
+  "final_status": {
+    "job_id": "J-58cfe7b9862c",
+    "video_id": "V1",
+    "version": 75,
+    "status": "DONE",
+    "message_id": "M-d012de8cb436424fac7a60a1754e10df",
+    "correlation_id": "C-7486ac319f814618b614d8dba798fb66",
+    "summary": "Mock summary for J-58cfe7b9862c"
+  },
+  "mock_llm_calls": {
+    "job_id": "J-58cfe7b9862c",
+    "count": 1,
+    "calls": [
+      {
+        "call_number": 1,
+        "outcome": "success",
+        "delay_ms": 1000,
+        "at": 1794722150.5321517
+      }
+    ]
+  }
+}

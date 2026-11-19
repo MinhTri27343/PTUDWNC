@@ -1,0 +1,60 @@
+{
+  "batch_id": "F7-dce7baea",
+  "older_job": {
+    "job_id": "J-657eec0a50cc",
+    "video_id": "V7",
+    "version": 17,
+    "status": "DONE",
+    "message_id": "M-12c1ede422524d36af13485c5892a124",
+    "correlation_id": "C-a376ed72ce254b2eaa36c89fbc0a4a44",
+    "summary": "Mock summary for J-657eec0a50cc"
+  },
+  "newer_job": {
+    "job_id": "J-2a205e10e891",
+    "video_id": "V7",
+    "version": 18,
+    "status": "DONE",
+    "message_id": "M-3743608bc6974c6a882016dc24b9132f",
+    "correlation_id": "C-52ca37dfe2c84014b8eed940b17a8c6d",
+    "summary": "Mock summary for J-2a205e10e891"
+  },
+  "older_attempts": {
+    "job_id": "J-657eec0a50cc",
+    "attempts": [
+      {
+        "message_id": "M-12c1ede422524d36af13485c5892a124",
+        "attempt_number": 1,
+        "replay_number": 0,
+        "worker_name": "worker-1",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:01.125991+00:00",
+        "finished_at": "2026-11-15T05:56:02.669785+00:00",
+        "result": "SUCCEEDED",
+        "error_type": null
+      }
+    ]
+  },
+  "newer_attempts": {
+    "job_id": "J-2a205e10e891",
+    "attempts": [
+      {
+        "message_id": "M-3743608bc6974c6a882016dc24b9132f",
+        "attempt_number": 1,
+        "replay_number": 0,
+        "worker_name": "worker-2",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:01.173520+00:00",
+        "finished_at": "2026-11-15T05:56:01.362609+00:00",
+        "result": "SUCCEEDED",
+        "error_type": null
+      }
+    ]
+  },
+  "current_summary": {
+    "video_id": "V7",
+    "job_id": "J-2a205e10e891",
+    "version": 18,
+    "summary": "Mock summary for J-2a205e10e891"
+  },
+  "assertion": "older version finished later; current summary is the newer version"
+}

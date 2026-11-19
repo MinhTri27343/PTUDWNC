@@ -1,0 +1,53 @@
+{
+  "case": "F1",
+  "batch_id": "F1-c01b4438",
+  "marker": "before_llm_call",
+  "job": {
+    "job_id": "J-3d8c9a7666c2",
+    "video_id": "V1",
+    "version": 98,
+    "status": "DONE",
+    "message_id": "M-8facfc01d9da45d6994eed42fdda2d17",
+    "correlation_id": "C-7e0c52dc4855477a9f3d5df8df8d3a04",
+    "summary": "Mock summary for J-3d8c9a7666c2"
+  },
+  "attempts": {
+    "job_id": "J-3d8c9a7666c2",
+    "attempts": [
+      {
+        "message_id": "M-8facfc01d9da45d6994eed42fdda2d17",
+        "attempt_number": 1,
+        "replay_number": 0,
+        "worker_name": "worker-2",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:26.956871+00:00",
+        "finished_at": "2026-11-15T05:56:26.985000+00:00",
+        "result": "CRASHED",
+        "error_type": "before_llm_call"
+      },
+      {
+        "message_id": "M-8facfc01d9da45d6994eed42fdda2d17",
+        "attempt_number": 2,
+        "replay_number": 0,
+        "worker_name": "worker-1",
+        "redelivered": true,
+        "started_at": "2026-11-15T05:56:26.996831+00:00",
+        "finished_at": "2026-11-15T05:56:27.034512+00:00",
+        "result": "SUCCEEDED",
+        "error_type": null
+      }
+    ]
+  },
+  "mock_llm_calls": {
+    "job_id": "J-3d8c9a7666c2",
+    "count": 1,
+    "calls": [
+      {
+        "call_number": 1,
+        "outcome": "success",
+        "delay_ms": 0,
+        "at": 1794722187.0205133
+      }
+    ]
+  }
+}

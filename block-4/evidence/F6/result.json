@@ -1,0 +1,44 @@
+﻿{
+    "queued":  {
+                   "job_id":  "J-92a2482d0a61",
+                   "message_id":  "M-7a6194df37cd4fe394aae60d4d6326a5",
+                   "status":  "QUEUED",
+                   "status_url":  "/summaries/J-92a2482d0a61"
+               },
+    "attempts":  {
+                     "job_id":  "J-92a2482d0a61",
+                     "attempts":  [
+                                      {
+                                          "message_id":  "M-7a6194df37cd4fe394aae60d4d6326a5",
+                                          "attempt_number":  1,
+                                          "replay_number":  0,
+                                          "worker_name":  "worker-1",
+                                          "redelivered":  false,
+                                          "started_at":  "2026-11-15T05:56:30.530273+00:00",
+                                          "finished_at":  "2026-11-15T05:56:34.577411+00:00",
+                                          "result":  "SUCCEEDED",
+                                          "error_type":  null
+                                      },
+                                      {
+                                          "message_id":  "M-7a6194df37cd4fe394aae60d4d6326a5",
+                                          "attempt_number":  2,
+                                          "replay_number":  0,
+                                          "worker_name":  "worker-1",
+                                          "redelivered":  true,
+                                          "started_at":  "2026-11-15T05:56:40.612821+00:00",
+                                          "finished_at":  "2026-11-15T05:56:40.630747+00:00",
+                                          "result":  "DUPLICATE",
+                                          "error_type":  null
+                                      }
+                                  ]
+                 },
+    "final":  {
+                  "job_id":  "J-92a2482d0a61",
+                  "video_id":  "V1",
+                  "version":  101,
+                  "status":  "DONE",
+                  "message_id":  "M-7a6194df37cd4fe394aae60d4d6326a5",
+                  "correlation_id":  "C-2f5bfd2b28b1445d902184a89b0a9074",
+                  "summary":  "Mock summary for J-92a2482d0a61"
+              }
+}

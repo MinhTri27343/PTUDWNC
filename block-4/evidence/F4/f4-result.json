@@ -1,0 +1,183 @@
+{
+  "batch_id": "F4-1c4025e9",
+  "dead_lettered_job": {
+    "job_id": "J-e87919b8448a",
+    "video_id": "V1",
+    "version": 97,
+    "status": "DEAD_LETTERED",
+    "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+    "correlation_id": "C-74a8e4678ee8446f83da0f3ecb9b11da"
+  },
+  "attempts_before_replay": {
+    "job_id": "J-e87919b8448a",
+    "attempts": [
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 1,
+        "replay_number": 0,
+        "worker_name": "worker-1",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:11.786978+00:00",
+        "finished_at": "2026-11-15T05:56:11.816890+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_503"
+      },
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 2,
+        "replay_number": 0,
+        "worker_name": "worker-2",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:12.833498+00:00",
+        "finished_at": "2026-11-15T05:56:12.881562+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_503"
+      },
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 3,
+        "replay_number": 0,
+        "worker_name": "worker-1",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:15.893970+00:00",
+        "finished_at": "2026-11-15T05:56:15.923550+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_503"
+      },
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 4,
+        "replay_number": 0,
+        "worker_name": "worker-2",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:24.934632+00:00",
+        "finished_at": "2026-11-15T05:56:24.970598+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_503"
+      }
+    ]
+  },
+  "retry_start_gaps_seconds": [
+    1.04652,
+    3.060472,
+    9.040662
+  ],
+  "mock_calls_before_replay": {
+    "job_id": "J-e87919b8448a",
+    "count": 4,
+    "calls": [
+      {
+        "call_number": 1,
+        "outcome": "503",
+        "delay_ms": 0,
+        "at": 1794722171.8103282
+      },
+      {
+        "call_number": 2,
+        "outcome": "503",
+        "delay_ms": 0,
+        "at": 1794722172.8729646
+      },
+      {
+        "call_number": 3,
+        "outcome": "503",
+        "delay_ms": 0,
+        "at": 1794722175.9175894
+      },
+      {
+        "call_number": 4,
+        "outcome": "503",
+        "delay_ms": 0,
+        "at": 1794722184.9639497
+      }
+    ]
+  },
+  "replay_response": {
+    "job_id": "J-e87919b8448a",
+    "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+    "status": "QUEUED",
+    "status_url": "/summaries/J-e87919b8448a",
+    "replay_count": 1
+  },
+  "done_job": {
+    "job_id": "J-e87919b8448a",
+    "video_id": "V1",
+    "version": 97,
+    "status": "DONE",
+    "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+    "correlation_id": "C-74a8e4678ee8446f83da0f3ecb9b11da",
+    "summary": "Mock summary for J-e87919b8448a"
+  },
+  "attempts_after_replay": {
+    "job_id": "J-e87919b8448a",
+    "attempts": [
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 1,
+        "replay_number": 0,
+        "worker_name": "worker-1",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:11.786978+00:00",
+        "finished_at": "2026-11-15T05:56:11.816890+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_503"
+      },
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 2,
+        "replay_number": 0,
+        "worker_name": "worker-2",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:12.833498+00:00",
+        "finished_at": "2026-11-15T05:56:12.881562+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_503"
+      },
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 3,
+        "replay_number": 0,
+        "worker_name": "worker-1",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:15.893970+00:00",
+        "finished_at": "2026-11-15T05:56:15.923550+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_503"
+      },
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 4,
+        "replay_number": 0,
+        "worker_name": "worker-2",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:24.934632+00:00",
+        "finished_at": "2026-11-15T05:56:24.970598+00:00",
+        "result": "TRANSIENT_ERROR",
+        "error_type": "HTTP_503"
+      },
+      {
+        "message_id": "M-3140f2e86ce444baaa9a601681e26f03",
+        "attempt_number": 5,
+        "replay_number": 1,
+        "worker_name": "worker-1",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:25.156249+00:00",
+        "finished_at": "2026-11-15T05:56:25.191436+00:00",
+        "result": "SUCCEEDED",
+        "error_type": null
+      }
+    ]
+  },
+  "mock_calls_after_replay": {
+    "job_id": "J-e87919b8448a",
+    "count": 1,
+    "calls": [
+      {
+        "call_number": 1,
+        "outcome": "success",
+        "delay_ms": 0,
+        "at": 1794722185.1782408
+      }
+    ]
+  }
+}

@@ -1,0 +1,3 @@
+﻿id,version,status,worker_name,started_at,finished_at,content
+J-657eec0a50cc,17,DONE,worker-1,2026-11-15 05:56:01.125991+00,2026-11-15 05:56:02.669785+00,Mock summary for J-657eec0a50cc
+J-2a205e10e891,18,DONE,worker-2,2026-11-15 05:56:01.17352+00,2026-11-15 05:56:01.362609+00,Mock summary for J-2a205e10e891

@@ -1,0 +1,32 @@
+{
+  "batch_id": "F3-bb517add",
+  "job": {
+    "job_id": "J-bc7ac14f5c69",
+    "video_id": "V9",
+    "version": 3,
+    "status": "DEAD_LETTERED",
+    "message_id": "M-16863a91efad4f7cbf9337c0cfe04c72",
+    "correlation_id": "C-95bae4c0aaca46acabff0013eefefbae"
+  },
+  "attempts": {
+    "job_id": "J-bc7ac14f5c69",
+    "attempts": [
+      {
+        "message_id": "M-16863a91efad4f7cbf9337c0cfe04c72",
+        "attempt_number": 1,
+        "replay_number": 0,
+        "worker_name": "worker-2",
+        "redelivered": false,
+        "started_at": "2026-11-15T05:56:10.073080+00:00",
+        "finished_at": "2026-11-15T05:56:10.093577+00:00",
+        "result": "PERMANENT_ERROR",
+        "error_type": "NO_AUDIO"
+      }
+    ]
+  },
+  "mock_llm_calls": {
+    "job_id": "J-bc7ac14f5c69",
+    "count": 0,
+    "calls": []
+  }
+}
