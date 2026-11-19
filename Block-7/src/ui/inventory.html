@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kho hàng · SagaShop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar" id="nav"></header>
+  <main class="page">
+    <div class="page-head"><div><h1>Kho hàng</h1><p>Số lượng hàng hiện có và lịch sử nhập / xuất. Hàng "đã đặt" là hàng đã dành riêng cho đơn, không bán cho người khác.</p></div></div>
+    <section class="card"><h2>Tồn kho</h2><div id="stock"></div></section>
+    <section class="card"><h2>Lịch sử nhập / xuất</h2><div id="movements"></div></section>
+  </main>
+  <script src="app.js"></script>
+  <script>
+    $("nav").innerHTML = navbar("inventory");
+    let last = { items: [], mov: [] };
+    async function refresh() {
+      const [items, mov] = await Promise.all([tryApi(`${API.inventory}/inventory/items`), tryApi(`${API.inventory}/inventory/movements`)]);
+      const down = !items;
+      if (items) last = { items, mov: mov ?? [] };
+      $("stock") && setHtml($("stock"), table(["Sản phẩm", "Giá bán", "Còn trong kho (có thể bán)", "Đã đặt (chờ giao)"],
+        last.items.map((i) => [`${look(i.item_id)[0]} <b>${esc(i.name)}</b>`, money(i.price), `<b>${i.available}</b>`, i.reserved]), down));
+      $("movements") && setHtml($("movements"), table(["Thời gian", "Đơn hàng", "Sản phẩm", "Thay đổi"],
+        last.mov.map((m) => [time(m.created_at), `#${m.order_id}`, esc(last.items.find((i) => i.item_id === m.item_id)?.name ?? m.item_id),
+          m.type === "RESERVE" ? `<b style="color:var(--red)">−${m.quantity}</b> <span class="muted">xuất cho đơn</span>` : `<b style="color:var(--green)">+${m.quantity}</b> <span class="muted">đơn hủy, trả lại kho</span>`]), down));
+    }
+    poll(refresh);
+  </script>
+</body>
+</html>

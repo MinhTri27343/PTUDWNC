@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thanh toán · SagaShop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar" id="nav"></header>
+  <main class="page">
+    <div class="page-head"><div><h1>Thanh toán</h1><p>Số dư khách hàng và các giao dịch.</p></div></div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid two">
+      <section class="card"><h2>Khách hàng</h2><div id="accounts"></div></section>
+      <section class="card"><h2>Giao dịch</h2><div id="ledger"></div></section>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script>
+    $("nav").innerHTML = navbar("payment");
+    let last = { acc: [], led: { entries: [], total_charged: 0, total_refunded: 0, net: 0 } };
+    async function refresh() {
+      const [acc, led] = await Promise.all([tryApi(`${API.payment}/payments/accounts`), tryApi(`${API.payment}/payments/ledger`)]);
+      const down = !acc;
+      if (acc) last = { acc, led: led ?? last.led };
+      $("kpis").innerHTML = `
+        <div class="kpi"><span>Đã thu</span><b>${money(last.led.total_charged)}</b></div>
+        <div class="kpi"><span>Đã hoàn</span><b>${money(last.led.total_refunded)}</b></div>
+        <div class="kpi"><span>Doanh thu</span><b>${money(last.led.net)}</b></div>`;
+      $("accounts") && setHtml($("accounts"), table(["Khách hàng", "Số dư"], last.acc.map((a) => [`<b>${esc(a.name)}</b>`, `<b>${money(a.balance)}</b>`]), down));
+      $("ledger") && setHtml($("ledger"), table(["Thời gian", "Khách", "Nội dung", "Số tiền"],
+        last.led.entries.map((e) => [time(e.created_at), esc(e.account_id), `${e.type === "CHARGE" ? "Thanh toán" : "Hoàn tiền"} đơn #${e.order_id}`,
+          e.type === "CHARGE" ? `<b style="color:var(--green)">+${money(e.amount)}</b>` : `<b style="color:var(--red)">−${money(e.amount)}</b>`]), down));
+    }
+    poll(refresh);
+  </script>
+</body>
+</html>

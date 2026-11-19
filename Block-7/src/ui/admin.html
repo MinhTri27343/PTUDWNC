@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin · SagaShop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar" id="nav"></header>
+  <main class="page">
+    <div class="page-head">
+      <div><h1>Admin</h1><p>Điều khiển service và theo dõi flow Saga giữa các service.</p></div>
+      <div class="row-gap"><span id="checks"></span><button class="btn ghost" id="resetBtn">↺ Reset dữ liệu</button></div>
+    </div>
+
+    <section class="card"><div id="services" class="svc-rows"></div></section>
+
+    <div class="grid flowgrid">
+      <section class="card"><h2>Đơn hàng</h2><div id="orders"></div></section>
+      <section class="card"><div id="flow"><div class="empty">Chưa có đơn hàng.</div></div></section>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

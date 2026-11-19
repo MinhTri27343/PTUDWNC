@@ -1,0 +1,33 @@
+{
+  "name": "checkout-saga-lab",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Block 7 - Checkout Saga: Order (orchestrator), Inventory, Payment; 3 processes, 3 SQLite DBs",
+  "type": "module",
+  "scripts": {
+    "start": "tsx scripts/ctl.ts",
+    "svc": "tsx scripts/svc.ts",
+    "reset": "tsx scripts/reset.ts",
+    "resume": "tsx scripts/resume.ts",
+    "demo": "tsx scripts/demo.ts",
+    "test": "vitest run",
+    "order": "tsx src/order/server.ts",
+    "inventory": "tsx src/inventory/server.ts",
+    "payment": "tsx src/payment/server.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "cors": "^2.8.5",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
